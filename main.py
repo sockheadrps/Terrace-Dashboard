@@ -66,30 +66,29 @@ async def stats_websocket(client_websocket: WebSocket) -> None:
     await client_websocket.accept()
 
     # Initial connection and CONNECT event
-    await client_websocket.send_json({"event": "CONNECT", "hardware-clients": [*hardware_clients]})
+    await client_websocket.send_json({"event": "CONNECT", "hardware-clients": [*hardware_clients], "service-clients": [*service_clients]})
     data = await client_websocket.receive()
+
     if "text" not in data:
         raise RuntimeError(str(data))
-    if "text" in data:
-        text = loads(data['text'])
-        if text['event'] == "CONNECT":
-            match text['client-type']:
-                case "DASHBOARD":
-                    print('dashboard connected')
-                    client = DashboardHandler(text, client_websocket)
-                    client_set.add(client)
-                case "HARDWARE":
-                    print('hw connected')
-                    client = HardwareHandler(text, client_websocket)
-                    client_set.add(client)
-                    hardware_clients.add(client.client_name)
-                case "SERVICE":
-                    print('SERVICE CONNECTED')
-                    client = ServiceHandler(text, client_websocket)
-                    client_set.add(client)
-                    service_clients.add(client.client_name)
-                    await client_websocket.send_json({"event": "CONNECT", "service-clients": [*service_clients]})
-        print("hwc", hardware_clients)
+
+    text = loads(data['text'])
+    if text['event'] == "CONNECT":
+        match text['client-type']:
+            case "DASHBOARD":
+                print('dashboard connected')
+                client = DashboardHandler(text, client_websocket)
+            case "HARDWARE":
+                print('hw connected')
+                client = HardwareHandler(text, client_websocket)
+                hardware_clients.add(client.client_name)
+            case "SERVICE":
+                print('SERVICE CONNECTED')
+                client = ServiceHandler(text, client_websocket)
+                service_clients.add(client.client_name)
+
+        client_set.add(client) # possible error when client type is invalid
+    print("hwc", hardware_clients) 
 
     # Typical event communication
     while True:
