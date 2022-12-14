@@ -51,8 +51,8 @@ TDB requires [Python 3.7+](https://www.python.org/), and the installation of all
 
 Want to contribute? Great!
 ##### Developers
--https://github.com/sockheadrps
--https://github.com/beaux44
+- https://github.com/sockheadrps
+- https://github.com/beaux44
 
 
 ## License
