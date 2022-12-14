@@ -10,7 +10,7 @@ A tool comprised of a useful "Home Page" style dashboard running in a web browse
 - Weather, sunset/sunrise, date and time
 - Section for bookmarks
 - Automatic display of hardware clients in the left navigation bar
-- Automatic display of connected 
+- Automatic display of connected services
 - Automatically updated charts displaying various CPU, RAM and Storage statistics of connected Hardware Clients
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hardware Client
 - Automatic connection of hardware status and statistics to the server that communicates:
