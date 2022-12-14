@@ -1,6 +1,6 @@
 # Terrace Dashboard
 ## _A free Dashboarding tool for all your tools_
-
+_This project is currently under active development, some features may be incomplete_
 ![Alt Text](readmegif.gif)
 A tool comprised of a useful "Home Page" style dashboard running in a web browser, deployable remote Python clients that monitor hardware statistics and state of the host machine(s), as well as an available communication protocol for displaying the status of additional "services", that can be implemented into any project that utilizes Web Socket communication.
 
