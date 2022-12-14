@@ -33,7 +33,7 @@ Terrace Dashboard uses a number of open source projects to work properly:
 
 ## Installation
 
-TDB requires [Python 3.7+](https://www.python.org/), and the installation of all libraries in the 
+TDB requires [Python 3.7+](https://www.python.org/), and the installation of all libraries in requirements.txt
     
     pip install requirements.txt
     
