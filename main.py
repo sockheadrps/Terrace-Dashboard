@@ -1,5 +1,3 @@
-import asyncio
-
 from fastapi import (
     FastAPI,
     Request,
@@ -10,11 +8,10 @@ from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
-from utilities.connection_manager import Manager
 from logging import basicConfig, DEBUG
 from uvicorn import run
 from json import loads
-from utilities.clients import DashboardHandler, HardwareHandler, ServiceHandler, broadcast
+from utilities.handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast
 
 connected_services = {}
 hardware_clients = set()
@@ -23,7 +20,6 @@ client_set = set()
 list_of_allowed_hosts = ["localhost", "127.0.0.1"]
 app = FastAPI()
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=list_of_allowed_hosts)
-connection_manager = Manager()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="./static"), name="static")
 basicConfig(filename="./logs/logs.log", filemode="w", level=DEBUG)
@@ -35,7 +31,7 @@ async def favicon() -> None:
     raise HTTPException(status_code=403, detail="No favicon")
 
 
-@app.get("/stats", response_class=HTMLResponse)
+@app.get("/dashboard", response_class=HTMLResponse)
 def stats_endpoint(request: Request) -> templates.TemplateResponse:
     """
     HTTP endpoint to serve the Server Statistics Dashboard
@@ -50,10 +46,9 @@ def stats_endpoint(request: Request) -> templates.TemplateResponse:
 @app.websocket("/ws/stats")
 async def stats_websocket(client_websocket: WebSocket) -> None:
     """
-    Web Socket endpoint for communicating the "Server Statistics" in JSON to the client. Communication with the
-    data visualization client is done here.
-    :param client_websocket: Incoming Web Socket request.
-    :return: No explicit return, just continuous requests for information from client
+    Web Socket endpoint for client communication
+    :param client_websocket: Incoming Web Socket request
+    :return: No explicit return
     """
     client = None
     await client_websocket.accept()
@@ -70,13 +65,11 @@ async def stats_websocket(client_websocket: WebSocket) -> None:
     if text['event'] == "CONNECT":
         match text['client-type']:
             case "DASHBOARD":
-                print('dashboard connected')
                 client = DashboardHandler(text, client_websocket)
             case "HARDWARE":
                 client = HardwareHandler(text, client_websocket)
                 hardware_clients.add(client.client_name)
             case "SERVICE":
-                print('SERVICE CONNECTED')
                 client = ServiceHandler(text, client_websocket)
                 service_clients.add(client.client_name)
 
@@ -86,11 +79,10 @@ async def stats_websocket(client_websocket: WebSocket) -> None:
     while True:
         data = await client_websocket.receive()
         if "text" in data:
-            print("data is", data)
             text = loads(data["text"])
             await broadcast(client_set, text, client)
 
-        # Handling for websocket disconnect code
+        # Handling for websocket disconnect
         if data["type"] == "websocket.disconnect":
             client_set.remove(client)
             if isinstance(client, HardwareHandler):

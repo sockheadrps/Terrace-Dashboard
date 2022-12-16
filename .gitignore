@@ -16,4 +16,3 @@ venv.bak/
 .idea/
 
 static/weatherAPI-ignore.js
-/client/t_client.py

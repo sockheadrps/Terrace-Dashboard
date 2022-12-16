@@ -123,15 +123,6 @@ class ServiceHandler(ClientHandler):
 		super().__init__(data, ws_object)
 		self.client_name = data['client-name']
 		service_client_set.add(self.client_name)
-	#
-	# @new_event(funcs, "SERVICE-CONNECT")
-	# async def hardware_request(self, data, sender):
-	# 	print('SERVICE connect')
-	# 	await self.ws_object.send_json(data)
-	#
-	# @new_event(funcs, "SERVICE-DISCONNECT")
-	# async def terminate_request(self, data, sender):
-	# 	await self.ws_object.send_json(data)
 
 
 async def broadcast(clients, data, sender):

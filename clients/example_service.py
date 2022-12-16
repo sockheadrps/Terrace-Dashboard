@@ -3,7 +3,15 @@ from websockets.exceptions import ConnectionClosedError, ConnectionClosedOK
 import asyncio
 import json
 
+"""
+This is a basic example client. Handle for server events in the match data['event'] event logic loop.
+client_name currently may not contain spaces, use "-" in place of spaces. (This is due to current javascript logic
+and will be refactored later to fix this requirement.) There is further work to be done for exception handling
+when this client closes, but it functions fully at the moment.
+"""
+
 client_name = "Example-Service"
+client_type = "SERVICE"
 
 
 async def client():
@@ -11,19 +19,18 @@ async def client():
 	try:
 		async with websockets.connect("ws://localhost:80/ws/stats") as websocket:
 			# Initial connection
-			connect_event = {"event": "CONNECT", "client-type": "SERVICE", "client-name": client_name}
+			connect_event = {"event": "CONNECT", "client-type": client_type, "client-name": client_name}
 			await websocket.send(json.dumps(connect_event))
 			while True:
 				try:
 					data = json.loads(await websocket.recv())
 					if data:
 						print(data)
+						# SERVER EVENTS
 						match data['event']:
 							case "CONNECT":
-								print("Connected!")
-								to_send = {"event": "SERVICE-CONNECT",
-										   "client-name": client_name}
-								await websocket.send(json.dumps(to_send))
+								connect_response = {"event": "SERVICE-CONNECT", "client-name": client_name}
+								await websocket.send(json.dumps(connect_response))
 						data = None
 
 				except ConnectionClosedError:
