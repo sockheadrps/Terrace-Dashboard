@@ -28,8 +28,9 @@ async def client():
 						print(data)
 						# SERVER EVENTS
 						match data['event']:
-							case "CONNECT":
-								connect_response = {"event": "SERVICE-CONNECT", "client-name": client_name}
+							case "TEST-EVENT":
+								connect_response = {"event": "TEST-EVENT", "client-name": client_name,
+													"event-response": "OK"}
 								await websocket.send(json.dumps(connect_response))
 						data = None
 
@@ -41,8 +42,8 @@ async def client():
 	finally:
 		# Send disconnect message if service closes and there is a websocket connection
 		try:
-			to_send = {"event": "SERVICE-DISCONNECT", "client-name": client_name}
-			await websocket.send(json.dumps(to_send))
+			disconnect_event = {"event": "DISCONNECT", "client-type": client_type, "client-name": client_name}
+			await websocket.send(json.dumps(disconnect_event))
 		except ConnectionClosedOK:
 			print("Client successfully closed")
 

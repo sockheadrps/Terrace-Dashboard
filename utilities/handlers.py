@@ -23,12 +23,12 @@ class ClientHandler(object):
 		await self.funcs[data["event"]](self, data, sender)
 
 	@new_event(funcs, "CONNECT")
-	async def connect(self, sender):
-		await self.ws_object.send({"event": "CONNECTED"})
+	async def connect(self, data, sender):
+		pass
 
 	@new_event(funcs, "DISCONNECT")
-	async def disconnect(self, sender):
-		await self.ws_object.send({"event": "DISCONNECT"})
+	async def disconnect(self, data, sender):
+		pass
 
 	@new_event(funcs, "HARDWARE-REQUEST")
 	async def hardware_request(self, data, sender):
@@ -70,29 +70,25 @@ class DashboardHandler(ClientHandler):
 		super().__init__(data, ws_object)
 
 	@new_event(funcs, "CONNECT")
-	async def connect(self, sender):
-		await self.ws_object.send_json({"event": "CONNECTED", "hardware-list": [*hardware_client_set],
-										"service-list": [*service_client_set]})
+	async def connect(self, data, sender):
+		if data.get("client-type") != "DASHBOARD":
+			await self.ws_object.send_json({"event": "CONNECT", "client-type": data['client-type'],
+											"client-name": data["client-name"]})
+		elif sender is self:
+			await self.ws_object.send_json({"event": "CONNECT", "hardware-list": [*hardware_client_set],
+											"service-list": [*service_client_set]})
 
 	@new_event(funcs, "HARDWARE-DATA")
 	async def hardware_data_recv(self, data, sender):
 		await self.ws_object.send_json(data)
 
-	@new_event(funcs, "HARDWARE-CONNECT")
-	async def hardware_connect(self, data, sender):
-		await self.ws_object.send_json(data)
-
-	@new_event(funcs, "HARDWARE-DISCONNECT")
-	async def hardware_disconnect(self, data, sender):
-		await self.ws_object.send_json(data)
-
-	@new_event(funcs, "SERVICE-CONNECT")
-	async def service_connect(self, data, sender):
-		await self.ws_object.send_json(data)
-
-	@new_event(funcs, "SERVICE-DISCONNECT")
-	async def service_disconnect(self, data, sender):
-		await self.ws_object.send_json(data)
+	@new_event(funcs, "DISCONNECT")
+	async def disconnect(self, data, sender):
+		if data.get("client-type") != "DASHBOARD":
+			await self.ws_object.send_json({"event": "DISCONNECT", "client-type": data['client-type'],
+											"client-name": data["client-name"]})
+		elif sender is self:
+			print("dashboard disconnected")
 
 
 class HardwareHandler(ClientHandler):

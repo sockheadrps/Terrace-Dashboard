@@ -3,7 +3,8 @@ var socket = new WebSocket("ws://localhost:80/ws/stats");
 
 // On open function
 socket.onopen = function(event) {
-    socket.send(JSON.stringify({event: "CONNECT", "client-type": "DASHBOARD"}));
+  console.log('connect on open')
+  socket.send(JSON.stringify({event: "CONNECT", "client-type": "DASHBOARD"}));
 };
 
 // Setting up HTML Elements
@@ -92,50 +93,49 @@ function addHwButtons(hwClients) {
 socket.onmessage = function(event) {
     let data = JSON.parse(event.data);
     console.log(data)
-    if (data['hardware-clients']){
-      for (let i of data['hardware-clients']) {
-        if (!hwClients.includes(i)){
-          hwClients.push(i)
-        }
-      }
-      addHwButtons(hwClients)
-    }
 
-    if (data['service-clients']){
-      for (let i of data['service-clients'])
-        if (!serviceClients.includes(i)){
-          serviceClients.push(i)
-        }
-      addService(serviceClients)
-    }
 
     switch(data.event) {
       case "CONNECT":
-        socket.send(JSON.stringify({event: "HARDWARE-SERVICES", "client-type": "DASHBOARD"}));
+        if (data['client-type'] === "HARDWARE") {
+          hwClients.push(data["client-name"])
+          addHwButtons(hwClients)
+        } else if (data["client-type"] === "SERVICE") {
+          serviceClients.push(data["client-name"])
+          console.log(serviceClients)
+          addService(serviceClients)
+        }
+
+        if (data['hardware-list']){
+          for (let i of data['hardware-list']) {
+            console.log(i)
+            if (!hwClients.includes(i)){
+              hwClients.push(i)
+            }
+          }
+          addHwButtons(hwClients)
+        }
+        if (data['service-list']){
+          for (let i of data['service-list'])
+            if (!serviceClients.includes(i)){
+              serviceClients.push(i)
+              console.log(i)
+            }
+          addService(serviceClients)
+        }
         break;
 
-      case "HARDWARE-CONNECT":
-        hwClients.push(data['client-name'])
-        addHwButtons(hwClients)
-        break;
-
-      case "HARDWARE-DISCONNECT":
-        console.log('hwdisc' + hwClients)
+      case "DISCONNECT":
+        if (data['client-type'] === "HARDWARE") {
         hwClients = hwClients.filter(item => item !== data['client-name'])
-        console.log('after' + hwClients)
         document.getElementById(data['client-name']).remove()
-        break;
-
-      case "SERVICE-CONNECT":
-        serviceClients.push(data['client-name'])
-        addService(serviceClients)
-        break;
-
-      case "SERVICE-DISCONNECT":
-        hwClients = hwClients.filter(item => item !== data['client-name'])
-        document.getElementById(data['client-name']).remove()
+        } else if (data["client-type"] === "SERVICE") {
+          serviceClients = serviceClients.filter(item => item !== data['client-name'])
+          document.getElementById(data['client-name']).remove()
+        }        
         break;
     }
+
     if (data.event === 'HARDWARE-DATA') {
       updateData(data.data)
     }

@@ -13,7 +13,6 @@ from logging import basicConfig, DEBUG
 from uvicorn import run
 from utilities.handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast
 
-connected_services = {}
 hardware_clients = set()
 service_clients = set()
 client_set = set()
@@ -34,9 +33,9 @@ async def favicon() -> None:
 @app.get("/dashboard", response_class=HTMLResponse)
 def stats_endpoint(request: Request) -> templates.TemplateResponse:
     """
-    HTTP endpoint to serve the Server Statistics Dashboard
+    HTTP endpoint to serve the Dashboard
     :param request: HTTP Request from Client
-    :return: Returns the associated HTML files to the requesting client
+    :return: Returns the associated web files to the requesting client
     """
     return templates.TemplateResponse(
         "index.html", {"request": request}
@@ -54,8 +53,8 @@ async def stats_websocket(client_websocket: WebSocket) -> None:
     await client_websocket.accept()
 
     # Initial connection and CONNECT event
-    await client_websocket.send_json({"event": "CONNECT", "hardware-clients": [*hardware_clients],
-                                      "service-clients": [*service_clients]})
+    # await client_websocket.send_json({"event": "CONNECT", "hardware-clients": [*hardware_clients],
+    #                                   "service-clients": [*service_clients]})
     data = await client_websocket.receive_json()
     print(data, type(data))
 
@@ -71,6 +70,7 @@ async def stats_websocket(client_websocket: WebSocket) -> None:
                 service_clients.add(client.client_name)
 
         client_set.add(client) # possible error when client type is invalid
+        await broadcast(client_set, data, client)
 
     # Typical event communication
     while True:
@@ -83,12 +83,15 @@ async def stats_websocket(client_websocket: WebSocket) -> None:
             if isinstance(client, HardwareHandler):
                 hardware_clients.remove(client.client_name)
                 await broadcast(client_set,
-                                {"event": "HARDWARE-DISCONNECT", "client-name": client.client_name}, client)
+                                {"event": "DISCONNECT",  "client-type": client.client_type,
+                                 "client-name": client.client_name}, client)
                 break
             if isinstance(client, ServiceHandler):
                 service_clients.remove(client.client_name)
+                print(f"client names {service_clients}")
                 await broadcast(client_set,
-                                {"event": "SERVICE-DISCONNECT", "client-name": client.client_name}, client)
+                                {"event": "DISCONNECT",  "client-type": client.client_type,
+                                 "client-name": client.client_name}, client)
                 break
 
 
