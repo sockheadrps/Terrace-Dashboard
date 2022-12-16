@@ -3,6 +3,7 @@ from fastapi import (
     Request,
     HTTPException,
     WebSocket,
+    WebSocketDisconnect
 )
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.templating import Jinja2Templates
@@ -10,7 +11,6 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from logging import basicConfig, DEBUG
 from uvicorn import run
-from json import loads
 from utilities.handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast
 
 connected_services = {}
@@ -56,34 +56,29 @@ async def stats_websocket(client_websocket: WebSocket) -> None:
     # Initial connection and CONNECT event
     await client_websocket.send_json({"event": "CONNECT", "hardware-clients": [*hardware_clients],
                                       "service-clients": [*service_clients]})
-    data = await client_websocket.receive()
+    data = await client_websocket.receive_json()
+    print(data, type(data))
 
-    if "text" not in data:
-        raise RuntimeError(str(data))
-
-    text = loads(data['text'])
-    if text['event'] == "CONNECT":
-        match text['client-type']:
+    if data['event'] == "CONNECT":
+        match data['client-type']:
             case "DASHBOARD":
-                client = DashboardHandler(text, client_websocket)
+                client = DashboardHandler(data, client_websocket)
             case "HARDWARE":
-                client = HardwareHandler(text, client_websocket)
+                client = HardwareHandler(data, client_websocket)
                 hardware_clients.add(client.client_name)
             case "SERVICE":
-                client = ServiceHandler(text, client_websocket)
+                client = ServiceHandler(data, client_websocket)
                 service_clients.add(client.client_name)
 
         client_set.add(client) # possible error when client type is invalid
 
     # Typical event communication
     while True:
-        data = await client_websocket.receive()
-        if "text" in data:
-            text = loads(data["text"])
-            await broadcast(client_set, text, client)
+        try:
+            data = await client_websocket.receive_json()
+            await broadcast(client_set, data, client)
 
-        # Handling for websocket disconnect
-        if data["type"] == "websocket.disconnect":
+        except WebSocketDisconnect:
             client_set.remove(client)
             if isinstance(client, HardwareHandler):
                 hardware_clients.remove(client.client_name)
