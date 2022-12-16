@@ -1,4 +1,4 @@
-import json
+import asyncio
 
 from fastapi import (
     FastAPI,
@@ -10,7 +10,6 @@ from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
-from starlette.websockets import WebSocketState
 from utilities.connection_manager import Manager
 from logging import basicConfig, DEBUG
 from uvicorn import run
@@ -27,11 +26,7 @@ app.add_middleware(TrustedHostMiddleware, allowed_hosts=list_of_allowed_hosts)
 connection_manager = Manager()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="./static"), name="static")
-
 basicConfig(filename="./logs/logs.log", filemode="w", level=DEBUG)
-
-
-
 
 
 @app.get("/favicon.ico")
@@ -61,12 +56,11 @@ async def stats_websocket(client_websocket: WebSocket) -> None:
     :return: No explicit return, just continuous requests for information from client
     """
     client = None
-    # Create manager object based on 'sec-websocket-key' and track connected services
-    # await connection_manager.connect(client_websocket)
     await client_websocket.accept()
 
     # Initial connection and CONNECT event
-    await client_websocket.send_json({"event": "CONNECT", "hardware-clients": [*hardware_clients], "service-clients": [*service_clients]})
+    await client_websocket.send_json({"event": "CONNECT", "hardware-clients": [*hardware_clients],
+                                      "service-clients": [*service_clients]})
     data = await client_websocket.receive()
 
     if "text" not in data:
@@ -79,7 +73,6 @@ async def stats_websocket(client_websocket: WebSocket) -> None:
                 print('dashboard connected')
                 client = DashboardHandler(text, client_websocket)
             case "HARDWARE":
-                print('hw connected')
                 client = HardwareHandler(text, client_websocket)
                 hardware_clients.add(client.client_name)
             case "SERVICE":
@@ -88,7 +81,6 @@ async def stats_websocket(client_websocket: WebSocket) -> None:
                 service_clients.add(client.client_name)
 
         client_set.add(client) # possible error when client type is invalid
-    print("hwc", hardware_clients) 
 
     # Typical event communication
     while True:
@@ -98,7 +90,6 @@ async def stats_websocket(client_websocket: WebSocket) -> None:
             text = loads(data["text"])
             await broadcast(client_set, text, client)
 
-
         # Handling for websocket disconnect code
         if data["type"] == "websocket.disconnect":
             client_set.remove(client)
@@ -106,8 +97,12 @@ async def stats_websocket(client_websocket: WebSocket) -> None:
                 hardware_clients.remove(client.client_name)
                 await broadcast(client_set,
                                 {"event": "HARDWARE-DISCONNECT", "client-name": client.client_name}, client)
-            break
-
+                break
+            if isinstance(client, ServiceHandler):
+                service_clients.remove(client.client_name)
+                await broadcast(client_set,
+                                {"event": "SERVICE-DISCONNECT", "client-name": client.client_name}, client)
+                break
 
 
 if __name__ == "__main__":

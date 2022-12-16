@@ -314,7 +314,7 @@ font-size: 45px;
 }
 
 
-#service {
+.service {
   width: 100%;
   height: 4rem;
   display: flex;

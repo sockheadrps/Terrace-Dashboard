@@ -1,13 +1,10 @@
 //Websocket connection
 var socket = new WebSocket("ws://localhost:80/ws/stats");
 
-
-
 // On open function
 socket.onopen = function(event) {
     socket.send(JSON.stringify({event: "CONNECT", "client-type": "DASHBOARD"}));
 };
-
 
 // Setting up HTML Elements
 
@@ -25,11 +22,13 @@ let disk_percentage = document.getElementById("disk_percentage")
 let clients = []
 const services = document.getElementById('services');
 const hwButtons = document.getElementsByClassName("hw-clients")[0]
+let serviceClients = []
 let hwClients = []
 let homePage = document.getElementsByClassName('home')[0]
 let statsPage = document.getElementsByClassName('stats')[0]
 let backButton = document.getElementsByClassName('back-overlay')[0]
 let notesButton = document.getElementsByClassName("notes-btn")[0]
+let serviceArea = document.getElementsByClassName("services-area")[0]
 
 backButton = document.getElementsByClassName('back-overlay')[0]
 backButton.addEventListener('click', () => {
@@ -39,29 +38,15 @@ backButton.addEventListener('click', () => {
 });
 
 
-
-function removeAllChildNodes(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-}
-
 function addService(serviceName) {
-  let newService = document.createElement("div")
-  newService.classList.add("service")
-  newService.innerText = serviceName
-  services.append(newService)
-}
-
-
-function checkForNewClients(dataClients) {
-  if (clients.length != dataClients.length) {
-    removeAllChildNodes(services)
-    clients = dataClients
-    for (let {client} of clients) {
-      addService(client)
-    }
+  for (i of serviceClients){
+    let newService = document.createElement("div")
+    newService.classList.add("service")
+    newService.setAttribute("id", i)
+    newService.innerText = serviceName
+    serviceArea.appendChild(newService)
   }
+
 }
 
 
@@ -73,6 +58,7 @@ backButton.addEventListener('click', () => {
   socket.send(JSON.stringify({event: "HARDWARE-TERMINATE", "requested-client": currentHardware }));
   currentHardware = null
 })
+
 
 function addHwButtons(hwClients) {
   // check if a new client has connected vs hwClientslist
@@ -96,13 +82,11 @@ function addHwButtons(hwClients) {
       if (!statsPageState.classList.contains('hidden')){
         socket.send(JSON.stringify({event: "HARDWARE-REQUEST", "requested-client": i }));
         currentHardware = i
-        console.log('REQUESTED')
-
       }
-
     });
   }
 }
+
 
 // Main Websocket Communication
 socket.onmessage = function(event) {
@@ -112,36 +96,46 @@ socket.onmessage = function(event) {
       for (let i of data['hardware-clients']) {
         if (!hwClients.includes(i)){
           hwClients.push(i)
-          console.log(hwClients)
         }
       }
-      if (data['service-clients']){
-        for (let i of data['service-clients'])
-        console.log(i)
-      }
       addHwButtons(hwClients)
-
     }
+
+    if (data['service-clients']){
+      for (let i of data['service-clients'])
+        if (!serviceClients.includes(i)){
+          serviceClients.push(i)
+        }
+      addService(serviceClients)
+    }
+
     switch(data.event) {
       case "CONNECT":
         socket.send(JSON.stringify({event: "HARDWARE-SERVICES", "client-type": "DASHBOARD"}));
-        
         break;
+
       case "HARDWARE-CONNECT":
         hwClients.push(data['client-name'])
         addHwButtons(hwClients)
         break;
+
       case "HARDWARE-DISCONNECT":
         console.log('hwdisc' + hwClients)
         hwClients = hwClients.filter(item => item !== data['client-name'])
         console.log('after' + hwClients)
         document.getElementById(data['client-name']).remove()
         break;
+
       case "SERVICE-CONNECT":
-        console.log(data['client-name'])
+        serviceClients.push(data['client-name'])
+        addService(serviceClients)
+        break;
+
+      case "SERVICE-DISCONNECT":
+        hwClients = hwClients.filter(item => item !== data['client-name'])
+        document.getElementById(data['client-name']).remove()
         break;
     }
-    // checkForNewClients(data.clients.filter((i) => i.type == "DASHBOARD"))
     if (data.event === 'HARDWARE-DATA') {
       updateData(data.data)
     }
@@ -152,13 +146,6 @@ window.onbeforeunload = function() {
   socket.onclose = function () {}; // disable onclose handler first
   websocket.close();
 };
-
-// Interval Timer to request Stats
-// REMOVE?
-setInterval(requestTimer, 1000);
-function requestTimer() {
-  // socket.send(JSON.stringify({event: "data-request"}));
-}
 
 
 // Chart configs

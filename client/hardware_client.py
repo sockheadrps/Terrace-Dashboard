@@ -30,10 +30,8 @@ async def client():
 							await websocket.send(json.dumps(to_send))
 							data = None
 						case "HARDWARE-REQUEST":
-							print('HW REQ')
 							data_stream_requested = True
 						case "HARDWARE-TERMINATE":
-							print('HW REQ TERM')
 							data_stream_requested = False
 
 				if data_stream_requested:
@@ -42,7 +40,8 @@ async def client():
 							   "data": Computer.get_stats_dict()}
 					await websocket.send(json.dumps(to_send))
 		finally:
+			print("finally")
 			to_send = {"event": "HARDWARE-DISCONNECT", "client-name": client_name}
 			await websocket.send(json.dumps(to_send))
 
-asyncio.get_event_loop().run_until_complete(client())
+asyncio.run(client())
