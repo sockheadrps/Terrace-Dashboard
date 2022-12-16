@@ -124,7 +124,6 @@ function requestTimer() {
   let day = myDate.getDay()
   let dateDay = myDate.getUTCDate()
   let month = myDate.getMonth()
-  console.log(day)
   document.getElementById("time").innerHTML = `${hours}:${mins}:${seconds}`
   document.getElementById("date").innerHTML = `${daysOfWeek[day]}, ${months[month + 1]} ${dateDay} ${myDate.getFullYear()}`
 }

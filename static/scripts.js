@@ -7,6 +7,12 @@ socket.onopen = function(event) {
   socket.send(JSON.stringify({event: "CONNECT", "client-type": "DASHBOARD"}));
 };
 
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  socket.send(JSON.stringify({event: "DISCONNECT", "client-type": "DASHBOARD"}));
+  socket.close()
+});
+
 // Setting up HTML Elements
 
 let cpu_count = document.getElementById("cpu_count")

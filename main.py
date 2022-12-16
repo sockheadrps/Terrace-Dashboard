@@ -13,9 +13,10 @@ from logging import basicConfig, DEBUG
 from uvicorn import run
 from utilities.handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast
 
-hardware_clients = set()
-service_clients = set()
-client_set = set()
+clients = {"DASHBOARD": [], "HARDWARE": [], "SERVICE": []}
+client_types = {"DASHBOARD": DashboardHandler, "HARDWARE": HardwareHandler, "SERVICE": ServiceHandler}
+
+
 list_of_allowed_hosts = ["localhost", "127.0.0.1"]
 app = FastAPI()
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=list_of_allowed_hosts)
@@ -53,46 +54,27 @@ async def stats_websocket(client_websocket: WebSocket) -> None:
     await client_websocket.accept()
 
     # Initial connection and CONNECT event
-    # await client_websocket.send_json({"event": "CONNECT", "hardware-clients": [*hardware_clients],
-    #                                   "service-clients": [*service_clients]})
-    data = await client_websocket.receive_json()
-    print(data, type(data))
+    try:
+        data = await client_websocket.receive_json()
+    except Exception as e:
+        raise
 
     if data['event'] == "CONNECT":
-        match data['client-type']:
-            case "DASHBOARD":
-                client = DashboardHandler(data, client_websocket)
-            case "HARDWARE":
-                client = HardwareHandler(data, client_websocket)
-                hardware_clients.add(client.client_name)
-            case "SERVICE":
-                client = ServiceHandler(data, client_websocket)
-                service_clients.add(client.client_name)
+        client = client_types[data["client-type"]](data, client_websocket)
+        clients[data['client-type']].append(client)
+        await broadcast(clients, data, client)
 
-        client_set.add(client) # possible error when client type is invalid
-        await broadcast(client_set, data, client)
-
-    # Typical event communication
     while True:
+        # Typical event communication
         try:
             data = await client_websocket.receive_json()
-            await broadcast(client_set, data, client)
+            await broadcast(clients, data, client)
 
         except WebSocketDisconnect:
-            client_set.remove(client)
-            if isinstance(client, HardwareHandler):
-                hardware_clients.remove(client.client_name)
-                await broadcast(client_set,
-                                {"event": "DISCONNECT",  "client-type": client.client_type,
-                                 "client-name": client.client_name}, client)
-                break
-            if isinstance(client, ServiceHandler):
-                service_clients.remove(client.client_name)
-                print(f"client names {service_clients}")
-                await broadcast(client_set,
-                                {"event": "DISCONNECT",  "client-type": client.client_type,
-                                 "client-name": client.client_name}, client)
-                break
+            clients[data['client-type']].remove(client)
+            await broadcast(clients, {"event": "DISCONNECT",  "client-type": client.client_type,
+                                      "client-name": client.client_name}, client)
+            break
 
 
 if __name__ == "__main__":
