@@ -1,5 +1,3 @@
-from typing import Union
-
 from fastapi import (
     FastAPI,
     Request,
@@ -19,7 +17,7 @@ clients = {"DASHBOARD": [], "HARDWARE": [], "SERVICE": []}
 client_types = {"DASHBOARD": DashboardHandler, "HARDWARE": HardwareHandler, "SERVICE": ServiceHandler}
 list_of_allowed_hosts = ["localhost", "127.0.0.1"]
 app = FastAPI()
-#app.add_middleware(TrustedHostMiddleware, allowed_hosts=list_of_allowed_hosts)
+app.add_middleware(TrustedHostMiddleware, allowed_hosts=list_of_allowed_hosts)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 basicConfig(filename="./logs/logs.log", filemode="w", level=DEBUG)

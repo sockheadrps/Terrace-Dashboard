@@ -46,12 +46,8 @@ TDB has been tested on [Python 3.7+](https://www.python.org/), and requires the 
 
 
     ```
-    poetry run main:app --reload
-    ```
-or 
-
-    ```
-    poetry run python3 terrace_dashboard/main.py
+    cd terrace_dashboard
+    poetry run uvicorn main:app --reload
     ```
 
 ### Optional:

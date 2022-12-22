@@ -1,10 +1,10 @@
 terrace_dashboard/__pycache__
 terrace_dashboard/logs/*
 .vscode/*
-
+__pycache__
 /test.py
 /test_*.*
-
+terrace_dashboard/utilities/__pycache__
 /setup.cfg
 MANIFEST.in
 /setup.py
