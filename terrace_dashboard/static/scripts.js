@@ -1,5 +1,5 @@
 //Websocket connection
-var socket = new WebSocket("ws://localhost:80/ws/stats");
+var socket = new WebSocket("ws://localhost:8000/ws/stats");
 
 // On open function
 socket.onopen = function(event) {

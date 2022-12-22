@@ -1,5 +1,5 @@
 terrace_dashboard/__pycache__
-terrace_dashboard/logs/*
+terrace_dashboard/logs/logs.log
 .vscode/*
 __pycache__
 /test.py
