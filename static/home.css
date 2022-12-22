@@ -1,3 +1,8 @@
+* {
+  box-sizing: border-box;
+  /* borders now don'r affect position */
+}
+
 .home{
   display: flex;
   width: 100%;
@@ -90,40 +95,95 @@ button:hover {
 }
 
 
-.search-bar{
+
+
+
+.search-bar {
   background: linear-gradient(to right bottom, rgba(10, 6, 24, 0.75), rgba(10, 6, 24, 0.69));
-  width: 80%;
-  height: 4%;
-  margin-top: 2rem;
-  display: inline-flex;
-  align-items: center;
-  border-radius: 2rem;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border-radius: 1.2em;
+	width: 80%;
+  height: 10%;
+  padding: .5rem;
+  vertical-align: middle;
+}
+
+
+.flip-container{
+  position: relative;
+  width: 35px;
+  height: 100%;
+  margin: 1rem;
 
 }
 
-.google{
-  color: #808080;
-  margin-left: 2rem;
-  width: 5%;
+.card{
+  position: absolute;
+  width: 100%;
   height: 100%;
-  display: flex;
-  margin-right: 2px;
-  padding-top: 4px;
+  transform-style: preserve-3d;
+  transition: all 0.5s;
+  border-radius: 50%;
+
+}
+
+.card:hover{
+  height: 120%;
+  width: 120%;
+}
+
+#front{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+#back{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.clicked{
+  transform: rotateY(180deg);
+	background: rgb(10, 6, 24);
+  border-radius: 50%;
+
+}
+
+.search-area{
+  width: 100%;
+  height: auto;
+  text-align: center;
+
+}
+
+form{
+  width: 100%;
+  border-radius: 2rem;
+  background: linear-gradient(to right bottom, rgba(40, 30, 78, 0.205), rgba(10, 6, 24, 0.021));
+  display: block;
 }
 
 .search-bar input {
-  background: transparent;
-  text-align: center;
-  flex: 1;
-  border: 0;
-  outline: none;
-  font-size: 20px;
-  color: #808080;
-  min-width: 0;
-  width: 68rem;
-  /* border: 1px solid red; */
-  flex: 1;
+	border: 0;
+	background-color: transparent;
+	padding: 0.5em 1em;
+  margin-left: 2rem;
+  width: 120%;
+  color: rgb(243, 255, 240);
 }
+
+.search-bar input:focus {
+	outline: 0;
+}
+
+
 
 
 .weather-area {

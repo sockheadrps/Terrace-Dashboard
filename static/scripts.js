@@ -7,6 +7,7 @@ socket.onopen = function(event) {
   socket.send(JSON.stringify({event: "CONNECT", "client-type": "DASHBOARD"}));
 };
 
+//Attempt to send Dashboard disconnect message on window close 
 window.addEventListener('beforeunload', function (e) {
   e.preventDefault();
   socket.send(JSON.stringify({event: "DISCONNECT", "client-type": "DASHBOARD"}));
@@ -14,7 +15,6 @@ window.addEventListener('beforeunload', function (e) {
 });
 
 // Setting up HTML Elements
-
 let cpu_count = document.getElementById("cpu_count")
 let cpu_usage = document.getElementById("cpu_usage")
 let cpu_frequency = document.getElementById("cpu_frequency")
@@ -37,6 +37,7 @@ let backButton = document.getElementsByClassName('back-overlay')[0]
 let notesButton = document.getElementsByClassName("notes-btn")[0]
 let serviceArea = document.getElementsByClassName("services-area")[0]
 
+// Hide the 'home page', show 'stats page' and back button on stats page
 backButton = document.getElementsByClassName('back-overlay')[0]
 backButton.addEventListener('click', () => {
   homePage.classList.toggle('hidden');
@@ -44,7 +45,21 @@ backButton.addEventListener('click', () => {
   backButton.classList.toggle('hidden')
 });
 
+// Handle form action and which icon to show when choosing where to search in the searchbar
+let gShown = true
+formAction = document.getElementById("search-form")
+let card = document.getElementsByClassName('card')[0]
+card.addEventListener('click', () => {
+  card.classList.toggle('clicked');
+  gShown = !gShown
+  if (!gShown) {
+    formAction.action = "https://www.youtube.com/results?search_query=";
+  } else {
+    formAction.action = "https://www.google.com/search"
+  }
+});
 
+// Add service to service area function
 function addService(serviceName) {
   for (i of serviceClients){
     let newService = document.createElement("div")
@@ -53,20 +68,19 @@ function addService(serviceName) {
     newService.innerText = serviceName
     serviceArea.appendChild(newService)
   }
-
 }
-
 
 let statsPageState = document.getElementsByClassName('stats')[0]
 let backButtonState = document.getElementsByClassName('back-overlay')[0]
 let currentHardware 
 
+// Send hardware-terminate event when exiting the hardware statistics dashboard
 backButton.addEventListener('click', () => {
   socket.send(JSON.stringify({event: "HARDWARE-TERMINATE", "requested-client": currentHardware }));
   currentHardware = null
 })
 
-
+// Adds hardware buttons when we get hardware connect event, or upon initial load of dashboard
 function addHwButtons(hwClients) {
   // check if a new client has connected vs hwClientslist
   for (i of hwClients){
@@ -85,7 +99,6 @@ function addHwButtons(hwClients) {
       homePage.classList.toggle('hidden');
       statsPage.classList.toggle('hidden');
       backButton.classList.toggle('hidden');
-
       if (!statsPageState.classList.contains('hidden')){
         socket.send(JSON.stringify({event: "HARDWARE-REQUEST", "requested-client": i }));
         currentHardware = i
@@ -94,13 +107,10 @@ function addHwButtons(hwClients) {
   }
 }
 
-
 // Main Websocket Communication
 socket.onmessage = function(event) {
     let data = JSON.parse(event.data);
     console.log(data)
-
-
     switch(data.event) {
       case "CONNECT":
         if (data['client-type'] === "HARDWARE") {
@@ -153,21 +163,17 @@ window.onbeforeunload = function() {
   websocket.close();
 };
 
-
 // Chart configs
 let updateInterval = 1000 //in ms
 let max_data_points = 60;
 
-
 //Globals
 let updateCount = 0;
-
 
 // Chart Objects
 let cpuUsageChart = document.getElementById("cpuUsage");
 let ramUsageChart = document.getElementById("ramUsage");
 let diskUsageChart = document.getElementById("diskUsage");
-
 
 // Common Chart Options (Line)
 let commonOptions = {
@@ -204,7 +210,6 @@ let commonOptions = {
       enabled: false
     }
 };
-
 
 // cpuUsageChart Instance
 var cpuUsageChartInstance = new Chart(cpuUsageChart, {
