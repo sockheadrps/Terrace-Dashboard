@@ -1,18 +1,21 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-utilities/__pycache__/
-*.py[cod]
-*$py.class
+terrace_dashboard/__pycache__
+terrace_dashboard/logs/*
+.vscode/*
 
+/test.py
+/test_*.*
 
-# Environments
-.env
+/setup.cfg
+MANIFEST.in
+/setup.py
+/docs/site/*
+/tests/fixtures/simple_project/setup.py
+/tests/fixtures/project_with_extras/setup.py
+.mypy_cache
+
 .venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-.idea/
+/releases/*
+pip-wheel-metadata
+/poetry.toml
 
-static/weatherAPI-ignore.js
+poetry/core/*

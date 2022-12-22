@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "terrace-dashboard"
+version = "0.1.0"
+description = ""
+authors = ["melany estevez camata <elibialany@gmail.com>"]
+readme = "README.md"
+packages = [{include = "terrace_dashboard"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+anyio = "3.6.2"
+click = "8.1.3"
+colorama = "0.4.6"
+fastapi = "0.88.0"
+h11 = "0.14.0"
+httptools = "0.5.0"
+idna = "3.4"
+jinja2 = "3.1.2"
+markupsafe = "2.1.1"
+psutil = "5.9.4"
+pydantic = "1.10.2"
+python-dotenv = "0.21.0"
+pyyaml = "6.0"
+sniffio = "1.3.0"
+starlette = "0.22.0"
+typing-extensions = "4.4.0"
+uvicorn = "0.20.0"
+watchfiles = "0.18.1"
+websockets = "10.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

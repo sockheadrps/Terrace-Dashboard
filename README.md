@@ -33,21 +33,30 @@ Terrace Dashboard uses the following technologies:
 
 ## Installation
 
-TDB has been tested on [Python 3.7+](https://www.python.org/), and requires the installation of all libraries in requirements.txt
+TDB has been tested on [Python 3.7+](https://www.python.org/), and requires the installation of all libraries.
+[how to install poetry](https://python-poetry.org/docs/)
     
-    pip install -r requirements.txt
-    
+    ```
+    poetry install
+    ```
+
 1. Sign up for [OpenWeatherMap Free API](https://openweathermap.org/api)
 2. Add your latitude, Longitude and API Key in static/weatherAPI.js
 3. Run the server and connect to http://localhost/dashboard in your browser (Currently only been tested in Chrome)
 
+
+    ```
+    poetry run main:app --reload
+    ```
+or 
+
+    ```
+    poetry run python3 terrace_dashboard/main.py
+    ```
+
 ### Optional:
 - Run the hardware client(s) on host machine and/or remote machines while the server is running
 - Implement and connect any "Services." An example service in the clients folder is provided to assist you in structuring you projects to communicate with the server.
-
-
-
-
 
 
 ## Development

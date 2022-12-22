@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="static/app.css">
+      <!-- <link rel="stylesheet" href="static/app.css"> -->
       <link rel="stylesheet" href="static/home.css">
-    <link href="static/weatherAPI.js" rel="preload" as="script" crossorigin>
+    <link href="{{ url_for('static', path='/app.css') }}" rel="stylesheet">
     <script type="module" src="static/home.js" defer crossorigin="anonymous"></script>
     <script type="text/javascript" src="static/scripts.js" defer></script>
 
@@ -41,46 +41,14 @@
 
         </div>
         <div class="home-main-container">
-        <div class="search-bar">
-          <div class="flip-container">
-            <div class="card">
-              
-              <div id="front">
-                <img src="static/assets/g-svg.svg" width="35" height="35" class="i-svg g-svg"/> 
-              </div>
-              <div id="back">
-                <img src="static/assets/youtube-icon.svg" width="35" height="35" class="i-svg yt-svg"/> 
-              </div>
-            </div>
-
-
-          </div>
-          <div class="search-area">
-            <form action="https://www.google.com/search" method="get" id="search-form">
-              <input type="text" class="search" placeholder="Search...." name="q">
-            </form>
-          </div>          
- 
-        </div>
-
-
-
-
-
-
-
-
-          <!-- <div class="search-bar">
+          <div class="search-bar">
             <div class="g-icon-area">
-              <div class="search-icon-background">
-                <div class="google"></div>
-                <i class="google fa-2x fa fa-brands fa-google"></i>
-              </div>
+            <i class="google fa-2x fa fa-brands fa-google"></i>
             </div>
             <form action="https://www.google.com/search" method="get">
               <input type="text" class="search" placeholder="Search...." name="q">
             </form>
-          </div> -->
+          </div>
           <div class="weather-area">
             <div class="weather-card">
               <div class="temperature-area">
