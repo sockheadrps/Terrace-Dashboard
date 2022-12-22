@@ -36,7 +36,7 @@ Terrace Dashboard uses the following technologies:
 TDB has been tested on [Python 3.7+](https://www.python.org/), and requires the installation of all libraries.
 [how to install poetry](https://python-poetry.org/docs/)
     
-    `poetry install`
+`poetry install`
 
 1. Sign up for [OpenWeatherMap Free API](https://openweathermap.org/api)
 2. Add your latitude, Longitude and API Key in static/weatherAPI.js
