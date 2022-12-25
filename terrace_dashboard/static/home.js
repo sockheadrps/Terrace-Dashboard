@@ -2,6 +2,17 @@
 import {lat, long, weatherApiKey} from "/static/weatherAPI.js";
 const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${weatherApiKey}`
 
+
+let statsButton = document.getElementsByClassName("stats-btn")[0]
+
+const translateAmount = 100;
+let translate = 0;
+
+
+let home = document.getElementsByClassName("home")
+let stats = document.getElementsByClassName ("stats")
+
+
 let weatherDescription
 let temp
 let feelsLike
@@ -78,7 +89,7 @@ let daysOfWeek = {
   4: "Thursday",
   5: "Friday",
   6: "Saturday",
-  0: "Sunday"
+  7: "Sunday"
 }
 
 let months = {
