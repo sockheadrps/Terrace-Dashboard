@@ -3,10 +3,15 @@ hardware_client_set = set()
 service_client_set = set()
 
 
-def new_event(funcs, ev):
-    def func(cb):
-        funcs[ev] = cb
-        return cb
+def new_event(functions: dict, event: str):
+    """
+    :param functions: A dictionary instantiated by the ClientHandler class that maps the event to a callback function
+    :param event: A string used as a key in the functions dictionary
+    :return: A function that returns the callback function
+    """
+    def func(callback):
+        functions[event] = callback
+        return callback
 
     return func
 
@@ -17,7 +22,6 @@ class ClientHandler(object):
     def __init__(self, data, ws_object):
         self.client_type = data['client-type']
         self.ws_object = ws_object
-
 
     async def __call__(self, data, sender):
         await self.funcs[data["event"]](self, data, sender)
@@ -68,11 +72,9 @@ class DashboardHandler(ClientHandler):
 
     def __init__(self, data, ws_object):
         super().__init__(data, ws_object)
-        self.client_name = uuid.uuid4()
 
     @new_event(funcs, "CONNECT")
     async def connect(self, data, sender):
-        print(f"c data {data}")
         if data.get("client-type") != "DASHBOARD":
             await self.ws_object.send_json({"event": "CONNECT", "client-type": data['client-type'],
                                             "client-name": data["client-name"]})
