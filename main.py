@@ -32,7 +32,7 @@ async def favicon() -> None:
 
 
 @app.get("/dashboard", response_class=HTMLResponse)
-def stats_endpoint(request: Request) -> templates.TemplateResponse:
+def dashboard_endpoint(request: Request) -> templates.TemplateResponse:
     """
     HTTP endpoint to serve the Dashboard
     :param request: HTTP Request from Client
