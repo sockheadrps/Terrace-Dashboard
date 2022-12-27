@@ -71,6 +71,7 @@ class DashboardHandler(ClientHandler):
     funcs = ClientHandler.funcs.copy()
 
     def __init__(self, data, ws_object):
+        self.client_name = "_"
         super().__init__(data, ws_object)
 
     @new_event(funcs, "CONNECT")
