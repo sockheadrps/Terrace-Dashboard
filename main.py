@@ -44,7 +44,7 @@ def dashboard_endpoint(request: Request) -> templates.TemplateResponse:
 
 
 @app.websocket("/ws/stats")
-async def stats_websocket(client_websocket: WebSocket) -> None:
+async def websocket_endpoint(client_websocket: WebSocket) -> None:
     """
     Web Socket endpoint for client communication
     :param client_websocket: Incoming Web Socket request
