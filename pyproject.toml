@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "terrace"
+version = "0.1.0"
+description = "A Dashboarding and home page tool to organize and manipulate clients"
+authors = ["Sockheadrps", "Beaux44"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.11"
+fastapi = "^0.88.0"
+uvicorn = {extras = ["standard"], version = "^0.20.0"}
+jinja2 = "^3.1.2"
+psutil = "^5.9.4"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
+httpx = "^0.23.1"
+trio = "^0.22.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

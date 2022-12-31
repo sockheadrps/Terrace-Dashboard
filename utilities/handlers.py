@@ -1,4 +1,3 @@
-import uuid
 hardware_client_set = set()
 service_client_set = set()
 
