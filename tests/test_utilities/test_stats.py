@@ -1,4 +1,4 @@
-from utilities.stats import Computer, get_cpu_count, get_cpu_usage, get_cpu_frequency, get_total_ram, \
+from clients.stats import Computer, get_cpu_count, get_cpu_usage, get_cpu_frequency, get_total_ram, \
     get_available_ram, get_percentage_used_ram, get_total_disk_space, get_total_disk_free, get_total_disk_used, \
     get_disk_percentage_used, get_temperatures
 

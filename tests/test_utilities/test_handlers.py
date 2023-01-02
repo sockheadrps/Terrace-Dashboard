@@ -1,5 +1,5 @@
 import pytest
-from utilities.handlers import new_event, ClientHandler, HardwareHandler, ServiceHandler, DashboardHandler, \
+from server.handlers import new_event, ClientHandler, HardwareHandler, ServiceHandler, DashboardHandler, \
     hardware_client_set, service_client_set, broadcast
 from typing import Callable
 from fastapi import FastAPI

@@ -10,7 +10,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from logging import basicConfig, DEBUG
 from uvicorn import run
-from utilities.handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast
+from handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast
+import argparse
 
 clients = {"DASHBOARD": [], "HARDWARE": [], "SERVICE": []}
 client_types = {"DASHBOARD": DashboardHandler, "HARDWARE": HardwareHandler, "SERVICE": ServiceHandler}
@@ -20,7 +21,7 @@ list_of_allowed_hosts = ["localhost", "127.0.0.1"]
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="./static"), name="static")
-basicConfig(filename="./logs/logs.log", filemode="w", level=DEBUG)
+basicConfig(filename="../logs/logs.log", filemode="w", level=DEBUG)
 
 
 @app.get("/favicon.ico")
@@ -86,4 +87,8 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
 
 
 if __name__ == "__main__":
-    run(app, port=8080, host="0.0.0.0")
+    parser = argparse.ArgumentParser(description="Terrace Dashboard Server")
+    parser.add_argument('host', metavar="host", type=str, help="Enter the host URL")
+    args = parser.parse_args()
+    host = args.host
+    run(app, port=8080, host=host)
