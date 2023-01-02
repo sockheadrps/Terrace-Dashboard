@@ -5,7 +5,6 @@ from fastapi import (
     WebSocket,
     WebSocketDisconnect
 )
-from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
@@ -19,7 +18,6 @@ client_types = {"DASHBOARD": DashboardHandler, "HARDWARE": HardwareHandler, "SER
 
 list_of_allowed_hosts = ["localhost", "127.0.0.1"]
 app = FastAPI()
-app.add_middleware(TrustedHostMiddleware, allowed_hosts=list_of_allowed_hosts)
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="./static"), name="static")
 basicConfig(filename="./logs/logs.log", filemode="w", level=DEBUG)
@@ -39,6 +37,7 @@ def home_endpoint(request: Request):
     :return: Returns 200 status code
     """
     return {"status_code": "200"}
+
 
 @app.get("/dashboard", response_class=HTMLResponse)
 def dashboard_endpoint(request: Request) -> templates.TemplateResponse:
@@ -87,4 +86,4 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
 
 
 if __name__ == "__main__":
-    run(app, port=80, host="0.0.0.0")
+    run(app, port=8080, host="0.0.0.0")

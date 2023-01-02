@@ -1,21 +1,12 @@
-from utilities.stats import Computer
+from stats import Computer
 import websockets
 import asyncio
 import json
 import argparse
 
-parser = argparse.ArgumentParser(description="Hardware client for Terrace")
-parser.add_argument('host', metavar="host", type=str, help="Enter the host URL")
-parser.add_argument('name', metavar="name", type=str, help="Enter the name of this hardware client")
-args = parser.parse_args()
 
-host = args.host
-name = args.name
-
-client_type = "HARDWARE"
-
-
-async def client():
+async def client(host, name):
+    client_type = "HARDWARE"
     stream_task = None
     clients = 0
     async with websockets.connect(f"ws://{host}/ws/stats") as websocket:
@@ -49,4 +40,14 @@ async def client_stream(websocket, interval=1):
         await websocket.send(json.dumps(data_stream))
         await asyncio.sleep(interval)
 
-asyncio.run(client())
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Hardware client for Terrace")
+    parser.add_argument('host', metavar="host", type=str, help="Enter the host URL")
+    parser.add_argument('name', metavar="name", type=str, help="Enter the name of this hardware client")
+    args = parser.parse_args()
+
+    host = args.host
+    name = args.name
+
+    asyncio.run(client(host, name))
