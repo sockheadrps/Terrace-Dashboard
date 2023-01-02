@@ -2,43 +2,51 @@ from utilities.stats import Computer
 import websockets
 import asyncio
 import json
-from asyncio.exceptions import TimeoutError
+import argparse
 
-client_name = "Server-Hardware"
+parser = argparse.ArgumentParser(description="Hardware client for Terrace")
+parser.add_argument('host', metavar="host", type=str, help="Enter the host URL")
+parser.add_argument('name', metavar="name", type=str, help="Enter the name of this hardware client")
+args = parser.parse_args()
+
+host = args.host
+name = args.name
+
 client_type = "HARDWARE"
 
 
 async def client():
-    data = None
-    data_stream_requested = False
-    async with websockets.connect("ws://localhost:80/ws/stats") as websocket:
+    stream_task = None
+    clients = 0
+    async with websockets.connect(f"ws://{host}/ws/stats") as websocket:
         try:
             # Initial connection
-            connect_event = {"event": "CONNECT", "client-type": client_type, "client-name": client_name}
+            connect_event = {"event": "CONNECT", "client-type": client_type, "client-name": name}
             await websocket.send(json.dumps(connect_event))
 
             while True:
-                try:
-                    data = json.loads(await asyncio.wait_for(websocket.recv(), timeout=1))
-                except TimeoutError:
-                    pass
+                data = json.loads(await websocket.recv())
+                match data['event']:
+                    case "HARDWARE-REQUEST":
+                        clients += 1
+                        if stream_task is None:
+                            stream_task = asyncio.create_task(client_stream(websocket))
+                    case "HARDWARE-TERMINATE":
+                        if 0 < clients:
+                            clients -= 1
+                            if clients == 0:
+                                stream_task.cancel()
+                                stream_task = None
 
-                if data:
-                    match data['event']:
-                        case "HARDWARE-REQUEST":
-                            data_stream_requested = True
-                        case "HARDWARE-TERMINATE":
-                            data_stream_requested = False
-                    data = None
-
-                if data_stream_requested:
-                    data_stream = {"event": "HARDWARE-DATA",
-                               "client": client_name,
-                               "data": Computer.get_stats_dict()}
-                    await websocket.send(json.dumps(data_stream))
         finally:
-            print("finally")
-            disconnect_event = {"event": "DISCONNECT", "client-type": client_type, "client-name": client_name}
+            disconnect_event = {"event": "DISCONNECT", "client-type": client_type, "client-name": name}
             await websocket.send(json.dumps(disconnect_event))
+
+
+async def client_stream(websocket, interval=1):
+    while True:
+        data_stream = {"event": "HARDWARE-DATA", "client": name, "data": Computer.get_stats_dict()}
+        await websocket.send(json.dumps(data_stream))
+        await asyncio.sleep(interval)
 
 asyncio.run(client())
