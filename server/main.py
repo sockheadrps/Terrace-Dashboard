@@ -87,7 +87,7 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Terrace Dashboard Server")
+    parser = argparse.ArgumentParser(description="The Terrace Dashboard Server")
     parser.add_argument('host', metavar="host", type=str, help="Enter the host URL")
     args = parser.parse_args()
     host = args.host
