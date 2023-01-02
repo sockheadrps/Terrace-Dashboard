@@ -70,8 +70,9 @@ class DashboardHandler(ClientHandler):
     funcs = ClientHandler.funcs.copy()
 
     def __init__(self, data, ws_object):
-        self.client_name = "_"
         super().__init__(data, ws_object)
+        self.client_name = "_"
+        self.hardware = None
 
     @new_event(funcs, "CONNECT")
     async def connect(self, data, sender):
@@ -84,7 +85,8 @@ class DashboardHandler(ClientHandler):
 
     @new_event(funcs, "HARDWARE-DATA")
     async def hardware_data_recv(self, data, sender):
-        await self.ws_object.send_json(data)
+        if self.hardware is sender:
+            await self.ws_object.send_json(data)
 
     @new_event(funcs, "DISCONNECT")
     async def disconnect(self, data, sender):
@@ -105,10 +107,12 @@ class HardwareHandler(ClientHandler):
 
     @new_event(funcs, "HARDWARE-REQUEST")
     async def hardware_request(self, data, sender):
+        sender.hardware = self
         await self.ws_object.send_json(data)
 
     @new_event(funcs, "HARDWARE-TERMINATE")
     async def terminate_request(self, data, sender):
+        sender.hardware = None
         await self.ws_object.send_json(data)
 
     @new_event(funcs, 'HARDWARE-SERVICES')
