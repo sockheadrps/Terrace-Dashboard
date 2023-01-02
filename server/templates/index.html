@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="static/app.css">
+      <link rel="stylesheet" href="static/home.css">
+    <link href="static/config.js" rel="preload" as="script" crossorigin>
+    <script type="module" src="static/home.js" defer crossorigin="anonymous"></script>
+    <script type="module" src="static/scripts.js" defer crossorigin="anonymous"></script>
+
+    
+    <!-- <script type="text/javascript" src="static/scripts.js" defer></script> -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asap&family=Spline+Sans:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Server Status</title>
+  </head>
+
+<body>
+
+  <main>
+    <section class="glass">
+      <div class="pages">
+      <div class="home page-one">
+        <div class="home-bar">
+          <div class="top-of-bar"></div>
+          <div class="button-area">
+            <div class="buttons">
+              <button class="notes-btn btn">
+                <span  class="label">Notes</span>
+                <div class="light-notes light"></div>
+              </button>
+              <div class="hw-clients">
+                
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="home-main-container">
+        <div class="search-bar">
+          <div class="flip-container">
+            <div class="card">
+              
+              <div id="front">
+                <img src="static/assets/g-svg.svg" width="35" height="35" class="i-svg g-svg"/> 
+              </div>
+              <div id="back">
+                <img src="static/assets/youtube-icon.svg" width="35" height="35" class="i-svg yt-svg"/> 
+              </div>
+            </div>
+
+
+          </div>
+          <div class="search-area">
+            <form action="https://www.google.com/search" method="get" id="search-form">
+              <input type="text" class="search" placeholder="Search...." name="q">
+            </form>
+          </div>          
+ 
+        </div>
+
+
+          <div class="weather-area">
+            <div class="weather-card">
+              <div class="temperature-area">
+                <h1 id="temperature">73°F</h1>
+                <h4>feels like</h4>
+                <h2 id="feels-like">60</h2>
+                <div>Cloudy</div>
+              </div>
+              <div class="icon-area">
+                <img id="weather-icon">
+              </div>
+              <div class="secondary-info">
+                <div class="descriptor">
+                  <div class="title">Humidity</div> 
+                  <div id="humidity">50%</div>
+                </div>
+                <div class="descriptor">
+                  <div class="title">Wind Speed</div>
+                  <div id="wind-speed">12 mph</div>
+                </div>
+                <div class="descriptor">
+                  <div class="title">Sunrise</div>
+                  <div id="sunrise"> 7:00</div>
+                </div>
+                <div class="descriptor">
+                  <div class="title">Sunset</div>
+                  <div id="sunset">9:00</div>
+                </div>
+              </div>
+
+            </div>
+            <div class="dt-wrapper">
+              <div class="date-time-area">
+                <div id="time"></div>
+                <div id="date"></div>
+              </div>
+            </div>
+            </div>
+
+
+          <div class="bookmark-area">
+            <div onclick="window.open('http://www.youtube.com','_blank')" class="bookmark-icon-area">
+              <div class="book-icon-area">
+                <i class="book-icon fa-4x fa fa-brands fa-youtube"></i>
+                <span class="bk-title">YouTube</span>
+              </div>
+            </div>
+
+            <div onclick="window.open('http://www.reddit.com','_blank')" class="bookmark-icon-area">
+              <div class="book-icon-area">
+                <i class="book-icon fa-4x fa fa-brands fa-reddit-alien"></i>
+                <span class="bk-title">Reddit</span>
+              </div>
+            </div>
+
+            <div onclick="window.open('http://www.twitch.com','_blank')" class="bookmark-icon-area">
+              <div class="book-icon-area">
+                <i class="book-icon fa-4x fa fa-brands fa-twitch"></i>
+                <span class="bk-title">Twitch</span>
+              </div>
+            </div>
+
+            <div onclick="window.open('http://www.instagram.com','_blank')" class="bookmark-icon-area">
+              <div class="book-icon-area">
+                <i class="book-icon fa-4x fa fa-brands fa-instagram"></i>
+                <span class="bk-title">Instagram</span>
+              </div>
+            </div>
+        </div>
+        <div id="bottom-area">
+          <div class="services-area">
+          </div>
+        </div>
+
+        </div>
+      </div>
+
+
+      <div class="stats page-2 hidden">
+        <div class="back-overlay hidden fade-in fade-out">
+          <i class="back-icon fa fa-5x fa-solid fa-caret-left"></i>
+        </div>
+          <div class="usage-container">
+              <!-- CPU Usage -->
+              <div class="use-container">
+                  <div class="container-label">CPU Usage</div>
+              <div class="chart">
+                  <canvas id="cpuUsage"></canvas>
+              </div>
+      
+              <div class="stats">
+                <h1>CPU</h1>
+                <div class="stat" id="cpu_count"></div>
+                <div class="stat" id="cpu_usage"></div>
+                <div class="stat" id="cpu_frequency"></div>
+                <div class="stat" id="core_temperature"></div>
+              </div>
+          </div>
+          <!-- RAM Usage -->
+              <div class="use-container">
+                  <div class="container-label">RAM Usage</div>
+              <div class="chart">
+                  <canvas id="ramUsage"></canvas>
+              </div>
+              <div class="stats">
+                <h1>RAM</h1>
+                <div class="stat-area">
+                  <div class="stat" id="ram_total"></div>
+                  <div class="stat" id="ram_available"></div>
+                  <div class="stat" id="ram_percentage"></div>
+                </div>
+              </div>
+          </div>
+          <!-- Disk Usage -->
+              <div class="use-container">
+                <div class="container-label">Storage Usage</div>
+                <div class="disk-chart">
+                  <canvas id="diskUsage"></canvas>
+                </div>
+                <div class="stats">
+                  <h1>Storage</h1>
+                  <div class="stat" id="disk_total"></div>
+                  <div class="stat" id="disk_free"></div>
+                  <div class="stat" id="disk_used"></div>
+                  <div class="stat" id="disk_percentage"></div>
+                </div>
+              </div>
+        </div>
+
+      </div>
+    </div>
+
+    </section>
+    <div class="chevron"></div>
+    <div class="circle"></div>
+</main>
+  
+</body>
+</html>
