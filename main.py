@@ -31,6 +31,15 @@ async def favicon() -> None:
     raise HTTPException(status_code=403, detail="No favicon")
 
 
+@app.get("/", status_code=200)
+def home_endpoint(request: Request):
+    """
+    HTTP home endpoint
+    :param request: HTTP Request from Client
+    :return: Returns 200 status code
+    """
+    return {"status_code": "200"}
+
 @app.get("/dashboard", response_class=HTMLResponse)
 def dashboard_endpoint(request: Request) -> templates.TemplateResponse:
     """
