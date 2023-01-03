@@ -74,7 +74,7 @@ def get_temperatures() -> dict:
         for core in core_temp_list:
             core_temp_dict[core.label] = core.current
         return core_temp_dict
-    except AttributeError:
+    except KeyError:
         core_temp_dict = {}
         return core_temp_dict
 
