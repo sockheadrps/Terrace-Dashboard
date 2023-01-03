@@ -1,6 +1,7 @@
 hardware_client_set = set()
 service_client_set = set()
 
+hw_clients = {}
 
 def new_event(functions: dict, event: str):
     """
@@ -85,8 +86,10 @@ class DashboardHandler(ClientHandler):
 
     @new_event(funcs, "HARDWARE-DATA")
     async def hardware_data_recv(self, data, sender):
-        if self.hardware is sender:
-            await self.ws_object.send_json(data)
+        print(f"hdr {data['client']}")
+        await self.ws_object.send_json(data)
+        # if self.hardware is sender:
+        #     await self.ws_object.send_json(data)
 
     @new_event(funcs, "DISCONNECT")
     async def disconnect(self, data, sender):
@@ -104,6 +107,7 @@ class HardwareHandler(ClientHandler):
         super().__init__(data, ws_object)
         self.client_name = data['client-name']
         hardware_client_set.add(self.client_name)
+        hw_clients[self.client_name] = ws_object
 
     @new_event(funcs, "HARDWARE-REQUEST")
     async def hardware_request(self, data, sender):
@@ -112,6 +116,9 @@ class HardwareHandler(ClientHandler):
 
     @new_event(funcs, "HARDWARE-TERMINATE")
     async def terminate_request(self, data, sender):
+        print('HARDWARE-TERMINATE', data, sender)
+        # print(hw_clients[data['requested-client']])
+        # await hw_clients[data['requested-client']].send_json({'event': 'HARDWARE-TERMINATE'})
         sender.hardware = None
         await self.ws_object.send_json(data)
 

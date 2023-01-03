@@ -77,6 +77,9 @@ def get_temperatures() -> dict:
     except KeyError:
         core_temp_dict = {}
         return core_temp_dict
+    except AttributeError:
+        core_temp_dict = {}
+        return core_temp_dict
 
 
 class Computer:

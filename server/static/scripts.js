@@ -79,13 +79,19 @@ let currentHardware
 
 // Send hardware-terminate event when exiting the hardware statistics dashboard
 backButton.addEventListener('click', () => {
+  console.log('Hardware terminate by ' + currentHardware)
   socket.send(JSON.stringify({event: "HARDWARE-TERMINATE", "requested-client": currentHardware }));
   currentHardware = null
+  removeData()
 })
 
 // Adds hardware buttons when we get hardware connect event, or upon initial load of dashboard
 function addHwButtons(hwClients) {
+  while(hwButtons.firstChild) {
+    hwButtons.removeChild(hwButtons.lastChild)
+  }
   // check if a new client has connected vs hwClientslist
+  console.log("hwClients " + hwClients)
   for (let i of hwClients){
     let new_hw = document.createElement("button")
     let lightDiv = document.createElement("div")
@@ -104,6 +110,7 @@ function addHwButtons(hwClients) {
       backButton.classList.toggle('hidden');
       if (!statsPageState.classList.contains('hidden')){
         socket.send(JSON.stringify({event: "HARDWARE-REQUEST", "requested-client": i }));
+        console.log('Hardware req by ' + i)
         currentHardware = i
       }
     });
@@ -113,12 +120,14 @@ function addHwButtons(hwClients) {
 // Main Websocket Communication
 socket.onmessage = function(event) {
     let data = JSON.parse(event.data);
-    console.log(data)
+    // console.log(data)
     switch(data.event) {
       case "CONNECT":
         if (data['client-type'] === "HARDWARE") {
+          console.log('Connect by ' + data['client-name'])
           hwClients.push(data["client-name"])
           addHwButtons(hwClients)
+
         } else if (data["client-type"] === "SERVICE") {
           serviceClients.push(data["client-name"])
           console.log(serviceClients)
@@ -127,7 +136,7 @@ socket.onmessage = function(event) {
 
         if (data['hardware-list']){
           for (let i of data['hardware-list']) {
-            console.log(i)
+            console.log('hardware list ' + i)
             if (!hwClients.includes(i)){
               hwClients.push(i)
             }
@@ -146,6 +155,7 @@ socket.onmessage = function(event) {
 
       case "DISCONNECT":
         if (data['client-type'] === "HARDWARE") {
+        console.log("discconect by " + data['client-name'])
         hwClients = hwClients.filter(item => item !== data['client-name'])
         document.getElementById(data['client-name']).remove()
         } else if (data["client-type"] === "SERVICE") {
@@ -167,7 +177,6 @@ window.onbeforeunload = function() {
 };
 
 // Chart configs
-let updateInterval = 1000 //in ms
 let max_data_points = 60;
 
 //Globals
@@ -283,6 +292,22 @@ var diskUsageChartInstance = new Chart(diskUsageChart, {
       }
     })
 });
+
+
+function removeData() {
+    console.log('removing data')
+    cpuUsageChartInstance.data.labels.length = 0
+    cpuUsageChartInstance.data.datasets[0].data.length = 0
+
+    ramUsageChartInstance.data.labels.length = 0
+    ramUsageChartInstance.data.datasets[0].data.length = 0
+
+    diskUsageChartInstance.data.datasets[0].data[0] = 0;
+    diskUsageChartInstance.data.datasets[0].data[1] = 100;
+    diskUsageChartInstance.update()
+
+}
+
 
 // Function to push data to chart object instances
 function addData(data) {
