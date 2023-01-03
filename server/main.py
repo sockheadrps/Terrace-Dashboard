@@ -39,6 +39,17 @@ def home_endpoint(request: Request):
     """
     return {"status_code": "200"}
 
+@app.get("/notes", response_class=HTMLResponse)
+def dashboard_endpoint(request: Request) -> templates.TemplateResponse:
+    """
+    HTTP endpoint to serve notes
+    :param request: HTTP Request from Client
+    :return: Returns the associated web files to the requesting client
+    """
+    return templates.TemplateResponse(
+        "notes.html", {"request": request}
+    )
+
 
 @app.get("/dashboard", response_class=HTMLResponse)
 def dashboard_endpoint(request: Request) -> templates.TemplateResponse:

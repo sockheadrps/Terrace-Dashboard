@@ -17,20 +17,19 @@ async def client(host, name):
 
             while True:
                 data = json.loads(await websocket.recv())
-                if data['requested-client'] == name:
-                    match data['event']:
-                        case "HARDWARE-REQUEST":
-                            print('Start stream....')
-                            clients += 1
-                            if stream_task is None:
-                                stream_task = asyncio.create_task(client_stream(websocket))
-                        case "HARDWARE-TERMINATE":
-                            print('End Stream...')
-                            if 0 < clients:
-                                clients -= 1
-                                if clients == 0:
-                                    stream_task.cancel()
-                                    stream_task = None
+                match data['event']:
+                    case "HARDWARE-REQUEST":
+                        print('Start stream....')
+                        clients += 1
+                        if stream_task is None:
+                            stream_task = asyncio.create_task(client_stream(websocket))
+                    case "HARDWARE-TERMINATE":
+                        print('End Stream...')
+                        if 0 < clients:
+                            clients -= 1
+                            if clients == 0:
+                                stream_task.cancel()
+                                stream_task = None
 
         finally:
             disconnect_event = {"event": "DISCONNECT", "client-type": client_type, "client-name": name}
