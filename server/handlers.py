@@ -20,6 +20,7 @@ class ClientHandler(object):
 
     def __init__(self, data, ws_object):
         self.client_type = data['client-type']
+        self.client_name = data.get('client-name')
         self.ws_object = ws_object
 
     async def __call__(self, data, sender):
@@ -103,7 +104,6 @@ class HardwareHandler(ClientHandler):
 
     def __init__(self, data, ws_object):
         super().__init__(data, ws_object)
-        self.client_name = data['client-name']
         hardware_client_set.add(self.client_name)
 
     @new_event(funcs, "HARDWARE-REQUEST")
@@ -127,7 +127,6 @@ class ServiceHandler(ClientHandler):
 
     def __init__(self, data, ws_object):
         super().__init__(data, ws_object)
-        self.client_name = data['client-name']
         service_client_set.add(self.client_name)
 
 
