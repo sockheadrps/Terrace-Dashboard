@@ -105,10 +105,6 @@ class HardwareHandler(ClientHandler):
             sender.hardware = None
             await self.ws_object.send_json(data)
 
-    @new_event(funcs, 'HARDWARE-SERVICES')
-    async def connected_hardware(self, data, sender):
-        await self.ws_object.send_json(data)
-
 
 class ServiceHandler(ClientHandler):
     funcs = ClientHandler.funcs.copy()
