@@ -90,14 +90,16 @@ class HardwareHandler(ClientHandler):
 
     @new_event(funcs, "HARDWARE-REQUEST")
     async def hardware_request(self, data, sender):
-        sender.hardware = self
-        await self.ws_object.send_json(data)
+        if sender.hardware is None and data["requested-client"] == self.client_name:
+            sender.hardware = self
+            await self.ws_object.send_json(data)
 
     @new_event(funcs, "HARDWARE-TERMINATE")
     async def terminate_request(self, data, sender):
         print('HARDWARE-TERMINATE', data, sender)
-        sender.hardware = None
-        await self.ws_object.send_json(data)
+        if sender.hardware is self:
+            sender.hardware = None
+            await self.ws_object.send_json(data)
 
     @new_event(funcs, 'HARDWARE-SERVICES')
     async def connected_hardware(self, data, sender):
