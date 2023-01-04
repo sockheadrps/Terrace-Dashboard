@@ -48,26 +48,6 @@ class ClientHandler(object):
     async def hardware_data_recv(self, data, sender):
         pass
 
-    @new_event(funcs, 'HARDWARE-SERVICES')
-    async def connected_hardware(self, data, sender):
-        pass
-
-    @new_event(funcs, 'HARDWARE-CONNECT')
-    async def hardware_connect(self, data, sender):
-        pass
-
-    @new_event(funcs, 'HARDWARE-DISCONNECT')
-    async def hardware_disconnect(self, data, sender):
-        pass
-
-    @new_event(funcs, 'SERVICE-CONNECT')
-    async def hardware_connect(self, data, sender):
-        pass
-
-    @new_event(funcs, 'SERVICE-DISCONNECT')
-    async def hardware_disconnect(self, data, sender):
-        pass
-
 
 class DashboardHandler(ClientHandler):
     funcs = ClientHandler.funcs.copy()
