@@ -1,3 +1,7 @@
+import asyncio
+from itertools import chain
+
+
 hardware_client_set = set()
 service_client_set = set()
 client_sets = {"HARDWARE": hardware_client_set, "SERVICE": service_client_set}
@@ -115,6 +119,6 @@ class ServiceHandler(ClientHandler):
 
 
 async def broadcast(clients, data, sender):
-    for client_list in clients.values():
-        for client in client_list:
-            await client(data, sender)
+    coros = (client(data, sender) for client in clients.values())
+    await asyncio.gather(*coros)
+
