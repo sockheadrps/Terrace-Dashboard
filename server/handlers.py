@@ -1,5 +1,6 @@
 hardware_client_set = set()
 service_client_set = set()
+client_sets = {"HARDWARE": hardware_client_set, "SERVICE": service_client_set}
 
 
 def new_event(functions: dict, event: str):
@@ -32,7 +33,8 @@ class ClientHandler(object):
 
     @new_event(funcs, "DISCONNECT")
     async def disconnect(self, data, sender):
-        pass
+        if sender is self and self.client_type in client_sets:
+            client_sets[self.client_type].remove(self.client_name)
 
     @new_event(funcs, "HARDWARE-REQUEST")
     async def hardware_request(self, data, sender):
