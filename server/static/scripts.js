@@ -64,7 +64,10 @@ card.addEventListener('click', () => {
 
 // Add service to service area function
 function addService(serviceName) {
-  for (i of serviceClients){
+  while(serviceArea.firstChild) {
+    serviceArea.removeChild(serviceArea.lastChild)
+  }
+  for (let i of serviceClients){
     let newService = document.createElement("div")
     newService.classList.add("service")
     newService.setAttribute("id", i)
@@ -298,9 +301,11 @@ function removeData() {
     console.log('removing data')
     cpuUsageChartInstance.data.labels.length = 0
     cpuUsageChartInstance.data.datasets[0].data.length = 0
+    cpuUsageChartInstance.update();
 
     ramUsageChartInstance.data.labels.length = 0
     ramUsageChartInstance.data.datasets[0].data.length = 0
+    ramUsageChartInstance.update();
 
     diskUsageChartInstance.data.datasets[0].data[0] = 0;
     diskUsageChartInstance.data.datasets[0].data[1] = 100;
