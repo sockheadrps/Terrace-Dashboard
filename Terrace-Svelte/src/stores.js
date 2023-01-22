@@ -4,12 +4,21 @@ let serviceList = []
 let hardwareData = ''
 let ws = ''
 
+/**
+ * Function for websocket communication
+ * @param {jsonObject} event
+ */
 export function wsSend (event) {
   ws.send(JSON.stringify(event))
 }
 
+/**
+ * Function for disconnecting websockets
+ * @param {client-name} hardwareClient
+ */
 export function wsDisconnect (hardwareClient) {
-  ws.send(JSON.stringify({ event: 'HARDWARE-TERMINATE', 'requested-client': hardwareClient }))
+  ws.send(JSON.stringify(
+    { event: 'HARDWARE-TERMINATE', 'requested-client': hardwareClient }))
 }
 
 export const state = writable({
@@ -40,9 +49,11 @@ export const connect = () => {
     }
     if (data.event === 'DISCONNECT') {
       if (data['client-type'] === 'HARDWARE') {
-        hardwareList = hardwareList.filter(function (e) { return e !== data['client-name']})
+        hardwareList = hardwareList.filter(
+          function (e) { return e !== data['client-name'] })
       } else if (data['client-type'] === 'SERVICE') {
-        serviceList = serviceList.filter(function(e) { return e !== data['client-name']})
+        serviceList = serviceList.filter(
+          function (e) { return e !== data['client-name'] })
       }
     }
 
