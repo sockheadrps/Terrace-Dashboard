@@ -9,7 +9,7 @@ async def client(host, name):
     client_type = "HARDWARE"
     stream_task = None
     clients = 0
-    async with websockets.connect(f"ws://{host}:8080/ws/stats") as websocket:
+    async with websockets.connect(f"ws://{host}:8081/ws/stats") as websocket:
         try:
             # Initial connection
             connect_event = {"event": "CONNECT", "client-type": client_type, "client-name": name}
@@ -19,12 +19,10 @@ async def client(host, name):
                 data = json.loads(await websocket.recv())
                 match data['event']:
                     case "HARDWARE-REQUEST":
-                        print('Start stream....')
                         clients += 1
                         if stream_task is None:
                             stream_task = asyncio.create_task(client_stream(websocket))
                     case "HARDWARE-TERMINATE":
-                        print('End Stream...')
                         if 0 < clients:
                             clients -= 1
                             if clients == 0:
@@ -38,7 +36,6 @@ async def client(host, name):
 
 async def client_stream(websocket, interval=1):
     while True:
-        print('data stream')
         data_stream = {"event": "HARDWARE-DATA", "client": name, "data": Computer.get_stats_dict()}
         await websocket.send(json.dumps(data_stream))
         await asyncio.sleep(interval)
