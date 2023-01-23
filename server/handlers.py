@@ -72,7 +72,6 @@ class DashboardHandler(ClientHandler):
 
     @new_event(funcs, "HARDWARE-DATA")
     async def hardware_data_recv(self, data, sender):
-        print(f"hdr {data['client']}")
         if self.hardware is sender:
             await self.ws_object.send_json(data)
 
@@ -100,7 +99,6 @@ class HardwareHandler(ClientHandler):
 
     @new_event(funcs, "HARDWARE-TERMINATE")
     async def terminate_request(self, data, sender):
-        print('HARDWARE-TERMINATE', data, sender)
         if sender.hardware is self:
             sender.hardware = None
             await self.ws_object.send_json(data)
