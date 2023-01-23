@@ -3,10 +3,10 @@
     import Home from "../Home/Home.svelte";
     import Settings from "../Settings/Settings.svelte";
     import Hardware from "../Hardware/Hardware.svelte";
-    import NotesHome from "../Notes/NotesHome.svelte";
-    import { currentNav, wsSend, terminateHwCommunication, activeHardwareClient } from '../../stores.js'
+    // import NotesHome from "../Notes/NotesHome.svelte";
+    import { wsSend, terminateHwCommunication, activeHardwareClient } from '../../stores.js'
     export let navItems
-    export let activeNav = "Notes"
+    export let activeNav = "Home"
 
 
     // If current view is a HW client and the view is changed, send a disconnect message to the active hw client
@@ -18,14 +18,14 @@
         // data stream, and update the current nav
         if (e.srcElement.classList[0] == "Hardware"){
             activeNav = "Hardware";
-            currentNav.update(value => activeNav)
+            // currentNav.update(value => activeNav)
             activeHardwareClient.update(value => e.srcElement.innerText)
             wsSend({"event": "HARDWARE-REQUEST", "requested-client": e.srcElement.innerText})
 
         // Otherwise, update the current nav to reflect the target nav view
         } else {
             activeNav = e.srcElement.innerText;
-            currentNav.update(value => activeNav)
+            // currentNav.update(value => activeNav)
         }
 	}
 </script>
@@ -33,7 +33,7 @@
     <div id="board">
         <NavBar {navItems} on:click={setView}/>
         {#if (activeNav == "Notes")}
-            <NotesHome />
+            <!-- <NotesHome /> -->
         {:else if activeNav == "Home"}
             <Home />
         {:else if activeNav == "Settings"}
