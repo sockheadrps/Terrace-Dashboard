@@ -3,8 +3,10 @@ from fastapi import (
     Request,
     HTTPException,
     WebSocket,
-    WebSocketDisconnect
+    WebSocketDisconnect,
+
 )
+from websockets.exceptions import ConnectionClosedError
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
@@ -80,6 +82,7 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
         raise
 
     if data['event'] == "CONNECT":
+        await client_websocket.send_json({"event": "CONNECT"})
         client = client_types[data["client-type"]](data, client_websocket)
         clients[data['client-type']].append(client)
         await broadcast(clients, data, client)
@@ -91,15 +94,15 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
             await broadcast(clients, data, client)
 
         except WebSocketDisconnect:
-            clients[data['client-type']].remove(client)
             await broadcast(clients, {"event": "DISCONNECT",  "client-type": client.client_type,
                                       "client-name": client.client_name}, client)
+            clients[data['client-type']].remove(client)
             break
-
-
+        except (ConnectionClosedError, RuntimeError):
+            break
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="The Terrace Dashboard Server")
     parser.add_argument('host', metavar="host", type=str, help="Enter the host URL")
     args = parser.parse_args()
     host = args.host
-    run(app, port=8080, host=host)
+    run(app, port=8081, host=host, ws_ping_interval=10, ws_ping_timeout=10)
