@@ -1,7 +1,7 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
     import Chart from 'chart.js/auto';
-    export let disk_data = []
+    let disk_data = []
     let diskUsageChartInstance
     let max_data_points = 10;
     let updateCount = 0;
@@ -12,42 +12,42 @@
         updateData()
     }
 
-const config = {
-    type: 'doughnut',
-    responsive: false,
-    maintainAspectRatio: false,
-    labels: [
-        'free',
-        'Used'
-    ],
-    data: {
-      datasets: [{
-          label: "Storage Usage",
-          data: [1, 1],
-          backgroundColor: [
-            'rgba(189, 27, 15, .4)',
-            'rgba(33, 31, 81, .4)',
-          ],
-          hoverOffset: 4
-      }]
-    },
-    options: Object.assign({}, {
-      title:{
-        display: true,
-        text: "Storage Usage",
-        fontSize: 18
-      }
-    })
-};
+    const config = {
+        type: 'doughnut',
+        responsive: false,
+        maintainAspectRatio: false,
+        labels: [
+            'free',
+            'Used'
+        ],
+        data: {
+        datasets: [{
+            label: "Storage Usage",
+            data: [1, 1],
+            backgroundColor: [
+                'rgba(189, 27, 15, .4)',
+                'rgba(33, 31, 81, .4)',
+            ],
+            hoverOffset: 4
+        }]
+        },
+        options: Object.assign({}, {
+        title:{
+            display: true,
+            text: "Storage Usage",
+            fontSize: 18
+        }
+        })
+    };
 
 
     function addData(data) {
         if(data){
             let today = new Date();
-            let time
+            let time;
             if (today.getMinutes < 10){
                 time = today.getHours() + ":0" + today.getMinutes();
-            }else{
+            } else {
                 time = today.getHours() + ":" + today.getMinutes();
             }
             
@@ -62,28 +62,28 @@ const config = {
 
   function updateData() {
     try {
-        if (disk_data.disk_total !== undefined){
-            disk__total.innerHTML = "Disk Total: " + disk_data.disk_total.toString() + "GB"
-            disk__available.innerHTML = "Disk available: " + disk_data.disk_free.toString() + "GB"
-            disk__used.innerHTML = "Disk Used: " + disk_data.disk_used.toString() + " GB"
-            disk__percentage.innerHTML = "Disk Percentage Used: " + disk_data.disk_percentage.toString() + "%"
+        if (disk_data.disk_total !== undefined) {
+            disk__total.innerHTML = "Disk Total: " + disk_data.disk_total.toString() + "GB";
+            disk__available.innerHTML = "Disk available: " + disk_data.disk_free.toString() + "GB";
+            disk__used.innerHTML = "Disk Used: " + disk_data.disk_used.toString() + " GB";
+            disk__percentage.innerHTML = "Disk Percentage Used: " + disk_data.disk_percentage.toString() + "%";
             addData(disk_data)
             }
         } catch (error) {
             console.log(error)
-        }
-        
+        } 
     }    
     
     function resetDiskData() {
-        disk_data = []
-        console.log("destroyed " + disk_data)
+        disk_data = [];
     }
+
     onMount(()=> {
       const ctx = diskChart.getContext('2d');
       // Initialize chart using default config set
       diskUsageChartInstance = new Chart(ctx, config);
     })
+
     onDestroy(() => resetDiskData());
 
   </script>
@@ -104,55 +104,52 @@ const config = {
 </div>
 
 <style>
-    .chart__area {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 4fr 2fr;
-        align-items: stretch;
-        height: 100%;
-    }
+.chart__area {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 4fr 2fr;
+    align-items: stretch;
+    height: 100%;
+}
 
-    .disk__chart{
-        margin: auto;
-        background: rgba(9, 6, 24, 0.048);
+.disk__chart{
+    margin: auto;
+    background: rgba(9, 6, 24, 0.048);
+}
 
-    }
+.title__area{
+    background: linear-gradient(
+    to bottom,
+        rgba(23, 77, 156, 0.384), 
+        rgba(31, 22, 82, 0.411)
+        );
+    border-radius: 2rem 2rem 0rem 0rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-    .title__area{
-        background: linear-gradient(
-        to bottom,
-         rgba(23, 77, 156, 0.384), 
-         rgba(31, 22, 82, 0.411)
-         );
-        border-radius: 2rem 2rem 0rem 0rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-    }
-
-    .title{
-        font-size: 2.5rem;
-        font-weight: 600;
-
-    }
+.title{
+    font-size: 2.5rem;
+    font-weight: 600;
+}
 
 
-    .sub__data {
-        background: linear-gradient(
-        to top,
-         rgba(23, 77, 156, 0.384), 
-         rgba(31, 22, 82, 0.411)
-         );
-        border-radius: 0rem 0rem 2rem 2rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+.sub__data {
+    background: linear-gradient(
+    to top,
+        rgba(23, 77, 156, 0.384), 
+        rgba(31, 22, 82, 0.411)
+        );
+    border-radius: 0rem 0rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-    .data{
-        font-size: larger;
-        margin: .5rem;
-    }
+.data{
+    font-size: larger;
+    margin: .5rem;
+}
 
 </style>

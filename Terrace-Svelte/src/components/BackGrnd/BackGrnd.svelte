@@ -1,7 +1,3 @@
-
-<script>
-    
-</script>
 <div class="bCirContainer">
     <div class="bigCir">
 </div>
@@ -47,7 +43,6 @@
     transition: 1.8s;
     animation:bigCir 400s  linear infinite;
     animation:createBox 2s  linear infinite ease-in-out;
-
     z-index: -1;
     filter: blur(.2rem);
     
@@ -67,7 +62,7 @@
 }
 
 
-.center-1{
+.center-1 {
     width: 40px;
     height: 40px;
     position: fixed;
@@ -82,22 +77,6 @@
     to {transform: rotate(-360deg);}
 }
 
-
-.center-3{
-    width: 50px;
-    height: 50px;
-    position: fixed;
-    top: 30%;
-    left: 75%;
-    margin-top: -25px;
-    margin-left: -25px;
-    z-index: -1;
-    animation:around3 120s  linear infinite;
-}
-@keyframes around3 {
-    from {transform: rotate(240deg);}
-    to {transform: rotate(-120deg);}
-}
 
 .small-1{
     width: 40px;
@@ -121,8 +100,10 @@
 }
 
 
-
-
+@keyframes pulse {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(-360deg);}
+}
 
 
 .small-2{
@@ -142,40 +123,14 @@
     -15px 0px 100px rgba(71, 0, 153, 0.493),
     15px 0px 100px rgb(55, 0, 107), 
     0px 15px 100px rgba(88, 0, 0, 0.37);
-    animation: around5 infinite 180s ease-in-out;
+    animation: around2 infinite 180s ease-in-out;
     filter: blur(.6rem);
-
-
 }
-@keyframes around5 {
+
+
+@keyframes around2 {
     from {transform: rotate(240deg);}
     to {transform: rotate(-120deg);}
-}
-
-.small-3{
-    width: 40px;
-    height: 140px;
-    position: fixed;
-    top: 330px;
-    left: 330px;
-    margin-top: -165px;
-    margin-left: -165px;
-    background: rgba(0, 8, 31, 0.068);
-    scale: .6;
-    border-radius: 50%;
-    z-index: 3;
-    box-shadow: 
-    0px -125px 100px rgb(0, 90, 163),
-    -125px 0px 100px rgb(0, 114, 190),
-    125px 0px 100px rgb(101, 0, 160), 
-    0px 125px 100px rgb(1, 52, 119);
-    animation: pulse infinite 180s ease-in-out;
-    filter: blur(.1rem);
-}
-
-@keyframes pulse {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(-360deg);}
 }
 
 </style>

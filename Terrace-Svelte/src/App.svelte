@@ -1,13 +1,26 @@
 <script>
     import Board from "./components/Board/Board.svelte";
 	import Background from "./components/BackGrnd/BackGrnd.svelte";
-	import {connect, state} from './stores.js'
+	import { activeHardwareClient, wsDisconnect, terminateHwCommunication, websocketConnect } from "../src/stores.js";
 
-	connect()
+	// If window closes while communicating with a hw client, let it know to stop communicating with server
+	function beforeunload() {
+		if (activeHardwareClient) {
+			terminateHwCommunication(activeHardwareClient)
+		}
+		// Let the server know the dashboard has disconnected
+		wsDisconnect()
+	}
+	// Function for window on load
+	function onConnect() {
+		// make initial WS connection
+		websocketConnect()
+	}
 
 
 </script>
 
+<svelte:window on:beforeunload={beforeunload} on:load={onConnect}/>
 <main>
 	<Background />
 	<Board />

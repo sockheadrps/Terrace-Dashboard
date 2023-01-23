@@ -1,7 +1,7 @@
 <script>
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
-    export let settingsItems = ["Weather"]
+    export let settingsItems = ["Weather"];
 
 </script>
 
@@ -10,9 +10,8 @@
     <div id="nav__items">
         {#each settingsItems as setting}
             <div class="nav__lay"></div>
-            <button on:click class={setting.toLowerCase() + " nav__item" +" route"} id={setting.toLowerCase()+"__nav"} >{setting}
+            <button on:click class={setting.toLowerCase() + " nav__item" +" route"} id={setting.toLowerCase()+"__nav"}>{setting}
             </button>
-
         {/each}
     </div>
 </nav>
@@ -27,7 +26,6 @@
     background: linear-gradient(to right bottom, rgba(69, 71, 141, 0.212), rgba(53, 56, 128, 0.1));
     border-radius: 2rem 2rem 0rem 0rem;
 }
-
 
 
 #nav__items{
@@ -54,11 +52,8 @@
 }
 
 
-
 .nav__item:hover { 
     background: rgba(41, 49, 158, 0.308);
   }
-
-
 
 </style>

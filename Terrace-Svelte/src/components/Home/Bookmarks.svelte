@@ -5,18 +5,9 @@
         {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
         {name: "Instagram", url: "http://www.instagram.com", "icon": "book-icon fa-3x fa fa-brands fa-instagram"},
         {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
-        {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
-        {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
-        {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
-        {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
-        {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
-        {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
-        {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
-        {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
-        {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
-        {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
     ]
 
+    // Function allows for horizontal scroll of the bookmarks
     function transformScroll(event) {
         if (!event.deltaY) {
             return;
@@ -24,9 +15,11 @@
         event.currentTarget.scrollLeft += event.deltaY + event.deltaX;
         event.preventDefault();
     }
+
     let element = document.scrollingElement || document.documentElement;
     element.addEventListener('wheel', transformScroll);
 
+    // Google search
     function openBookmark(url) {
         window.open(url,'_blank')
     }
@@ -37,16 +30,14 @@
 <div class="bookmark-area">
     <div class="bookmarks" on:mousewheel|preventDefault={transformScroll}>
         {#each bookMarks as book}
-        <div on:click={() => {openBookmark(book.url)}} class="bookmark">
+        <div on:click on:keydown={() => {openBookmark(book.url)}} class="bookmark">
             <i class={book.icon}></i>
             <div class="title-area">
             <span class="bk-title">{book.name}</span>
-
             </div>
         </div>
         {/each}
     </div>
-
 </div>
 
 <style>
@@ -77,7 +68,6 @@
     display: inline-block;
 }
 
-
 .bookmark{
     display: inline-block;
     vertical-align: middle;
@@ -93,8 +83,6 @@
     cursor: pointer;
     transition: all .2s ease-out;
     min-width:  170px;
-    
-    
 }
 
 .bookmark:hover {

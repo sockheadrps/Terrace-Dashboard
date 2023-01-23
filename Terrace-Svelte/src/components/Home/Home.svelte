@@ -34,7 +34,6 @@
 
 .top__spacer{
     height: 100%;
-    /* width: 100%; */
 }
 
 .bottom__spacer{

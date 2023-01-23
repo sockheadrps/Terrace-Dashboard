@@ -1,13 +1,13 @@
 <script>
     import SettingsNav from "./SettingsNav.svelte";
     import WeatherSettings from "./WeatherSettings.svelte"
-    export let activeSetting = ""
-    export let settingsItems = ["Weather"]
+    export let activeSetting = "";
+    export let settingsItems = ["Weather"];
     
+    // Tracks active settings tab for switching between settings scope
     const setView = (e) => {
-		activeSetting = e.srcElement.innerText
-	    }
-
+        activeSetting = e.srcElement.innerText;
+    }
 
 </script>
 
@@ -16,10 +16,9 @@
     <div id="settings__nav" >
         <SettingsNav {settingsItems} on:click={setView} />
         {#if (activeSetting == "Weather")}
-        <WeatherSettings />
+            <WeatherSettings />
         {/if}
     </div>
-
 </div>
 
 

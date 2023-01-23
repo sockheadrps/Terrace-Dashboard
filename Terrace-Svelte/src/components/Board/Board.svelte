@@ -4,31 +4,30 @@
     import Settings from "../Settings/Settings.svelte";
     import Hardware from "../Hardware/Hardware.svelte";
     import NotesHome from "../Notes/NotesHome.svelte";
-    import { currentNav, wsSend, wsDisconnect, activeHardwareClient } from "../../stores";
+    import { currentNav, wsSend, terminateHwCommunication, activeHardwareClient } from '../../stores.js'
     export let navItems
     export let activeNav = "Notes"
 
-    function storeNav(activeNav) {
-    	currentNav.update(value => activeNav)
-    }
 
+    // If current view is a HW client and the view is changed, send a disconnect message to the active hw client
     const setView = (e) => {
         if (activeNav === "Hardware"){
-            wsDisconnect(activeHardwareClient)
+            terminateHwCommunication(activeHardwareClient)
         }
+        // If view is switched to hardware, send a websocket message requesting the appropriate hw clients
+        // data stream, and update the current nav
         if (e.srcElement.classList[0] == "Hardware"){
-            console.log('if 1')
-            activeNav = "Hardware"
-            storeNav(activeNav)
+            activeNav = "Hardware";
+            currentNav.update(value => activeNav)
             activeHardwareClient.update(value => e.srcElement.innerText)
             wsSend({"event": "HARDWARE-REQUEST", "requested-client": e.srcElement.innerText})
 
+        // Otherwise, update the current nav to reflect the target nav view
         } else {
-            console.log("🚀 ~ file: Board.svelte:30 ~ setView ~ activeNav", activeNav)
-            activeNav = e.srcElement.innerText
-            storeNav(activeNav)
-            }
-	    }
+            activeNav = e.srcElement.innerText;
+            currentNav.update(value => activeNav)
+        }
+	}
 </script>
 
     <div id="board">

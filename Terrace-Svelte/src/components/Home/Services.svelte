@@ -1,16 +1,14 @@
 <script>
     import { state } from "../../stores";
-
-    let services = []
+    let services = [];
 
     $: {
         state.subscribe(value => {
             try {
                 if (value['serviceList']){
-                    services = value['serviceList']
+                    services = value['serviceList'];
                 }
-            }
-            catch (error) {
+            } catch (error) {
                 console.log(error)
             }
         });
@@ -44,7 +42,6 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     color: #808080;
-
     box-sizing: border-box;
     border: 1px solid rgba(10, 6, 24, 0.021);
     background:rgba(87, 87, 99, 0.1);

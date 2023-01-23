@@ -1,14 +1,10 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
     import Chart from 'chart.js/auto';
-    export let cpu_data = []
+    let cpu_data = []
     let cpuUsageChartInstance
-    // Chart configs
     let max_data_points = 10;
-
-    //Globals
     let updateCount = 0;
-    
     let cpuChart
 
     $: {
@@ -101,7 +97,6 @@
 
   function updateData() {
     console.log('updating in cpu')
-
     try {
         if (cpu_data.cpu_count !== undefined){
             cpu__count.innerHTML = "Core count: " + cpu_data.cpu_count.toString()
@@ -112,13 +107,12 @@
         } catch (error) {
             console.log(error)
         }
-        
     }    
     
     function resetCpuData() {
         cpu_data = []
-        console.log("destroyed " + cpu_data)
     }
+
     onMount(()=> {
       const ctx = cpuChart.getContext('2d');
       // Initialize chart using default config set
@@ -143,48 +137,47 @@
 </div>
 
 <style>
-    .chart__area {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 4fr 2fr;
-        align-items: stretch;
-        height: 100%;
-    }
+.chart__area {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 4fr 2fr;
+    align-items: stretch;
+    height: 100%;
+}
 
-    .title__area{
-        background: linear-gradient(
-        to bottom,
-         rgba(23, 77, 156, 0.384), 
-         rgba(31, 22, 82, 0.411)
-         );
-        border-radius: 2rem 2rem 0rem 0rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+.title__area{
+    background: linear-gradient(
+    to bottom,
+        rgba(23, 77, 156, 0.384), 
+        rgba(31, 22, 82, 0.411)
+        );
+    border-radius: 2rem 2rem 0rem 0rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-    }
-
-    .title{
-        font-size: 2.5rem;
-        font-weight: 600;
-
-    }
+.title{
+    font-size: 2.5rem;
+    font-weight: 600;
+}
 
 
-    .sub__data {
-        background: linear-gradient(
-        to top,
-         rgba(23, 77, 156, 0.384), 
-         rgba(31, 22, 82, 0.411)
-         );
-        border-radius: 0rem 0rem 2rem 2rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+.sub__data {
+    background: linear-gradient(
+    to top,
+        rgba(23, 77, 156, 0.384), 
+        rgba(31, 22, 82, 0.411)
+        );
+    border-radius: 0rem 0rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-    .data{
-        font-size: larger;
-        margin: .5rem;
-    }
+.data{
+    font-size: larger;
+    margin: .5rem;
+}
+
 </style>

@@ -1,7 +1,7 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
     import Chart from 'chart.js/auto';
-    export let ram_data = []
+    let ram_data = []
     let ramUsageChartInstance
     let max_data_points = 10;
     let updateCount = 0;
@@ -70,19 +70,19 @@
     function addData(data) {
         if(data){
             let today = new Date();
-            let time
-            if (today.getMinutes < 10){
+            let time;
+            if (today.getMinutes < 10) {
                 time = today.getHours() + ":0" + today.getMinutes();
-            }else{
+            } else {
                 time = today.getHours() + ":" + today.getMinutes();
             }
             
-            if (ramUsageChartInstance.data.labels.length <= max_data_points){
+            if (ramUsageChartInstance.data.labels.length <= max_data_points) {
                 ramUsageChartInstance.data.labels.push(time);
                 ramUsageChartInstance.data.datasets.forEach((dataset) =>{dataset.data.push(data.ram_percentage)});
 
 
-            } else if(ramUsageChartInstance.data.labels.length > max_data_points){          
+            } else if(ramUsageChartInstance.data.labels.length > max_data_points) {          
             // For shifting the x axis markers
             ramUsageChartInstance.data.labels.shift();
             ramUsageChartInstance.data.datasets.forEach((dataset) =>{dataset.data.shift()});
@@ -94,8 +94,7 @@
 
   function updateData() {
     try {
-        if (ram_data.ram_total !== undefined){
-            console.log(ram_data)
+        if (ram_data.ram_total !== undefined) {
             ram__total.innerHTML = "Ram Total: " + ram_data.ram_total.toString() + "GB"
             ram__available.innerHTML = "Ram available: " + ram_data.ram_available.toString() + "GB"
             ram__used.innerHTML = "Ram Percentage Used: " + ram_data.ram_percentage.toString() + "%"
@@ -103,19 +102,19 @@
             }
         } catch (error) {
             console.log(error)
-        }
-        
+        } 
     }    
     
     function resetRamData() {
-        ram_data = []
-        console.log("destroyed " + ram_data)
+        ram_data = [];
     }
+
     onMount(()=> {
       const ctx = ramChart.getContext('2d');
       // Initialize chart using default config set
       ramUsageChartInstance = new Chart(ctx, config);
     })
+
     onDestroy(() => resetRamData());
 
   </script>
@@ -135,48 +134,46 @@
 </div>
 
 <style>
-    .chart__area {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 4fr 2fr;
-        align-items: stretch;
-        height: 100%;
-    }
+.chart__area {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 4fr 2fr;
+    align-items: stretch;
+    height: 100%;
+}
 
-    .title__area{
-        background: linear-gradient(
-        to bottom,
-         rgba(23, 77, 156, 0.384), 
-         rgba(31, 22, 82, 0.411)
-         );
-        border-radius: 2rem 2rem 0rem 0rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+.title__area{
+    background: linear-gradient(
+    to bottom,
+        rgba(23, 77, 156, 0.384), 
+        rgba(31, 22, 82, 0.411)
+        );
+    border-radius: 2rem 2rem 0rem 0rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-    }
-
-    .title{
-        font-size: 2.5rem;
-        font-weight: 600;
-
-    }
+.title{
+    font-size: 2.5rem;
+    font-weight: 600;
+}
 
 
-    .sub__data {
-        background: linear-gradient(
-        to top,
-         rgba(23, 77, 156, 0.384), 
-         rgba(31, 22, 82, 0.411)
-         );
-        border-radius: 0rem 0rem 2rem 2rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+.sub__data {
+    background: linear-gradient(
+    to top,
+        rgba(23, 77, 156, 0.384), 
+        rgba(31, 22, 82, 0.411)
+        );
+    border-radius: 0rem 0rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-    .data{
-        font-size: larger;
-        margin: .5rem;
-    }
+.data{
+    font-size: larger;
+    margin: .5rem;
+}
 </style>

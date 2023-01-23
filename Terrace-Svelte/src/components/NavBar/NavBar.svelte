@@ -1,25 +1,17 @@
 <script>
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
-    export let navItems = ["Home", "Notes"]
-    import {state} from 'C:/code/sveltetut/Terrace-Svelte/src/stores.js'
-    let hardware = []
-    export let currentHardware
-
-    function hardwareBtn() {
-        currentHardware = "hardware"
-    }
-
+    export let navItems = ["Home", "Notes"];
+    import {state} from '../../stores.js'
+    let hardware = [];
 
     $: {
         state.subscribe(value => {
-            if (value.hardwareList){
-                hardware = value.hardwareList[0]
+            if (value.hardwareList){ 
+                hardware = value.hardwareList[0] 
             }
         });
-        }
-
-
+    }
 
 </script>
 
@@ -59,7 +51,6 @@
 }
 
 
-
 .routes{
     grid-row: 2;
     display: block;
@@ -81,7 +72,7 @@
 
 .nav__item:hover { 
     background: rgba(12, 7, 31, 0.781);
-  }
+}
 
 
 
@@ -93,7 +84,6 @@
     margin: 0;
     overflow-y: scroll;
     overflow: overlay;
-
 }
 
 .hardwares {
@@ -107,15 +97,14 @@
 }
 
 
-
 .hardware__area::-webkit-scrollbar {
     display: block;
 }
+
 .hardware__area::-webkit-scrollbar-track {
     border-radius: 10px;
     background-clip: padding-box;
     margin-right: -1rem;
-    
 }
 
 .hardware__area::-webkit-scrollbar-track-piece:end {
@@ -136,8 +125,6 @@
     background: #222;
     background-clip: padding-box;
 }
-
-
 
 #settings__area{
     display: flex;

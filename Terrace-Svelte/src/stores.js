@@ -16,7 +16,16 @@ export function wsSend (event) {
  * Function for disconnecting websockets
  * @param {client-name} hardwareClient
  */
-export function wsDisconnect (hardwareClient) {
+export function wsDisconnect () {
+  ws.send(JSON.stringify(
+    { event: 'DISCONNECT', 'client-type': 'DASHBOARD' }));
+}
+
+/**
+ * Function for disconnecting active hardware clients
+ * @param {client-name} hardwareClient
+ */
+export function terminateHwCommunication (hardwareClient) {
   ws.send(JSON.stringify(
     { event: 'HARDWARE-TERMINATE', 'requested-client': hardwareClient }));
 }
@@ -25,7 +34,7 @@ export const state = writable({
   data: []
 });
 
-export const connect = () => {
+export const websocketConnect = () => {
   ws = new WebSocket('ws://192.168.1.117:8081/ws/stats');
   ws.addEventListener('open', () => {
     ws.send(JSON.stringify({ event: 'CONNECT', 'client-type': 'DASHBOARD' }));
@@ -38,7 +47,7 @@ export const connect = () => {
     if (data.event === 'CONNECT') {
       if (data['hardware-list']) {
         hardwareList = data['hardware-list'];
-      } else if (data['serive-list']) {
+      } else if (data['service-list']) {
         serviceList = data['service-list'];
       }
       if (data['client-type'] === 'HARDWARE') {
@@ -65,12 +74,12 @@ export const connect = () => {
     state.update((state) => ({
       ...state,
       data: [data],
-      hardwareList: ['hardwareList'],
+      hardwareList: [hardwareList],
       hardwareData: [hardwareData],
       serviceList: [serviceList]
     }));
   });
 };
 
-export const currentNav = writable('Home');
+export const currentNavStore = writable('Home');
 export const activeHardwareClient = writable('');

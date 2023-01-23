@@ -1,13 +1,13 @@
 <script>
-    let longitude = ""
-    let latitude = ""
-    let apiKey = ""
+    let longitude = "";
+    let latitude = "";
+    let apiKey = "";
     function saveApi() {
-        let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
+        let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
         window.localStorage.setItem("weatherAPI", JSON.stringify({'url': url}))
     }
 
-    $: url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
+    $: url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
 </script>
 
 
@@ -22,7 +22,6 @@
     <button class="save__btn" type="submit" value="weather__api" on:click={(e) => saveApi(e)}>Save</button>
 
 </div>
-
 
 
 <style>
@@ -83,7 +82,6 @@ input:focus {
                 linear-gradient(to right, rgba(50, 2, 94, 0.774), rgb(26, 28, 143)) border-box;
     border-radius: 2rem;
     border: 1px solid rgba(10, 6, 24, 0.021);
-
     opacity: .7;
     color: #525151;
     outline: none;

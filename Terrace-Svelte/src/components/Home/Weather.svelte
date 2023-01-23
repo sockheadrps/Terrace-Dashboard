@@ -3,7 +3,6 @@
     let lat = "39.983334"
     let long = "-82.983330"
     let weatherApiKey = "dbd30986d45f5c219692ea5d83e34a51"
-    // const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${weatherApiKey}`
     let weatherDescription
     let temp
     let feelsLike
@@ -22,26 +21,27 @@
 
         // For sunrise/sunset
     function epochToReadable(epoch) {
-    let date = new Date(epoch * 1000);
-    let minutes
-    // Handles for missing 0 in times like 5:06
-    if (date.getMinutes() < 10) {
-        minutes = "0" + date.getMinutes()
-    } else {
-        minutes = date.getMinutes()
-    }
-    // Converts from 24 hour time to 12 hour time
-    if (date.getHours() > 12) {
-        return (date.getHours() - 12) + ":" + minutes;
-    } else {
-        return date.getHours()+ ":" + minutes;
-    }
+        let date = new Date(epoch * 1000);
+        let minutes
+        // Handles for missing 0 in times like 5:06
+        if (date.getMinutes() < 10) {
+            minutes = "0" + date.getMinutes()
+        } else {
+            minutes = date.getMinutes()
+        }
+        // Converts from 24 hour time to 12 hour time
+        if (date.getHours() > 12) {
+            return (date.getHours() - 12) + ":" + minutes;
+        } else {
+            return date.getHours()+ ":" + minutes;
+        }
     }
 
     // For helping getting local time...
     const addZeroIfNeeded = (num) => {
         return (num < 10) ? '0' + num : num.toString();
     }
+
     let daysOfWeek = {
         1: "Monday",
         2: "Tuesday",
@@ -69,14 +69,15 @@
 
     let focusedNav
     const navStore = currentNav.subscribe(value =>{
-        focusedNav = value
-    })
-    // Interval Timer to request Stats
-    setInterval(requestTimer, 1000);
-    function requestTimer() {
-        if (focusedNav ==="Home"){
+        focusedNav = value;
+    });
 
-            let myDate = new Date()
+    // Interval Timer to request Stats
+    setInterval(updateTime, 1000);
+
+    function updateTime() {
+        if (focusedNav ==="Home") {
+            let myDate = new Date();
             let hours = addZeroIfNeeded(myDate.getHours());
             if (hours == 0) {
                 hours = 12
@@ -86,37 +87,38 @@
             }
             let mins = addZeroIfNeeded(myDate.getMinutes());
             let seconds = addZeroIfNeeded(myDate.getSeconds());
-            let day = myDate.getDay()
-            let dateDay = myDate.getUTCDate()
-            let month = myDate.getMonth()
-            document.getElementById("time").innerHTML = `${hours}:${mins}:${seconds}`
-            document.getElementById("date").innerHTML = `${daysOfWeek[day]}, ${months[month + 1]} ${dateDay} ${myDate.getFullYear()}`
+            let day = myDate.getDay();
+            let dateDay = myDate.getUTCDate();
+            let month = myDate.getMonth();
+            document.getElementById("time").innerHTML = `${hours}:${mins}:${seconds}`;
+            document.getElementById("date").innerHTML = `${daysOfWeek[day]}, ${months[month + 1]} ${dateDay} ${myDate.getFullYear()}`;
         }
     }
 
 
     function saveWeather(data) {
-        weatherDescription = data.weather[0].description
-        icon = data.weather[0].icon
-        iconUrl = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
-        temp = data.main.temp
-        feelsLike = data.main.feels_like
-        humidity = data.main.humidity
-        sunrise = data.sys.sunrise
-        sunset = data.sys.sunset
-        wind = data.wind.speed
-        timeZone = data.timezone
+        weatherDescription = data.weather[0].description;
+        icon = data.weather[0].icon;
+        iconUrl = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
+        temp = data.main.temp;
+        feelsLike = data.main.feels_like;
+        humidity = data.main.humidity;
+        sunrise = data.sys.sunrise;
+        sunset = data.sys.sunset;
+        wind = data.wind.speed;
+        timeZone = data.timezone;
 
-        document.getElementById("weather-icon").src = iconUrl
-        document.getElementById("temperature").innerHTML = kelvinToFaren(temp) + '&deg;F'
-        document.getElementById("feels-like").innerHTML = kelvinToFaren(feelsLike) + '&deg;F'
-        document.getElementById("humidity").innerHTML = humidity + "%"
-        document.getElementById("wind-speed").innerHTML = wind + "MPH"
-        document.getElementById("sunrise").innerHTML = epochToReadable(sunrise) + "AM"
-        document.getElementById("sunset").innerHTML = epochToReadable(sunset) + "PM"
+        document.getElementById("weather-icon").src = iconUrl;
+        document.getElementById("temperature").innerHTML = kelvinToFaren(temp) + '&deg;F';
+        document.getElementById("feels-like").innerHTML = kelvinToFaren(feelsLike) + '&deg;F';
+        document.getElementById("humidity").innerHTML = humidity + "%";
+        document.getElementById("wind-speed").innerHTML = wind + "MPH";
+        document.getElementById("sunrise").innerHTML = epochToReadable(sunrise) + "AM";
+        document.getElementById("sunset").innerHTML = epochToReadable(sunset) + "PM";
     }
+    // Fix this to use svelte window syntax
     if (document.readyState !== 'loading') {
-    initCode();
+        initCode();
     } else {
         document.addEventListener('DOMContentLoaded', function () {
             initCode();
@@ -125,14 +127,13 @@
 
     function initCode() {
         try {
-        let url = JSON.parse(window.localStorage.getItem("weatherAPI"))
-        fetch(url.url)
-        .then((response) => response.json())
-        .then((data) => saveWeather(data));
-        }
-        catch (error) {
-            console.log("No Weather API set")
-        }
+            let url = JSON.parse(window.localStorage.getItem("weatherAPI"));
+            fetch(url.url)
+                .then((response) => response.json())
+                .then((data) => saveWeather(data))
+            } catch (error) {
+                console.log("No Weather API set")
+            }
     }
 
 </script>
@@ -169,12 +170,12 @@
 
     </div>
     <div class="dt-wrapper">
-      <div class="date-time-area">
-        <div id="time"></div>
-        <div id="date"></div>
-      </div>
+        <div class="date-time-area">
+            <div id="time"></div>
+            <div id="date"></div>
+        </div>
     </div>
-    </div>
+</div>
 
 <style>
 
@@ -192,44 +193,39 @@
     width: auto;
     color: #808080;
     align-items: center;
-
 }
 
 .temperature-area {
-  display: flex;
-  flex-direction: column;
-  margin-right: 1rem;
-  justify-content: center;
-
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem;
+    justify-content: center;
 }
 
 .weather-card {
-  margin-left: 2rem;
-  display: flex;
-  justify-content: space-evenly;
-  justify-content: start;
-  width: 100%;
-  height: 100%;
-
+    margin-left: 2rem;
+    display: flex;
+    justify-content: space-evenly;
+    justify-content: start;
+    width: 100%;
+    height: 100%;
 }
 
 .icon-area{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
 }
 
 .secondary-info{
-  width: auto;
-  display: flex;
-  flex-flow: column;
-  margin-left: 2rem;
-  min-width: 150px;
-  margin: auto;
-
+    width: auto;
+    display: flex;
+    flex-flow: column;
+    margin-left: 2rem;
+    min-width: 150px;
+    margin: auto;
 }
 
 .title {
@@ -244,12 +240,6 @@
 .descriptor {
     display: flex;
     align-items: left;
-}
-
-#data {
-    text-align: center;
-    width: auto;
-    min-width: 80px;
 }
 
 .dt-wrapper {
