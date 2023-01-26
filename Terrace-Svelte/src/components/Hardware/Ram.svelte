@@ -1,15 +1,14 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
     import Chart from 'chart.js/auto';
-    let ram_data = []
     let ramUsageChartInstance
-    let max_data_points = 10;
+    let max_data_points = 25;
     let updateCount = 0;
     let ramChart
+    export let ram_data  
 
     $: {
-        ram_data;
-        updateData()
+        addData(ram_data)
     }
 
     let commonOptions = {
@@ -68,42 +67,23 @@
 
 
     function addData(data) {
-        if(data){
-            let today = new Date();
-            let time;
-            if (today.getMinutes < 10) {
-                time = today.getHours() + ":0" + today.getMinutes();
-            } else {
-                time = today.getHours() + ":" + today.getMinutes();
-            }
+        if(data && ramUsageChartInstance !== undefined){
+            let time = new Date().getHours() + ":" + String(new Date().getMinutes()).padStart(2, "0")
             
+            // Updates datepoints for the chart, up to the max datapoints limit
             if (ramUsageChartInstance.data.labels.length <= max_data_points) {
                 ramUsageChartInstance.data.labels.push(time);
                 ramUsageChartInstance.data.datasets.forEach((dataset) =>{dataset.data.push(data.ram_percentage)});
 
-
+            // Shifts the array if it has more values than desired to display
             } else if(ramUsageChartInstance.data.labels.length > max_data_points) {          
-            // For shifting the x axis markers
             ramUsageChartInstance.data.labels.shift();
             ramUsageChartInstance.data.datasets.forEach((dataset) =>{dataset.data.shift()});
             }
         updateCount++;
         ramUsageChartInstance.update();
         }
-    };
-
-  function updateData() {
-    try {
-        if (ram_data.ram_total !== undefined) {
-            ram__total.innerHTML = "Ram Total: " + ram_data.ram_total.toString() + "GB"
-            ram__available.innerHTML = "Ram available: " + ram_data.ram_available.toString() + "GB"
-            ram__used.innerHTML = "Ram Percentage Used: " + ram_data.ram_percentage.toString() + "%"
-            addData(ram_data)
-            }
-        } catch (error) {
-            console.log(error)
-        } 
-    }    
+    };  
     
     function resetRamData() {
         ram_data = [];
@@ -127,9 +107,9 @@
         <canvas id="ram__use__chart" bind:this={ramChart} />
     </div>
     <div class="sub__data">
-        <div class="data" id="ram__total" >{ram_data.ram_total}</div>
-        <div class="data" id="ram__available">{ram_data.ram_available}</div>
-        <div class="data" id="ram__used">{ram_data.ram_percentage}</div>
+        <div class="data">RAM total: {ram_data ? ram_data.ram_total : ""}GB</div>
+        <div class="data">RAM Available: {ram_data ? ram_data.ram_available : ""}GB</div>
+        <div class="data">RAM Percentage: {ram_data ? ram_data.ram_percentage : ""}%</div>
     </div>
 </div>
 

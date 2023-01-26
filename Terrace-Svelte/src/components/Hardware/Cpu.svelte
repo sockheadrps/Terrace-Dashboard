@@ -1,15 +1,14 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
     import Chart from 'chart.js/auto';
-    let cpu_data = []
     let cpuUsageChartInstance
-    let max_data_points = 10;
+    let max_data_points = 25;
     let updateCount = 0;
     let cpuChart
+    export let cpu_data  
 
     $: {
-        cpu_data;
-        updateData()
+        addData(cpu_data)
     }
 
     // Common Chart Options (Line)
@@ -69,24 +68,16 @@
 
 
     function addData(data) {
-        if(data){
-            let today = new Date();
-            let time
-            if (today.getMinutes < 10){
-                time = today.getHours() + ":0" + today.getMinutes();
-            }else{
-                time = today.getHours() + ":" + today.getMinutes();
-            }
+        if(data !== undefined && cpuUsageChartInstance !== undefined) {
+            let time = new Date().getHours() + ":" + String(new Date().getMinutes()).padStart(2, "0")
             
+            // Updates datepoints for the chart, up to the max datapoints limit
             if (cpuUsageChartInstance.data.labels.length <= max_data_points){
-                // CPU Usage
                 cpuUsageChartInstance.data.labels.push(time);
                 cpuUsageChartInstance.data.datasets.forEach((dataset) =>{dataset.data.push(data.cpu_usage)});
 
-
+            // Shifts the array if it has more values than desired to display
             } else if(cpuUsageChartInstance.data.labels.length > max_data_points){          
-            // For shifting the x axis markers
-            // CPU Usage
             cpuUsageChartInstance.data.labels.shift();
             cpuUsageChartInstance.data.datasets.forEach((dataset) =>{dataset.data.shift()});
             }
@@ -94,20 +85,6 @@
         cpuUsageChartInstance.update();
         }
     };
-
-  function updateData() {
-    console.log('updating in cpu')
-    try {
-        if (cpu_data.cpu_count !== undefined){
-            cpu__count.innerHTML = "Core count: " + cpu_data.cpu_count.toString()
-            cpu__usage.innerHTML = "CPU usage: " + cpu_data.cpu_usage.toString() + "%"
-            cpu__frequency.innerHTML = "CPU Frequency: " + cpu_data.cpu_frequency.toString() + " GHz"
-            addData(cpu_data)
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }    
     
     function resetCpuData() {
         cpu_data = []
@@ -130,9 +107,9 @@
         <canvas id="cpu__use__chart" bind:this={cpuChart} />
     </div>
     <div class="sub__data">
-        <div class="data" id="cpu__count" >{cpu_data.cpu_count}</div>
-        <div class="data" id="cpu__usage">{cpu_data.cpu_usage}</div>
-        <div class="data" id="cpu__frequency">{cpu_data.cpu_frequency}</div>
+        <div class="data">Core count: {cpu_data ? cpu_data.cpu_count : ""}</div>
+        <div class="data">CPU Usage: {cpu_data ? cpu_data.cpu_usage : ""}%</div>
+        <div class="data">CPU Frequency: {cpu_data ? cpu_data.cpu_frequency: ""}Ghz</div>
     </div>
 </div>
 

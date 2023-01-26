@@ -4,43 +4,41 @@
     import Settings from "../Settings/Settings.svelte";
     import Hardware from "../Hardware/Hardware.svelte";
     import NotesHome from "../Notes/NotesHome.svelte";
-    import { currentNav, wsSend, terminateHwCommunication, activeHardwareClient } from '../../stores.js'
-    export let navItems
-    export let activeNav = "Notes"
+    import { currentNavStore, wsSend, terminateHwCommunication, activeHardwareClient } from '../../stores.js'
 
 
     // If current view is a HW client and the view is changed, send a disconnect message to the active hw client
     const setView = (e) => {
-        if (activeNav === "Hardware"){
+        console.log($currentNavStore)
+        if ($currentNavStore === "Hardware"){
             terminateHwCommunication(activeHardwareClient)
         }
         // If view is switched to hardware, send a websocket message requesting the appropriate hw clients
         // data stream, and update the current nav
         if (e.srcElement.classList[0] == "Hardware"){
-            activeNav = "Hardware";
-            currentNav.update(value => activeNav)
-            activeHardwareClient.update(value => e.srcElement.innerText)
+            $currentNavStore = "Hardware";
+            $activeHardwareClient = e.srcElement.innerText
             wsSend({"event": "HARDWARE-REQUEST", "requested-client": e.srcElement.innerText})
 
         // Otherwise, update the current nav to reflect the target nav view
         } else {
-            activeNav = e.srcElement.innerText;
-            currentNav.update(value => activeNav)
+            $currentNavStore = e.srcElement.innerText;
         }
 	}
 </script>
 
     <div id="board">
-        <NavBar {navItems} on:click={setView}/>
-        {#if (activeNav == "Notes")}
-            <NotesHome />
-        {:else if activeNav == "Home"}
+        {#if $currentNavStore !== "Notes"}
+        <NavBar on:click={setView}/>
+        {/if}
+        {#if ($currentNavStore == "Notes")}
+            <NotesHome {$currentNavStore} on:click={setView} />
+        {:else if $currentNavStore == "Home"}
             <Home />
-        {:else if activeNav == "Settings"}
+        {:else if $currentNavStore == "Settings"}
             <Settings />
-        {:else if activeNav == "Hardware"}
+        {:else if $currentNavStore == "Hardware"}
             <Hardware />
-
         {/if}
     </div>
 

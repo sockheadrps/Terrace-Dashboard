@@ -15,4 +15,10 @@ env.bak/
 venv.bak/
 .idea/
 
+notes/
+server/templates/index.html
 static/weatherAPI-ignore.js
+
+.eslintrc.js
+
+.vscode/settings.json

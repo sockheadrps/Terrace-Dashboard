@@ -1,5 +1,5 @@
 <script>
-    import { currentNav } from "../../stores";
+    import { currentNavStore } from "../../stores";
     let lat = "39.983334"
     let long = "-82.983330"
     let weatherApiKey = "dbd30986d45f5c219692ea5d83e34a51"
@@ -19,7 +19,7 @@
     }
 
 
-        // For sunrise/sunset
+    // For sunrise/sunset
     function epochToReadable(epoch) {
         let date = new Date(epoch * 1000);
         let minutes
@@ -68,7 +68,7 @@
     }
 
     let focusedNav
-    const navStore = currentNav.subscribe(value =>{
+    const navStore = currentNavStore.subscribe(value =>{
         focusedNav = value;
     });
 

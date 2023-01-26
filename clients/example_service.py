@@ -2,6 +2,7 @@ import websockets
 from websockets.exceptions import ConnectionClosedError, ConnectionClosedOK
 import asyncio
 import json
+import argparse
 
 """
 This is a basic example client. Handle for server events in the match data['event'] event logic loop.
@@ -10,16 +11,15 @@ and will be refactored later to fix this requirement.) There is further work to 
 when this client closes, but it functions fully at the moment.
 """
 
-client_name = "Example-Service"
 client_type = "SERVICE"
 
 
-async def client():
+async def client(host, name):
     data = None
     try:
-        async with websockets.connect("ws://localhost:80/ws/stats") as websocket:
+        async with websockets.connect(f"ws://{host}:8081/ws/stats") as websocket:
             # Initial connection
-            connect_event = {"event": "CONNECT", "client-type": client_type, "client-name": client_name}
+            connect_event = {"event": "CONNECT", "client-type": client_type, "client-name": name}
             await websocket.send(json.dumps(connect_event))
             while True:
                 try:
@@ -29,7 +29,7 @@ async def client():
                         # SERVER EVENTS
                         match data['event']:
                             case "TEST-EVENT":
-                                connect_response = {"event": "TEST-EVENT", "client-name": client_name,
+                                connect_response = {"event": "TEST-EVENT", "client-name": name,
                                                     "event-response": "OK"}
                                 await websocket.send(json.dumps(connect_response))
                         data = None
@@ -42,10 +42,20 @@ async def client():
     finally:
         # Send disconnect message if service closes and there is a websocket connection
         try:
-            disconnect_event = {"event": "DISCONNECT", "client-type": client_type, "client-name": client_name}
+            disconnect_event = {"event": "DISCONNECT", "client-type": client_type, "client-name": name}
             await websocket.send(json.dumps(disconnect_event))
         except ConnectionClosedOK:
             print("Client successfully closed")
 
 
-asyncio.run(client())
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Hardware client for Terrace")
+    parser.add_argument('host', metavar="host", type=str, help="Enter the host URL")
+    parser.add_argument('name', metavar="name", type=str, help="Enter the name of this hardware client")
+    args = parser.parse_args()
+
+    host = args.host
+    name = args.name
+    print(host, name)
+    asyncio.run(client(host, name))
+

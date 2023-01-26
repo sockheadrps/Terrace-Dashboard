@@ -1,19 +1,19 @@
-import { writable } from "svelte/store";
+/* eslint-disable max-len */
+import { writable } from 'svelte/store';
 
 export const noteListStore = writable([
-    {
-        id: 1,
-        topic: "Science",
-        title: "Rockets",
-        body: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        timeStamp: Date()
-    },
-    {
-        id: 2,
-        topic: "Geography",
-        title: "Volcanos",
-        body: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        timeStamp: Date()
-    },
+  {
+    id: 1,
+    topic: 'Science',
+    title: 'Rockets',
+    body: 'Bacon ipsum dolor amet tenderloin pork belly capicola, fatback beef ribs ball tip turkey ground round corned beef sirloin venison. Beef shank buffalo pork pork loin ham tri-tip kevin bacon. Hamburger swine ham hock chuck short ribs jerky. Short loin jowl pancetta kielbasa beef beef ribs. Short ribs tongue tenderloin short loin swine venison filet mignon shank pork brisket corned beef pork belly doner. Bresaola strip steak pork chop, brisket tenderloin shoulder pastrami pork doner shankle spare ribs corned beef beef short loin.',
+    timeStamp: Date()
+  },
+  {
+    id: 2,
+    topic: 'Geography',
+    title: 'Volcanos',
+    body: 'Bacon ipsum dolor amet tenderloin pork belly capicola, fatback beef ribs ball tip turkey ground round corned beef sirloin venison. Beef shank buffalo pork pork loin ham tri-tip kevin bacon. Hamburger swine ham hock chuck short ribs jerky. Short loin jowl pancetta kielbasa beef beef ribs. Short ribs tongue tenderloin short loin swine venison filet mignon shank pork brisket corned beef pork belly doner. Bresaola strip steak pork chop, brisket tenderloin shoulder pastrami pork doner shankle spare ribs corned beef beef short loin.',
+    timeStamp: Date()
+  }
 ]);
-

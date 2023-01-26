@@ -1,15 +1,13 @@
 <div class="bCirContainer">
-    <div class="bigCir">
-</div>
+    <div class="bigCir"></div>
 </div> 
-
 <div class="center-1">
         <div class="small-1"></div>
 </div>
-
 <div class="center-2">
     <div class=" small-2"></div>
 </div>
+
 <style>
 
 :root {

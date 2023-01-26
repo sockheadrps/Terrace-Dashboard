@@ -2,7 +2,7 @@ import psutil
 from typing import Dict
 
 """
-These helper functions are not intended to be called in any other place other than the provided class. 
+These helper functions are not intended to be called in any other place other than the provided class.
 The functions themselves arent even really necessary, but I thought it looked cleaner to do the data conversion
 in some functions rather than inline in the class itself, and just decided to write functions for each
 class variable.

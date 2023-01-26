@@ -6,42 +6,41 @@
     let cpu_data
     let ram_data
     let disk_data
+    let hardwareData
 
 
     function update(data) {
-        for (const [key, value] of Object.entries(data)) {
-             data[key] = value;
-        }
-        if (data) {
+        if (data !== undefined) {
+            console.log(data)
             cpu_data = {"cpu_count": data.cpu_count, "cpu_usage": data.cpu_usage, "cpu_frequency": data.cpu_frequency.current_frequency};
             ram_data = {"ram_total": data.ram_total, "ram_available": data.ram_available, "ram_percentage": data.ram_percentage};
             disk_data = {"disk_total": data.disk_total, "disk_free": data.disk_free, "disk_used": data.disk_used, "disk_percentage": data.disk_percentage};
         }
     };
 
-    $: {
-        state.subscribe(value => {
-            try {
-                if (value['hardwareData']){
-                    update(value['hardwareData'][0])
-                }
-            } catch (error) {
-                console.log(error)
+    
+    state.subscribe(value => {
+        try {
+            if (value['hardwareData'][0] !== undefined) {
+                hardwareData = (value['hardwareData'][0])
+                update(hardwareData)
             }
-        });
-    }
-
+        } catch (error) {
+            console.log(error)
+        }
+    });
+    
 </script>
 
 <div class="chart__area">
     <div class="cpu__chart chart">
-        <Cpu cpu_data={cpu_data} />
+        <Cpu bind:cpu_data={cpu_data} />
     </div>
     <div class="ram__chart chart">
-        <Ram ram_data={ram_data} />
+        <Ram bind:ram_data={ram_data} />
     </div>
     <div class="disk__chart chart">
-        <Storage disk_data={disk_data} />
+        <Storage bind:disk_data={disk_data} />
     </div>
 </div>
 

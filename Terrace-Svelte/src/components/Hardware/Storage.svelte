@@ -1,15 +1,14 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
     import Chart from 'chart.js/auto';
-    let disk_data = []
+    export let disk_data
     let diskUsageChartInstance
     let max_data_points = 10;
     let updateCount = 0;
     let diskChart
 
     $: {
-        disk_data;
-        updateData()
+        addData(disk_data)
     }
 
     const config = {
@@ -42,15 +41,7 @@
 
 
     function addData(data) {
-        if(data){
-            let today = new Date();
-            let time;
-            if (today.getMinutes < 10){
-                time = today.getHours() + ":0" + today.getMinutes();
-            } else {
-                time = today.getHours() + ":" + today.getMinutes();
-            }
-            
+        if(data && diskUsageChartInstance !== undefined){            
             if (diskUsageChartInstance.data.labels.length <= max_data_points){
                 diskUsageChartInstance.data.datasets[0].data[0] = data.disk_used;
                 diskUsageChartInstance.data.datasets[0].data[1] = data.disk_free;
@@ -59,20 +50,6 @@
         diskUsageChartInstance.update();
         }
     };
-
-  function updateData() {
-    try {
-        if (disk_data.disk_total !== undefined) {
-            disk__total.innerHTML = "Disk Total: " + disk_data.disk_total.toString() + "GB";
-            disk__available.innerHTML = "Disk available: " + disk_data.disk_free.toString() + "GB";
-            disk__used.innerHTML = "Disk Used: " + disk_data.disk_used.toString() + " GB";
-            disk__percentage.innerHTML = "Disk Percentage Used: " + disk_data.disk_percentage.toString() + "%";
-            addData(disk_data)
-            }
-        } catch (error) {
-            console.log(error)
-        } 
-    }    
     
     function resetDiskData() {
         disk_data = [];
@@ -96,10 +73,10 @@
         <canvas id="disk__use__chart" bind:this={diskChart} />
     </div>
     <div class="sub__data">
-        <div class="data" id="disk__total" >{disk_data.disk_total}</div>
-        <div class="data" id="disk__available">{disk_data.disk_free}</div>
-        <div class="data" id="disk__used">{disk_data.disk_used}</div>
-        <div class="data" id="disk__percentage">{disk_data.disk_percentage}</div>
+        <div class="data" id="disk__total" >Disk Total: {disk_data ? disk_data.disk_total :""}GB</div>
+        <div class="data" id="disk__available">Disk Availble: {disk_data ? disk_data.disk_free : ""}GB</div>
+        <div class="data" id="disk__used">Disk Used: {disk_data ? disk_data.disk_used : ""}GB</div>
+        <div class="data" id="disk__percentage">Disk Percentage: {disk_data ? disk_data.disk_percentage : ""}%</div>
     </div>
 </div>
 

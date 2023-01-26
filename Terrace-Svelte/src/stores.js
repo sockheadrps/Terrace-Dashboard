@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 let hardwareList = [];
 let serviceList = [];
-let hardwareData = '';
+let hardwareData;
 let ws = '';
 
 /**
@@ -42,7 +42,7 @@ export const websocketConnect = () => {
 
   ws.addEventListener('message', (message) => {
     const data = JSON.parse(message.data);
-    console.log(JSON.stringify(data));
+    // console.log(JSON.stringify(data));
 
     if (data.event === 'CONNECT') {
       if (data['hardware-list']) {
@@ -81,5 +81,5 @@ export const websocketConnect = () => {
   });
 };
 
-export const currentNavStore = writable('Home');
+export const currentNavStore = writable('Notes');
 export const activeHardwareClient = writable('');

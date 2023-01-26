@@ -1,18 +1,15 @@
 <script>
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
-    export let navItems = ["Home", "Notes"];
+    let navItems = ["Home", "Notes"];
     import {state} from '../../stores.js'
     let hardware = [];
 
-    $: {
-        state.subscribe(value => {
-            if (value.hardwareList){ 
-                hardware = value.hardwareList[0] 
-            }
-        });
-    }
-
+    state.subscribe(value => {
+        if (value.hardwareList){ 
+            hardware = value.hardwareList[0] 
+        }
+    });
 </script>
 
 
