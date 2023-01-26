@@ -1,0 +1,152 @@
+<script>
+	import Markdown from 'svelte-exmarkdown';
+    import { notesStore, storeNote, currentIdStore, getNote} from "../../notesStore";
+    let edit = true
+    let editClass
+    let inputTimeout
+
+    console.log($notesStore)
+
+	let md = '';
+    let title = ""
+
+    // Timeout function to save the note after some period of time
+    function onInput(title, markdown, id) {
+        function saveNote() {
+            const notes = $notesStore
+            let note = storeNote(title, markdown, id)
+            notes.push(note)
+            $notesStore = notes
+        }
+        clearTimeout(inputTimeout);
+        inputTimeout = setTimeout(saveNote, 1500);
+    }
+
+    let currentNote;
+    $: {
+        // If no note is selected / the add button has be clicked
+        if ($currentIdStore === undefined) {
+            md = '';
+            title = ""
+        } else {
+        // If a note in the notebar as been selected, set the note view title and body
+            currentNote = getNote($currentIdStore);
+            md = currentNote.body
+            title = currentNote.title
+        }
+    }
+
+    // Any time edit changes, change the class to show/hide the markdown form
+    $: {
+        editClass = "edit__" + edit.toString()
+    }
+
+
+</script>
+
+<div class="main">
+    <div class="top__bar">
+        <div class="edit__area">
+            <button on:click={() => edit = !edit} >Edit</button>
+            <input class="{editClass}" type="text" bind:value="{title}">
+        </div>
+        <div class="title__area">
+            <div class="bar__title">{title}</div>
+        </div>
+    </div>
+    <div class="note__area">
+        <div class="input {editClass}">
+            {#if $currentIdStore !== undefined}
+                <textarea bind:value={md} on:input={() => onInput(title, md, $currentIdStore)} />
+                    <h1>{$currentIdStore}</h1>
+            {:else}
+                <textarea bind:value={md} on:input={() => onInput(title, md)} />
+                    <h1>{$currentIdStore}</h1>
+            {/if}
+        </div>
+        <div class="output {editClass}">
+            <Markdown {md} />
+        </div>
+    </div>
+</div>
+
+<style>
+
+    .main {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 10fr;
+        background: linear-gradient(to right bottom, rgba(10, 6, 24, 0.75), rgba(10, 6, 24, 0.69));
+        height: 100%;
+    }
+
+    .top__bar {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        grid-row: 1;
+        color: aliceblue;
+        align-items: center;
+    }
+
+    .edit__area{
+        grid-column: 1;
+        text-align: left;
+    }
+    
+    .title__area {
+        grid-column: 2;
+        text-align: center;
+    }
+
+    .bar__title {
+        
+    }
+
+    button{
+        width: 6rem;
+    }
+
+    input{
+
+    }
+
+    .note__area {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+    }
+    
+    .edit__false {
+        display: grid;
+    }
+
+    textarea{
+        width: 100%;
+        height: 100%;
+        background: rgba(67, 57, 179, 0.829);
+    }
+    
+    .input{
+        grid-column: 1;
+    }
+
+    .input.edit__false {
+        display: none;
+    }
+
+    input.edit__false {
+        display: none;
+    }
+
+    .output{
+        grid-column: 2;
+        color: red;
+        display: block;
+        word-break: break-all;
+        text-align: start;
+        padding-left: 2rem;
+    }
+
+    .output.edit__false{
+        grid-column: 1;
+    }
+</style>

@@ -9,7 +9,7 @@ let ws = '';
  * @param {jsonObject} event
  */
 export function wsSend (event) {
-  ws.send(JSON.stringify(event));
+    ws.send(JSON.stringify(event));
 }
 
 /**
@@ -17,8 +17,8 @@ export function wsSend (event) {
  * @param {client-name} hardwareClient
  */
 export function wsDisconnect () {
-  ws.send(JSON.stringify(
-    { event: 'DISCONNECT', 'client-type': 'DASHBOARD' }));
+    ws.send(JSON.stringify(
+        { event: 'DISCONNECT', 'client-type': 'DASHBOARD' }));
 }
 
 /**
@@ -26,59 +26,59 @@ export function wsDisconnect () {
  * @param {client-name} hardwareClient
  */
 export function terminateHwCommunication (hardwareClient) {
-  ws.send(JSON.stringify(
-    { event: 'HARDWARE-TERMINATE', 'requested-client': hardwareClient }));
+    ws.send(JSON.stringify(
+        { event: 'HARDWARE-TERMINATE', 'requested-client': hardwareClient }));
 }
 
 export const state = writable({
-  data: []
+    data: []
 });
 
 export const websocketConnect = () => {
-  ws = new WebSocket('ws://192.168.1.117:8081/ws/stats');
-  ws.addEventListener('open', () => {
-    ws.send(JSON.stringify({ event: 'CONNECT', 'client-type': 'DASHBOARD' }));
-  });
+    ws = new WebSocket('ws://192.168.1.117:8081/ws/stats');
+    ws.addEventListener('open', () => {
+        ws.send(JSON.stringify({ event: 'CONNECT', 'client-type': 'DASHBOARD' }));
+    });
 
-  ws.addEventListener('message', (message) => {
-    const data = JSON.parse(message.data);
-    // console.log(JSON.stringify(data));
+    ws.addEventListener('message', (message) => {
+        const data = JSON.parse(message.data);
+        // console.log(JSON.stringify(data));
 
-    if (data.event === 'CONNECT') {
-      if (data['hardware-list']) {
-        hardwareList = data['hardware-list'];
-      } else if (data['service-list']) {
-        serviceList = data['service-list'];
-      }
-      if (data['client-type'] === 'HARDWARE') {
-        hardwareList.push(data['client-name']);
-      } else if (data['client-type'] === 'SERVICE') {
-        serviceList.push(data['client-name']);
-      }
-    }
-    if (data.event === 'DISCONNECT') {
-      if (data['client-type'] === 'HARDWARE') {
-        hardwareList = hardwareList.filter(
-          function (e) { return e !== data['client-name']; }
-        );
-      } else if (data['client-type'] === 'SERVICE') {
-        serviceList = serviceList.filter(
-          function (e) { return e !== data['client-name']; }
-        );
-      }
-    }
+        if (data.event === 'CONNECT') {
+            if (data['hardware-list']) {
+                hardwareList = data['hardware-list'];
+            } else if (data['service-list']) {
+                serviceList = data['service-list'];
+            }
+            if (data['client-type'] === 'HARDWARE') {
+                hardwareList.push(data['client-name']);
+            } else if (data['client-type'] === 'SERVICE') {
+                serviceList.push(data['client-name']);
+            }
+        }
+        if (data.event === 'DISCONNECT') {
+            if (data['client-type'] === 'HARDWARE') {
+                hardwareList = hardwareList.filter(
+                    function (e) { return e !== data['client-name']; }
+                );
+            } else if (data['client-type'] === 'SERVICE') {
+                serviceList = serviceList.filter(
+                    function (e) { return e !== data['client-name']; }
+                );
+            }
+        }
 
-    if (data.event === 'HARDWARE-DATA') {
-      hardwareData = data.data;
-    }
-    state.update((state) => ({
-      ...state,
-      data: [data],
-      hardwareList: [hardwareList],
-      hardwareData: [hardwareData],
-      serviceList: [serviceList]
-    }));
-  });
+        if (data.event === 'HARDWARE-DATA') {
+            hardwareData = data.data;
+        }
+        state.update((state) => ({
+            ...state,
+            data: [data],
+            hardwareList: [hardwareList],
+            hardwareData: [hardwareData],
+            serviceList: [serviceList]
+        }));
+    });
 };
 
 export const currentNavStore = writable('Notes');

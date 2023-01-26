@@ -7,10 +7,9 @@
     import { currentNavStore, wsSend, terminateHwCommunication, activeHardwareClient } from '../../stores.js'
 
 
-    // If current view is a HW client and the view is changed, send a disconnect message to the active hw client
     const setView = (e) => {
-        console.log($currentNavStore)
         if ($currentNavStore === "Hardware"){
+            // If current view is a HW client and the view is changed, send a disconnect message to the active hw client
             terminateHwCommunication(activeHardwareClient)
         }
         // If view is switched to hardware, send a websocket message requesting the appropriate hw clients

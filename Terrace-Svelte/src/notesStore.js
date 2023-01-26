@@ -1,19 +1,44 @@
 /* eslint-disable max-len */
 import { writable } from 'svelte/store';
+const notes = [];
 
-export const noteListStore = writable([
-  {
-    id: 1,
-    topic: 'Science',
-    title: 'Rockets',
-    body: 'Bacon ipsum dolor amet tenderloin pork belly capicola, fatback beef ribs ball tip turkey ground round corned beef sirloin venison. Beef shank buffalo pork pork loin ham tri-tip kevin bacon. Hamburger swine ham hock chuck short ribs jerky. Short loin jowl pancetta kielbasa beef beef ribs. Short ribs tongue tenderloin short loin swine venison filet mignon shank pork brisket corned beef pork belly doner. Bresaola strip steak pork chop, brisket tenderloin shoulder pastrami pork doner shankle spare ribs corned beef beef short loin.',
-    timeStamp: Date()
-  },
-  {
-    id: 2,
-    topic: 'Geography',
-    title: 'Volcanos',
-    body: 'Bacon ipsum dolor amet tenderloin pork belly capicola, fatback beef ribs ball tip turkey ground round corned beef sirloin venison. Beef shank buffalo pork pork loin ham tri-tip kevin bacon. Hamburger swine ham hock chuck short ribs jerky. Short loin jowl pancetta kielbasa beef beef ribs. Short ribs tongue tenderloin short loin swine venison filet mignon shank pork brisket corned beef pork belly doner. Bresaola strip steak pork chop, brisket tenderloin shoulder pastrami pork doner shankle spare ribs corned beef beef short loin.',
-    timeStamp: Date()
-  }
-]);
+Object.keys(localStorage).forEach((element) => {
+    if (parseInt(element)) {
+        notes.push(JSON.parse(localStorage.getItem(String(element))));
+    }
+});
+export const notesStore = writable(notes);
+
+// eslint-disable-next-line require-jsdoc
+export function storeNote (title, markdown, id) {
+    console.log('id ' + id);
+    let note = JSON.parse(localStorage.getItem(String(id)));
+    console.log(note);
+    // If note exists, update note data
+    if (note !== null) {
+        note.body = markdown;
+        note.timeStamp = new Date().toISOString();
+    // Otherwise add new note
+    } else {
+        note = {
+            id: Date.now(),
+            title,
+            body: markdown,
+            timeStamp: new Date().toISOString()
+        };
+    }
+    // Save to local storage
+    console.log(note)
+    localStorage.setItem(note.id, JSON.stringify(note));
+    return note;
+}
+
+// eslint-disable-next-line require-jsdoc
+export function getNote (id) {
+    const note = JSON.parse(localStorage.getItem(String(id)));
+    console.log('getNote')
+    console.log(note)
+    return note;
+}
+
+export const currentIdStore = writable();
