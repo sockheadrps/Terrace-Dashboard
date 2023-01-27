@@ -6,7 +6,6 @@
     import NotesHome from "../Notes/NotesHome.svelte";
     import { currentNavStore, wsSend, terminateHwCommunication, activeHardwareClient } from '../../stores.js'
 
-
     const setView = (e) => {
         if ($currentNavStore === "Hardware"){
             // If current view is a HW client and the view is changed, send a disconnect message to the active hw client
@@ -28,10 +27,10 @@
 
     <div id="board">
         {#if $currentNavStore !== "Notes"}
-        <NavBar on:click={setView}/>
+            <NavBar on:click={setView}/>
         {/if}
-        {#if ($currentNavStore == "Notes")}
-            <NotesHome {$currentNavStore} on:click={setView} />
+        {#if $currentNavStore == "Notes"}
+            <NotesHome />
         {:else if $currentNavStore == "Home"}
             <Home />
         {:else if $currentNavStore == "Settings"}
@@ -51,8 +50,8 @@
     min-width: 1100px;
     background: linear-gradient(
         to left top,
-         rgba(194, 194, 194, 0.068), 
-         rgba(9, 11, 61, 0.486)
+         rgba(36, 36, 36, 0.822), 
+         rgba(20, 20, 20, 0.863)
          );
     
     z-index: 4;
