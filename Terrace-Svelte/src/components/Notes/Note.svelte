@@ -16,16 +16,17 @@
     let title = '';
 
     // Timeout function to save the note after some period of time
-    function onInput(title, markdown, id) {
+    function onInput(title, markdown) {
         function saveNote() {
-            let note = storeNote(title, markdown, id);
+            let note = storeNote(title, markdown, $currentIdStore);
 
-            if(id === undefined)
+            if($currentIdStore === undefined)
                 $currentIdStore = note.id;
             
             $notesStore[note.id] = note;
             $notesStore = $notesStore; // ensure update
         }
+        console.log(markdown)
         clearTimeout(inputTimeout);
         inputTimeout = setTimeout(saveNote, 1500);
     }
@@ -42,13 +43,15 @@
             md = currentNote.body;
         }
     }
+
+    $: if(title || md) onInput(title, md);
 </script>
 
 <div class="main">
     <div class="top__bar">
         <div class="edit__area">
             <button on:click={() => edit = !edit} >Edit</button>
-            <input class="edit__{edit}" type="text" bind:value="{title}" on:input={() => onInput(title, md, $currentIdStore)} />
+            <input class="edit__{edit}" type="text" bind:value="{title}" />
         </div>
         <div class="title__area">
             <div class="bar__title">{title}</div>
@@ -60,7 +63,6 @@
                 bind:value={md}
                 lang={markdown()}
                 theme={oneDark}
-                on:input={() => onInput(title, md, $currentIdStore)}
                 styles={{
                     "&": {
                         position: "relative",
