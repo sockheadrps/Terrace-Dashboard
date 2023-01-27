@@ -2,15 +2,15 @@
     import { state } from "../../stores";
     let services = [];
 
-    $: state.subscribe(value => {
+    $: {
         try {
-            if (value['serviceList']){
-                services = value['serviceList'];
+            if ($state['serviceList']){
+                services = $state['serviceList'];
             }
         } catch (error) {
             console.log(error)
         }
-    });
+    }   
 </script>
 
 <div class="service-area">
@@ -20,10 +20,15 @@
 </div>
 
 <style>
+
 .service-area {
     display: flex;
     align-items: center;
-    background: linear-gradient(to right bottom, rgba(10, 6, 24, 0.75), rgba(10, 6, 24, 0.69));
+    background: linear-gradient(
+        to left top,
+         rgba(24, 24, 24, 0.822), 
+         rgba(15, 15, 15, 0.863)
+         );
     border-radius: 2rem;
     justify-content: center;
     min-height: 5rem;
@@ -51,11 +56,12 @@
 }
 
 .service:hover {
-  background: linear-gradient(rgba(10, 6, 24, 0.904),rgba(10, 6, 24, 0.877)) padding-box,
-              linear-gradient(to right, rgba(50, 2, 94, 0.774), rgb(26, 28, 143)) border-box;
-  border-radius: 2rem;
-  border: 1px solid transparent;
-  opacity: .7;
+    background: linear-gradient(rgb(15, 15, 15),rgb(39, 39, 39)) padding-box,
+                linear-gradient(to right, rgba(84, 69, 99, 0.034), rgba(101, 101, 143, 0)) border-box;
+    border-radius: 2rem;
+    border: 1px solid transparent;
+    opacity: .7;
     color: #525151;
 }
+
 </style>
