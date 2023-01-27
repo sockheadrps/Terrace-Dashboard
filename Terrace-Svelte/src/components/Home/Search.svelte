@@ -14,7 +14,11 @@
     grid-template-columns: 1fr;
     margin-left: 2rem;
     margin-right: 2rem;
-    background: linear-gradient(to right bottom, rgba(10, 6, 24, 0.75), rgba(10, 6, 24, 0.69));
+    background: linear-gradient(
+        to left top,
+         rgba(24, 24, 24, 0.822), 
+         rgba(15, 15, 15, 0.863)
+         );
     border-radius: 1.2em;
     padding: .5rem;
     padding-left: 1rem;

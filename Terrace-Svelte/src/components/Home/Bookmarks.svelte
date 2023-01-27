@@ -44,7 +44,11 @@
 .bookmark-area {
     display: grid;
     grid-template-columns: 1fr;
-    background: linear-gradient(to right bottom, rgba(10, 6, 24, 0.75), rgba(10, 6, 24, 0.69));
+    background: linear-gradient(
+        to left top,
+         rgba(24, 24, 24, 0.822), 
+         rgba(15, 15, 15, 0.863)
+         );
     border-radius: 2rem;
     margin-left: 2rem;
     margin-right: 2rem;
@@ -86,8 +90,8 @@
 }
 
 .bookmark:hover {
-    background: linear-gradient(rgba(10, 6, 24, 0.904),rgba(10, 6, 24, 0.877)) padding-box,
-                linear-gradient(to right, rgba(50, 2, 94, 0.774), rgb(26, 28, 143)) border-box;
+    background: linear-gradient(rgb(0, 0, 0),rgb(15, 15, 15)) padding-box,
+                linear-gradient(to right, rgba(84, 69, 99, 0.034), rgba(101, 101, 143, 0)) border-box;
     border-radius: 2rem;
     border: 1px solid transparent;
     opacity: .7;
@@ -118,7 +122,7 @@
 }
 
 .bookmarks::-webkit-scrollbar-thumb {
-    background: rgb(24, 27, 90);
+    background: rgb(44, 44, 44);
     border-radius: 10px;
     border: 5px solid #0000;
     background-clip: padding-box;

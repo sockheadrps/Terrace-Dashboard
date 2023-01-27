@@ -58,7 +58,8 @@
 .chart {
     margin-left: 1rem;
     margin-right: 1rem;
-    background: linear-gradient(to right bottom, rgba(31, 22, 82, 0.411), rgba(9, 6, 24, 0.384));
+    background: rgba(12, 12, 12, 0.918);
+
     height: 100%;
     border-radius: 2rem;
 }
