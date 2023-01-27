@@ -48,7 +48,7 @@
     <div class="top__bar">
         <div class="edit__area">
             <button on:click={() => edit = !edit} >Edit</button>
-            <input class="edit__{edit}" type="text" bind:value="{title}" on:input={() => onInput(title, md,$currentIdStore)} />
+            <input class="edit__{edit}" type="text" bind:value="{title}" on:input={() => onInput(title, md, $currentIdStore)} />
         </div>
         <div class="title__area">
             <div class="bar__title">{title}</div>
