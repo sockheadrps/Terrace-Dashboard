@@ -2,28 +2,24 @@
     import { state } from "../../stores";
     let services = [];
 
-    $: {
-        state.subscribe(value => {
-            try {
-                if (value['serviceList']){
-                    services = value['serviceList'];
-                }
-            } catch (error) {
-                console.log(error)
+    $: state.subscribe(value => {
+        try {
+            if (value['serviceList']){
+                services = value['serviceList'];
             }
-        });
-    }
-
+        } catch (error) {
+            console.log(error)
+        }
+    });
 </script>
 
 <div class="service-area">
     {#each services as service}
-        <div class=service>{service}</div>
+        <div class={service}>{service}</div>
     {/each}
 </div>
 
 <style>
-
 .service-area {
     display: flex;
     align-items: center;
@@ -62,5 +58,4 @@
   opacity: .7;
     color: #525151;
 }
-
 </style>

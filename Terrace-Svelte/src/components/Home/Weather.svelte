@@ -1,100 +1,28 @@
 <script>
-    import { currentNavStore } from "../../stores";
-    let lat = "39.983334"
-    let long = "-82.983330"
-    let weatherApiKey = "dbd30986d45f5c219692ea5d83e34a51"
-    let weatherDescription
-    let temp
-    let feelsLike
-    let humidity
-    let sunrise
-    let sunset
-    let wind
-    let timeZone
-    let iconUrl
-    let icon
-    // Kelvin to F
-    function kelvinToFaren(k) {
-        return Math.round(1.8*(k-273) + 32);
-    }
+    // import { currentNav } from "../../stores";
+    let lat = "39.983334",
+        long = "-82.983330",
+        weatherApiKey = "dbd30986d45f5c219692ea5d83e34a51",
+        weatherDescription, temp, feelsLike, humidity, sunrise, sunset, wind, timeZone, iconUrl, icon, formattedTime = "", formattedDate = "", focusedNav,
+        elmWeatherIcon, elmWeatherIconSrc, 
+        elmTemperature = "73°F", 
+        elmFeelsLike = "60", 
+        elmHumidity = "50%", 
+        elmWindSpeed = "12 mph", 
+        elmSunrise = "7:00", 
+        elmSunset = "9:00";
 
+    // const navStore = currentNav.subscribe(value =>{
+    //     focusedNav = value;
+    // });
 
-    // For sunrise/sunset
-    function epochToReadable(epoch) {
-        let date = new Date(epoch * 1000);
-        let minutes
-        // Handles for missing 0 in times like 5:06
-        if (date.getMinutes() < 10) {
-            minutes = "0" + date.getMinutes()
-        } else {
-            minutes = date.getMinutes()
-        }
-        // Converts from 24 hour time to 12 hour time
-        if (date.getHours() > 12) {
-            return (date.getHours() - 12) + ":" + minutes;
-        } else {
-            return date.getHours()+ ":" + minutes;
-        }
-    }
-
-    // For helping getting local time...
-    const addZeroIfNeeded = (num) => {
-        return (num < 10) ? '0' + num : num.toString();
-    }
-
-    let daysOfWeek = {
-        1: "Monday",
-        2: "Tuesday",
-        3: "Wednesday",
-        4: "Thursday",
-        5: "Friday",
-        6: "Saturday",
-        0: "Sunday"
-    }
-
-    let months = {
-        1: "January",
-        2: "February",
-        3: "March",
-        4: "April",
-        5: "May",
-        6: "June",
-        7: "July",
-        8: "August",
-        9: "September",
-        10: "October",
-        11: "November",
-        12: "December"
-    }
-
-    let focusedNav
-    const navStore = currentNavStore.subscribe(value =>{
-        focusedNav = value;
-    });
-
-    // Interval Timer to request Stats
-    setInterval(updateTime, 1000);
-
-    function updateTime() {
-        if (focusedNav ==="Home") {
-            let myDate = new Date();
-            let hours = addZeroIfNeeded(myDate.getHours());
-            if (hours == 0) {
-                hours = 12
-            }
-            if (hours > 12) {
-                hours = hours - 12
-            }
-            let mins = addZeroIfNeeded(myDate.getMinutes());
-            let seconds = addZeroIfNeeded(myDate.getSeconds());
-            let day = myDate.getDay();
-            let dateDay = myDate.getUTCDate();
-            let month = myDate.getMonth();
-            document.getElementById("time").innerHTML = `${hours}:${mins}:${seconds}`;
-            document.getElementById("date").innerHTML = `${daysOfWeek[day]}, ${months[month + 1]} ${dateDay} ${myDate.getFullYear()}`;
-        }
-    }
-
+    setInterval(() => {
+        // if (focusedNav == "Home") {
+        let myDate = new Date();
+        formattedTime = `${myDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }).replace(/AM|PM/g, "").trim()}`;
+        formattedDate = `${myDate.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`;
+        // }
+    }, 1000);
 
     function saveWeather(data) {
         weatherDescription = data.weather[0].description;
@@ -107,22 +35,15 @@
         sunset = data.sys.sunset;
         wind = data.wind.speed;
         timeZone = data.timezone;
-
-        document.getElementById("weather-icon").src = iconUrl;
-        document.getElementById("temperature").innerHTML = kelvinToFaren(temp) + '&deg;F';
-        document.getElementById("feels-like").innerHTML = kelvinToFaren(feelsLike) + '&deg;F';
-        document.getElementById("humidity").innerHTML = humidity + "%";
-        document.getElementById("wind-speed").innerHTML = wind + "MPH";
-        document.getElementById("sunrise").innerHTML = epochToReadable(sunrise) + "AM";
-        document.getElementById("sunset").innerHTML = epochToReadable(sunset) + "PM";
-    }
-    // Fix this to use svelte window syntax
-    if (document.readyState !== 'loading') {
-        initCode();
-    } else {
-        document.addEventListener('DOMContentLoaded', function () {
-            initCode();
-        });
+//Math.round(1.8 * (k - 273) + 32)
+        elmWeatherIcon = icon;
+        elmWeatherIconSrc = iconUrl;
+        elmTemperature = Math.round(1.8 * (temp - 273) + 32) + '&deg;F';
+        elmFeelsLike = Math.round(1.8 * (feelsLike - 273) + 32) + '&deg;F';
+        elmHumidity = humidity + "%";
+        elmWindSpeed = wind + "MPH";
+        elmSunrise = new Date(sunrise * 1000).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+        elmSunset = new Date(sunset * 1000).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
     }
 
     function initCode() {
@@ -138,41 +59,43 @@
 
 </script>
 
+<svelte:window on:load={initCode} />
+
 <div class="weather-area">
     <div class="weather-card">
         <div class="temperature-area">
-            <h1 id="temperature">73°F</h1>
+            <h1 id="temperature">{elmTemperature}</h1>
             <h4>feels like</h4>
-            <h2 id="feels-like">60</h2>
+            <h2 id="feels-like">{elmFeelsLike}</h2>
             <div>Cloudy</div>
         </div>
         <div class="icon-area">
-            <img id="weather-icon" alt="">
+            <img id="weather-icon" alt={elmWeatherIcon} src={elmWeatherIconSrc}>
         </div>
         <div class="secondary-info">
             <div class="descriptor">
                 <div class="title">Humidity</div> 
-                <div id="humidity">50%</div>
+                <div id="humidity">{elmHumidity}</div>
             </div>
             <div class="descriptor">
                 <div class="title">Wind Speed</div>
-                <div id="wind-speed">12 mph</div>
+                <div id="wind-speed">{elmWindSpeed}</div>
             </div>
             <div class="descriptor">
                 <div class="title">Sunrise</div>
-                <div id="sunrise"> 7:00</div>
+                <div id="sunrise">{elmSunrise}</div>
             </div>
             <div class="descriptor ">
                 <div class="title">Sunset</div>
-                <div id="sunset">9:00</div>
+                <div id="sunset">{elmSunset}</div>
             </div>
       </div>
 
     </div>
     <div class="dt-wrapper">
         <div class="date-time-area">
-            <div id="time"></div>
-            <div id="date"></div>
+            <div id="time">{formattedTime}</div>
+            <div id="date">{formattedDate}</div>
         </div>
     </div>
 </div>
