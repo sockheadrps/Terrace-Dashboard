@@ -43,7 +43,11 @@
     grid-template-columns: 100%;
     grid-template-rows: 1fr 3fr 8fr 1fr;
     grid-gap: 0px;
-    background: linear-gradient(to right bottom, rgba(69, 71, 141, 0.212), rgba(53, 56, 128, 0.1));
+    background: linear-gradient(
+        to left top,
+         rgba(27, 27, 27, 0.911), 
+         rgba(20, 20, 20, 0.904)
+         );
     border-radius: 2rem 0rem 0rem 2rem;
 }
 
@@ -63,12 +67,14 @@
     color: #808080;
     font-size: 18px;
     cursor: pointer;
-    background: rgba(16, 12, 49, 0.733);
-    transition: all .2s ease-out;
+    background: rgba(12, 12, 12, 0.918);
 }
 
 .nav__item:hover { 
-    background: rgba(12, 7, 31, 0.781);
+    background: linear-gradient(rgb(0, 0, 0),rgb(15, 15, 15)) padding-box,
+                linear-gradient(to right, rgba(84, 69, 99, 0.034), rgba(101, 101, 143, 0)) border-box;
+    border: 1px solid transparent;
+    
 }
 
 
