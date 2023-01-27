@@ -42,17 +42,18 @@ export const websocketConnect = () => {
 
     ws.addEventListener('message', (message) => {
         const data = JSON.parse(message.data);
-        // console.log(JSON.stringify(data));
 
         if (data.event === 'CONNECT') {
             if (data['hardware-list']) {
                 hardwareList = data['hardware-list'];
-            } else if (data['service-list']) {
+            }
+            if (data['service-list']) {
                 serviceList = data['service-list'];
             }
             if (data['client-type'] === 'HARDWARE') {
                 hardwareList.push(data['client-name']);
-            } else if (data['client-type'] === 'SERVICE') {
+            }
+            if (data['client-type'] === 'SERVICE') {
                 serviceList.push(data['client-name']);
             }
         }
@@ -76,10 +77,10 @@ export const websocketConnect = () => {
             data: [data],
             hardwareList: [hardwareList],
             hardwareData: [hardwareData],
-            serviceList: [serviceList]
+            serviceList: [serviceList][0]
         }));
     });
 };
 
-export const currentNavStore = writable('Notes');
+export const currentNavStore = writable('Home');
 export const activeHardwareClient = writable('');
