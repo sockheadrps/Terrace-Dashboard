@@ -65,7 +65,6 @@
                 theme={oneDark}
                 styles={{
                     "&": {
-                        position: "relative",
                         textAlign: "left",
                         width: "100%",
                         height: "100%"
