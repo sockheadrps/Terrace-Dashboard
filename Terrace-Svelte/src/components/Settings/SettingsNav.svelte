@@ -23,7 +23,6 @@
     min-width: 100px;
     grid-template-columns: 100%;
     grid-gap: 0px;
-    background: linear-gradient(to right bottom, rgba(69, 71, 141, 0.212), rgba(53, 56, 128, 0.1));
     border-radius: 2rem 2rem 0rem 0rem;
 }
 
@@ -45,7 +44,7 @@
     color: #808080;
     font-size: 18px;
     cursor: pointer;
-    background: rgba(24, 13, 70, 0.719);
+    background: rgba(12, 12, 12, 0.918);
     transition: all .2s ease-out;
     padding: 1rem;
     border-radius: 0rem 0rem 1rem 1rem;
@@ -53,7 +52,7 @@
 
 
 .nav__item:hover { 
-    background: rgba(41, 49, 158, 0.308);
+    background: rgba(0, 0, 0, 0.959);
   }
 
 </style>

@@ -44,21 +44,20 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     border: 1px solid rgba(10, 6, 24, 0.021);
-    background: rgb(24, 13, 70);    
+    background:rgba(125, 125, 129, 0.1);  
     cursor: pointer;
-    transition: all .2s ease-out;
+    transition: all .01s ease-out;
     font-size: larger;
     color: rgb(136, 136, 136);
 }
 
 .save__btn:hover {
-    background: linear-gradient(rgba(10, 6, 24, 0.904),rgba(10, 6, 24, 0.877)) padding-box,
-                linear-gradient(to right, rgba(50, 2, 94, 0.774), rgb(26, 28, 143)) border-box;
+    background: linear-gradient(rgb(37, 37, 37),rgb(51, 51, 51)) padding-box,
+                linear-gradient(to right, rgba(61, 61, 61, 0.11), rgba(129, 129, 129, 0)) border-box;
                 border-radius: .5rem;
 
     border: 1px solid transparent;
-    opacity: .99;
-    color: #525151;
+    color: #000000;
 }
 
 label{
@@ -77,13 +76,23 @@ input {
     background:rgba(64, 64, 73, 0.1);
 }
 
+input:hover {
+    background: linear-gradient(rgb(37, 37, 37),rgb(51, 51, 51)) padding-box,
+                linear-gradient(to right, rgba(61, 61, 61, 0.11), rgba(129, 129, 129, 0)) border-box;
+                border-radius: .5rem;
+
+    border: 1px solid transparent;
+    color: #161616;
+}
 input:focus {
-    background: linear-gradient(rgba(55, 43, 100, 0.904),rgba(45, 26, 112, 0.877)) padding-box,
-                linear-gradient(to right, rgba(50, 2, 94, 0.774), rgb(26, 28, 143)) border-box;
+    background: linear-gradient(rgb(43, 43, 43),rgb(66, 66, 66)) padding-box,
+                linear-gradient(to right, rgba(61, 61, 61, 0.11), rgba(129, 129, 129, 0)) border-box;
+                border-radius: .5rem;
+
     border-radius: 2rem;
     border: 1px solid rgba(10, 6, 24, 0.021);
     opacity: .7;
-    color: #525151;
+    color: #bebebe;
     outline: none;
 }
 </style>
