@@ -1,5 +1,5 @@
 <script>
-    // import { currentNav } from "../../stores";
+    import { currentNavStore } from "../../stores";
     let lat = "39.983334",
         long = "-82.983330",
         weatherApiKey = "dbd30986d45f5c219692ea5d83e34a51",
@@ -12,16 +12,28 @@
         elmSunrise = "7:00", 
         elmSunset = "9:00";
 
-    // const navStore = currentNav.subscribe(value =>{
-    //     focusedNav = value;
-    // });
+
+    function weatherApiCall() {
+        let url = JSON.parse(window.localStorage.getItem("weatherAPI"));
+        fetch(url.url)
+                .then((response) => response.json())
+                .then((data) => saveWeather(data))
+    }
 
     setInterval(() => {
-        // if (focusedNav == "Home") {
-        let myDate = new Date();
-        formattedTime = `${myDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }).replace(/AM|PM/g, "").trim()}`;
-        formattedDate = `${myDate.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`;
-        // }
+        try {
+            weatherApiCall()
+            } catch (error) {
+                console.log("No Weather API set")
+            }
+    }, 5000)
+
+    setInterval(() => {
+        if ($currentNavStore == "Home") {
+            let myDate = new Date();
+            formattedTime = `${myDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }).replace(/AM|PM/g, "").trim()}`;
+            formattedDate = `${myDate.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`;
+        }
     }, 1000);
 
     function saveWeather(data) {
@@ -35,11 +47,11 @@
         sunset = data.sys.sunset;
         wind = data.wind.speed;
         timeZone = data.timezone;
-//Math.round(1.8 * (k - 273) + 32)
+        //Math.round(1.8 * (k - 273) + 32)
         elmWeatherIcon = icon;
         elmWeatherIconSrc = iconUrl;
-        elmTemperature = Math.round(1.8 * (temp - 273) + 32) + '&deg;F';
-        elmFeelsLike = Math.round(1.8 * (feelsLike - 273) + 32) + '&deg;F';
+        elmTemperature = Math.round(1.8 * (temp - 273) + 32) + ' \u2109';
+        elmFeelsLike = Math.round(1.8 * (feelsLike - 273) + 32) + ' \u2109';
         elmHumidity = humidity + "%";
         elmWindSpeed = wind + "MPH";
         elmSunrise = new Date(sunrise * 1000).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
@@ -48,10 +60,7 @@
 
     function initCode() {
         try {
-            let url = JSON.parse(window.localStorage.getItem("weatherAPI"));
-            fetch(url.url)
-                .then((response) => response.json())
-                .then((data) => saveWeather(data))
+            weatherApiCall()
             } catch (error) {
                 console.log("No Weather API set")
             }
@@ -59,7 +68,7 @@
 
 </script>
 
-<svelte:window on:load={initCode} />
+<svelte:window on:load={initCode()} />
 
 <div class="weather-area">
     <div class="weather-card">
@@ -101,14 +110,17 @@
 </div>
 
 <style>
-
 .weather-area {
     user-select: none;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
-    background: linear-gradient(to right bottom, rgba(10, 6, 24, 0.75), rgba(10, 6, 24, 0.69));
+    background: linear-gradient(
+        to left top,
+         rgba(24, 24, 24, 0.822), 
+         rgba(15, 15, 15, 0.863)
+         );
     border-radius: 2rem;
     margin: 0rem 2rem;
     padding: 2rem;
@@ -190,6 +202,14 @@
 
 #date {
     font-size: 25px;    
+}
+
+h1{
+    white-space: nowrap;
+}
+
+.secondary-info > div {
+    white-space: nowrap;
 }
 
 </style>
