@@ -60,8 +60,8 @@ def test_client_handler():
         assert isinstance(client_handler.ws_object, WebSocket)
         await websocket.close()
 
-    with client.websocket_connect("/test_connect") as ws:
-        ws.send_json({"event": "CONNECT", "client-type": "test"})
+    with client.websocket_connect("/test_connect") as websocket:
+        websocket.send_json({"event": "CONNECT", "client-type": "test"})
 
 
 # ----- TESTS FOR DASHBOARDHANDLER SUBCLASS -----
@@ -85,9 +85,9 @@ def test_dashboard_handler_connect_dashboard():
         await dashboard_handler(data, dashboard_handler)
         await websocket.close()
 
-    with client.websocket_connect("/test_connect_dashboard") as ws:
-        ws.send_json({"event": "CONNECT", "client-type": "DASHBOARD"})
-        data = ws.receive_json()
+    with client.websocket_connect("/test_connect_dashboard") as websocket:
+        websocket.send_json({"event": "CONNECT", "client-type": "DASHBOARD"})
+        data = websocket.receive_json()
         assert data["event"] == "CONNECT"
         assert isinstance(data["hardware-list"], list)
         assert isinstance(data["service-list"], list)
@@ -113,8 +113,8 @@ def test_dashboard_handler_connect_hardware():
         await dashboard_handler(data, dashboard_handler)
         await websocket.close()
 
-    with client.websocket_connect("/test_connect_hardware") as ws:
-        ws.send_json(
+    with client.websocket_connect("/test_connect_hardware") as websocket:
+        websocket.send_json(
             {"event": "CONNECT", "client-type": "HARDWARE", "client-name": "test"}
         )
         data = websocket.receive_json()
@@ -143,16 +143,16 @@ def test_dashboard_handler_disconnect_hardware():
         await dashboard_handler(data, dashboard_handler)
         await websocket.close()
 
-    with client.websocket_connect("/test_disconnect_hardware") as ws:
-        ws.send_json(
+    with client.websocket_connect("/test_disconnect_hardware") as websocket:
+        websocket.send_json(
             {"event": "CONNECT", "client-type": "HARDWARE", "client-name": "test"}
         )
         # Data is not necessary here, just need to capture the connect event before asserting the disconnect
-        data = ws.receive_json()
-        ws.send_json(
+        data = websocket.receive_json()
+        websocket.send_json(
             {"event": "DISCONNECT", "client-type": "HARDWARE", "client-name": "test"}
         )
-        data = ws.receive_json()
+        data = websocket.receive_json()
         assert data["event"] == "DISCONNECT"
 
 
@@ -167,7 +167,7 @@ def test_dashboard_handler_connect_service():
     {"event": "CONNECT", "client-type": data['client-type'], "client-name": data["client-name"]}
     """
 
-    @app.websocket_route("/test_connect_hardware")
+    @app.websocket_route("/test_connect_service")
     async def websocket(websocket: WebSocket):
         await websocket.accept()
         data = await websocket.receive_json()
@@ -176,11 +176,11 @@ def test_dashboard_handler_connect_service():
         await dashboard_handler(data, dashboard_handler)
         await websocket.close()
 
-    with client.websocket_connect("/test_connect_hardware") as ws:
-        ws.send_json(
+    with client.websocket_connect("/test_connect_service") as websocket:
+        websocket.send_json(
             {"event": "CONNECT", "client-type": "SERVICE", "client-name": "test"}
         )
-        data = ws.receive_json()
+        data = websocket.receive_json()
         assert data["event"] == "CONNECT"
         assert data["client-type"] == "SERVICE"
         assert data["client-name"] == "test"
@@ -206,16 +206,16 @@ def test_dashboard_handler_disconnect_service():
         await dashboard_handler(data, dashboard_handler)
         await websocket.close()
 
-    with client.websocket_connect("/test_disconnect_hardware") as ws:
-        ws.send_json(
+    with client.websocket_connect("/test_disconnect_hardware") as websocket:
+        websocket.send_json(
             {"event": "CONNECT", "client-type": "SERVICE", "client-name": "test"}
         )
         # Data is not necessary here, just need to capture the connect event before asserting the disconnect
-        data = ws.receive_json()
-        ws.send_json(
+        data = websocket.receive_json()
+        websocket.send_json(
             {"event": "DISCONNECT", "client-type": "SERVICE", "client-name": "test"}
         )
-        data = ws.receive_json()
+        data = websocket.receive_json()
         assert data["event"] == "DISCONNECT"
 
 
@@ -236,14 +236,14 @@ def test_dashboard_handler_hardware_data_recv():
         dashboard_handler = DashboardHandler(data, websocket)
         data = await websocket.receive_json()
         assert data["event"] == "HARDWARE-DATA"
+        # Dont even need to do this part because the function in
+        # dashboard handler at this point only cares if the communication is from a HW client
         await dashboard_handler(data, dashboard_handler)
         await websocket.close()
 
-    with client.websocket_connect("/test_hardware_data_recv") as ws:
-        ws.send_json({"event": "CONNECT", "client-type": "DASHBOARD"})
-        ws.send_json({"event": "HARDWARE-DATA"})
-        data = ws.receive_json()
-        assert isinstance(data, dict)
+    with client.websocket_connect("/test_hardware_data_recv") as websocket:
+        websocket.send_json({"event": "CONNECT", "client-type": "DASHBOARD"})
+        websocket.send_json({"event": "HARDWARE-DATA"})
 
 
 # ----- TESTS FOR HARDWAREHANDLER SUBCLASS -----
@@ -263,8 +263,8 @@ def test_hardwarehandler_init():
         assert hardware_handler.client_name in hardware_client_set
         await websocket.close()
 
-    with client.websocket_connect("/test_hardwarehandler_init") as ws:
-        ws.send_json(
+    with client.websocket_connect("/test_hardwarehandler_init") as websocket:
+        websocket.send_json(
             {
                 "event": "CONNECT",
                 "client-type": "HARDWARE",
@@ -293,15 +293,17 @@ def test_hardwarehandler_hardware_request():
         assert data["requested-client"] == hardware_handler.client_name
         await websocket.close()
 
-    with client.websocket_connect("/test_hardware_request") as ws:
-        ws.send_json(
+    with client.websocket_connect("/test_hardware_request") as websocket:
+        websocket.send_json(
             {
                 "event": "CONNECT",
                 "client-type": "HARDWARE",
                 "client-name": "test-hardware",
             }
         )
-        ws.send_json({"event": "HARDWARE-REQUEST", "requested-client": "test-hardware"})
+        websocket.send_json(
+            {"event": "HARDWARE-REQUEST", "requested-client": "test-hardware"}
+        )
 
 
 def test_hardwarehandler_terminate_request():
@@ -324,15 +326,15 @@ def test_hardwarehandler_terminate_request():
         assert data["requested-client"] == hardware_handler.client_name
         await websocket.close()
 
-    with client.websocket_connect("/test_terminate_request") as ws:
-        ws.send_json(
+    with client.websocket_connect("/test_terminate_request") as websocket:
+        websocket.send_json(
             {
                 "event": "CONNECT",
                 "client-type": "HARDWARE",
                 "client-name": "test-hardware",
             }
         )
-        ws.send_json(
+        websocket.send_json(
             {"event": "HARDWARE-TERMINATE", "requested-client": "test-hardware"}
         )
 
@@ -357,18 +359,18 @@ def test_hardwarehandler_connected_hardware():
         assert data["requested-client"] == hardware_handler.client_name
         await websocket.close()
 
-    with client.websocket_connect("/test_connected_hardware") as ws:
-        ws.send_json(
+    with client.websocket_connect("/test_connected_hardware") as websocket:
+        websocket.send_json(
             {
                 "event": "CONNECT",
                 "client-type": "HARDWARE",
                 "client-name": "test-hardware",
             }
         )
-        ws.send_json(
+        websocket.send_json(
             {"event": "HARDWARE-SERVICES", "requested-client": "test-hardware"}
         )
-        ws.close()
+        websocket.close()
 
 
 # ----- TESTS FOR SERVICEHANDLER SUBCLASS -----
@@ -391,8 +393,8 @@ def test_servicehandler_init():
         assert service_handler.client_name in service_client_set
         await websocket.close()
 
-    with client.websocket_connect("/test_servicehandler_init") as ws:
-        ws.send_json(
+    with client.websocket_connect("/test_servicehandler_init") as websocket:
+        websocket.send_json(
             {
                 "event": "CONNECT",
                 "client-type": "SERVICE",
@@ -423,7 +425,7 @@ def test_broadcast():
         await broadcast(clients, data, client)
         await websocket.close()
 
-    with client.websocket_connect("/test_broadcast") as ws:
-        ws.send_json({"event": "CONNECT", "client-type": "DASHBOARD"})
-        data = ws.receive_json()
+    with client.websocket_connect("/test_broadcast") as websocket:
+        websocket.send_json({"event": "CONNECT", "client-type": "DASHBOARD"})
+        data = websocket.receive_json()
         assert isinstance(data, dict)

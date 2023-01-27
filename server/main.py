@@ -25,7 +25,7 @@ client_types = {
 list_of_allowed_hosts = ["localhost", "127.0.0.1"]
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
-app.mount("/static", StaticFiles(directory="./static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 basicConfig(filename="../logs/logs.log", filemode="w", level=DEBUG)
 
 
@@ -43,16 +43,6 @@ def home_endpoint(request: Request):
     :return: Returns 200 status code
     """
     return {"status_code": "200"}
-
-
-@app.get("/notes", response_class=HTMLResponse)
-def dashboard_endpoint(request: Request) -> templates.TemplateResponse:
-    """
-    HTTP endpoint to serve notes
-    :param request: HTTP Request from Client
-    :return: Returns the associated web files to the requesting client
-    """
-    return templates.TemplateResponse("notes.html", {"request": request})
 
 
 @app.get("/dashboard", response_class=HTMLResponse)

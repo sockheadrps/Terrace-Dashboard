@@ -22,7 +22,7 @@
 
             if($currentIdStore === undefined)
                 $currentIdStore = note.id;
-            
+
             $notesStore[note.id] = note;
             $notesStore = $notesStore; // ensure update
         }
@@ -59,7 +59,7 @@
     </div>
     <div class="note__area">
         <div class="input edit__{edit}">
-            <CodeMirror 
+            <CodeMirror
                 bind:value={md}
                 lang={markdown()}
                 theme={oneDark}

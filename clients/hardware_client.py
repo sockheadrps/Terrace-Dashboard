@@ -10,36 +10,27 @@ async def client(host, name):
     stream_task = None
     clients = 0
     async with websockets.connect(f"ws://{host}:8081/ws/stats") as websocket:
-        try:
-            # Initial connection
-            connect_event = {
-                "event": "CONNECT",
-                "client-type": client_type,
-                "client-name": name,
-            }
-            await websocket.send(json.dumps(connect_event))
+        # Initial connection
+        connect_event = {
+            "event": "CONNECT",
+            "client-type": client_type,
+            "client-name": name,
+        }
+        await websocket.send(json.dumps(connect_event))
 
-            while True:
-                data = json.loads(await websocket.recv())
-                match data["event"]:
-                    case "HARDWARE-REQUEST":
-                        clients += 1
-                        if stream_task is None:
-                            stream_task = asyncio.create_task(client_stream(websocket))
-                    case "HARDWARE-TERMINATE":
-                        if 0 < clients:
-                            clients -= 1
-                            if clients == 0:
-                                stream_task.cancel()
-                                stream_task = None
-
-        finally:
-            disconnect_event = {
-                "event": "DISCONNECT",
-                "client-type": client_type,
-                "client-name": name,
-            }
-            await websocket.send(json.dumps(disconnect_event))
+        while True:
+            data = json.loads(await websocket.recv())
+            match data["event"]:
+                case "HARDWARE-REQUEST":
+                    clients += 1
+                    if stream_task is None:
+                        stream_task = asyncio.create_task(client_stream(websocket))
+                case "HARDWARE-TERMINATE":
+                    if 0 < clients:
+                        clients -= 1
+                        if clients == 0:
+                            stream_task.cancel()
+                            stream_task = None
 
 
 async def client_stream(websocket, interval=1):

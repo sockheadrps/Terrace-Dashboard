@@ -77,4 +77,3 @@
 {:else}
 	<Highlight {language} {code} />
 {/if}
-
