@@ -1,8 +1,11 @@
 <script>
     import Markdown from 'svelte-exmarkdown';
     import { notesStore, storeNote, currentIdStore, getNote} from "../../notesStore";
+    import codePlugin from "./CodeHighlight";
+    import { gfmPlugin } from "svelte-exmarkdown/gfm";
     let edit = true
     let inputTimeout
+    const plugins = [codePlugin, gfmPlugin];
 
     console.log($notesStore)
 
@@ -53,7 +56,7 @@
             <textarea bind:value={md} on:input={() => onInput(title, md, $currentIdStore)} />
         </div>
         <div class="output edit__{edit}">
-            <Markdown {md} />
+            <Markdown {md} {plugins} />
         </div>
     </div>
 </div>
