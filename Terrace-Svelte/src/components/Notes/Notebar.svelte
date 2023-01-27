@@ -11,8 +11,8 @@
 <div class="notes__nav">
     <button on:click={() => currentNavStore.set("Home")} class="back"><i class="fa fa-solid fa-rotate-left" style="vertical-align: middle"></i></button>
     <div class="notes">
-        {#each $notesStore as note}
-            <button on:click={() => $currentIdStore = note.id} class="note">
+        {#each Object.entries($notesStore) as [id, note]}
+            <button on:click={() => $currentIdStore = id} class="note">
                 <span class="body">
                 </span>
                 <span class="title">

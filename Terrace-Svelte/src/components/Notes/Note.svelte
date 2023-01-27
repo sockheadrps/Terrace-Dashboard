@@ -1,64 +1,58 @@
 <script>
-	import Markdown from 'svelte-exmarkdown';
+    import Markdown from 'svelte-exmarkdown';
     import { notesStore, storeNote, currentIdStore, getNote} from "../../notesStore";
     let edit = true
-    let editClass
     let inputTimeout
 
     console.log($notesStore)
 
-	let md = '';
-    let title = ""
+    let md = '';
+    let title = '';
 
     // Timeout function to save the note after some period of time
     function onInput(title, markdown, id) {
         function saveNote() {
-            const notes = $notesStore
-            let note = storeNote(title, markdown, id)
-            notes.push(note)
-            $notesStore = notes
+            let note = storeNote(title, markdown, id);
+
+            if(id === undefined)
+                $currentIdStore = note.id;
+            
+            $notesStore[note.id] = note;
+            $notesStore = $notesStore; // ensure update
         }
         clearTimeout(inputTimeout);
         inputTimeout = setTimeout(saveNote, 1500);
     }
 
-    let currentNote;
     $: {
         // If no note is selected / the add button has be clicked
         if ($currentIdStore === undefined) {
             md = '';
-            title = ""
+            title = '';
         } else {
         // If a note in the notebar as been selected, set the note view title and body
-            currentNote = getNote($currentIdStore);
-            md = currentNote.body
-            title = currentNote.title
+            let currentNote = getNote($currentIdStore);
+            title = currentNote.title;
+            md = currentNote.body;
         }
     }
-
-    // Any time edit changes, change the class to show/hide the markdown form
-    $: {
-        editClass = "edit__" + edit.toString()
-    }
-
-
 </script>
 
 <div class="main">
     <div class="top__bar">
         <div class="edit__area">
             <button on:click={() => edit = !edit} >Edit</button>
-            <input class="{editClass}" type="text" bind:value="{title}">
+            <input class="edit__{edit}" type="text" bind:value="{title}" on:input={() => onInput(title, md,$currentIdStore)} />
         </div>
         <div class="title__area">
             <div class="bar__title">{title}</div>
         </div>
     </div>
     <div class="note__area">
-        <div class="input {editClass}">
+        <div class="input edit__{edit}">
             <textarea bind:value={md} on:input={() => onInput(title, md, $currentIdStore)} />
         </div>
-        <div class="output {editClass}">
+        <div class="output edit__{edit}">
             <Markdown {md} />
         </div>
     </div>
