@@ -2,7 +2,6 @@
     import Markdown from 'svelte-exmarkdown';
     import { notesStore, storeNote, currentIdStore, getNote} from "../../notesStore";
     let edit = true
-    let editClass
     let inputTimeout
 
     console.log($notesStore)
@@ -37,30 +36,23 @@
             md = currentNote.body;
         }
     }
-
-    // Any time edit changes, change the class to show/hide the markdown form
-    $: {
-        editClass = "edit__" + edit.toString()
-    }
-
-
 </script>
 
 <div class="main">
     <div class="top__bar">
         <div class="edit__area">
             <button on:click={() => edit = !edit} >Edit</button>
-            <input class="{editClass}" type="text" bind:value="{title}">
+            <input class="edit__{edit}" type="text" bind:value="{title}">
         </div>
         <div class="title__area">
             <div class="bar__title">{title}</div>
         </div>
     </div>
     <div class="note__area">
-        <div class="input {editClass}">
+        <div class="input edit__{edit}">
             <textarea bind:value={md} on:input={() => onInput(title, md, $currentIdStore)} />
         </div>
-        <div class="output {editClass}">
+        <div class="output edit__{edit}">
             <Markdown {md} />
         </div>
     </div>
