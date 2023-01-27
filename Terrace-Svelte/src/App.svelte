@@ -1,6 +1,5 @@
 <script>
     import Board from "./components/Board/Board.svelte";
-	import Background from "./components/BackGrnd/BackGrnd.svelte";
 	import { activeHardwareClient, wsDisconnect, terminateHwCommunication, websocketConnect } from "../src/stores.js";
 
 	// If window closes while communicating with a hw client, let it know to stop communicating with server
@@ -22,7 +21,6 @@
 
 <svelte:window on:beforeunload={beforeunload} on:load={onConnect}/>
 <main>
-	<Background />
 	<Board />
 </main>
 
