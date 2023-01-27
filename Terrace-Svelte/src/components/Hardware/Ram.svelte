@@ -47,9 +47,9 @@
         datasets: [{
         label: "Ram Usage",
         // Line fill
-        backgroundColor: "rgba(9, 6, 24, 0.6)",
+        backgroundColor: "rgba(63, 63, 63, 0.904)",
         // Line Color
-        borderColor: "rgba(31, 22, 82, 0.6",
+        borderColor: "rgba(75, 75, 75, 0.904)",
         data: 0,
         borderWidth: 1,
         pointRadius: 0,
@@ -124,10 +124,10 @@
 
 .title__area{
     background: linear-gradient(
-    to bottom,
-        rgba(23, 77, 156, 0.384), 
-        rgba(31, 22, 82, 0.411)
-        );
+        to left top,
+         rgba(27, 27, 27, 0.911), 
+         rgba(20, 20, 20, 0.904)
+         );
     border-radius: 2rem 2rem 0rem 0rem;
     display: flex;
     flex-direction: column;
@@ -142,10 +142,10 @@
 
 .sub__data {
     background: linear-gradient(
-    to top,
-        rgba(23, 77, 156, 0.384), 
-        rgba(31, 22, 82, 0.411)
-        );
+        to left top,
+        rgba(20, 20, 20, 0.904),
+        rgba(27, 27, 27, 0.911)
+         );
     border-radius: 0rem 0rem 2rem 2rem;
     display: flex;
     flex-direction: column;
