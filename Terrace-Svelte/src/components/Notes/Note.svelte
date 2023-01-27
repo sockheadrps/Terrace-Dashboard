@@ -1,5 +1,8 @@
 <script>
     import Markdown from 'svelte-exmarkdown';
+    import CodeMirror from 'svelte-codemirror-editor';
+    import { markdown } from '@codemirror/lang-markdown';
+    import { oneDark } from '@codemirror/theme-one-dark';
     import { notesStore, storeNote, currentIdStore, getNote} from "../../notesStore";
     import codePlugin from "./CodeHighlight";
     import { gfmPlugin } from "svelte-exmarkdown/gfm";
@@ -53,7 +56,20 @@
     </div>
     <div class="note__area">
         <div class="input edit__{edit}">
-            <textarea bind:value={md} on:input={() => onInput(title, md, $currentIdStore)} />
+            <CodeMirror 
+                bind:value={md}
+                lang={markdown()}
+                theme={oneDark}
+                on:input={() => onInput(title, md, $currentIdStore)}
+                styles={{
+                    "&": {
+                        position: "relative",
+                        textAlign: "left",
+                        width: "100%",
+                        height: "100%"
+                    }
+                }}
+            />
         </div>
         <div class="output edit__{edit}">
             <Markdown {md} {plugins} />
@@ -62,6 +78,9 @@
 </div>
 
 <style>
+    :global(.codemirror-wrapper) {
+        height: 100%;
+    }
 
     .main {
         display: grid;
@@ -108,12 +127,6 @@
 
     .edit__false {
         display: grid;
-    }
-
-    textarea{
-        width: 100%;
-        height: 100%;
-        background: rgba(67, 57, 179, 0.829);
     }
 
     .input{

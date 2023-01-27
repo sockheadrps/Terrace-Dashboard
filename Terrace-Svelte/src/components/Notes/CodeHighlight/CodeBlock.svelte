@@ -78,9 +78,3 @@
 	<Highlight {language} {code} />
 {/if}
 
-<style>
-	* {
-		font-family: monospace;
-	}
-</style>
-
