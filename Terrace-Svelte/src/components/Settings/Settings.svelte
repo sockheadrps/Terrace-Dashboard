@@ -27,7 +27,11 @@
 .settings__area {
     display: grid;
     grid-template-columns: 1fr;
-    background: linear-gradient(to right bottom, rgba(10, 6, 24, 0.75), rgba(10, 6, 24, 0.69));
+    background: linear-gradient(
+        to left top,
+         rgba(24, 24, 24, 0.822), 
+         rgba(15, 15, 15, 0.863)
+         );
     border-radius: 2rem;
     margin: 2rem;
     color: #808080;
