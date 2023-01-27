@@ -86,14 +86,6 @@ button {
     background: rgba(12, 7, 31, 0.781);
 }
 
-.title {
-}
-
-.body {
-}
-
-.notes {
-}
 
 .notes__nav::-webkit-scrollbar {
     background: #0000;
