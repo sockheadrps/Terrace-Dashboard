@@ -7,7 +7,7 @@
 
 <style>
 	code {
-		background-color: #111;
+		background-color: #333;
 		color: #EEE;
 		padding: 3px;
 		border-radius: 4px;
