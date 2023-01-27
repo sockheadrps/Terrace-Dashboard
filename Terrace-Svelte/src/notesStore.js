@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 import { writable } from 'svelte/store';
-const notes = [];
+const notes = {};
 
 Object.keys(localStorage).forEach((element) => {
     if (parseInt(element)) {
-        notes.push(JSON.parse(localStorage.getItem(String(element))));
+        notes[element] = JSON.parse(localStorage.getItem(element));
     }
 });
 export const notesStore = writable(notes);
@@ -12,10 +12,11 @@ export const notesStore = writable(notes);
 // eslint-disable-next-line require-jsdoc
 export function storeNote (title, markdown, id) {
     console.log('id ' + id);
-    let note = JSON.parse(localStorage.getItem(String(id)));
+    let note = JSON.parse(localStorage.getItem(id));
     console.log(note);
     // If note exists, update note data
     if (note !== null) {
+        note.title = title;
         note.body = markdown;
         note.timeStamp = new Date().toISOString();
     // Otherwise add new note
@@ -35,7 +36,7 @@ export function storeNote (title, markdown, id) {
 
 // eslint-disable-next-line require-jsdoc
 export function getNote (id) {
-    const note = JSON.parse(localStorage.getItem(String(id)));
+    const note = JSON.parse(localStorage.getItem(id));
     console.log('getNote')
     console.log(note)
     return note;
