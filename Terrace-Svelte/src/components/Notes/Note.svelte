@@ -56,13 +56,7 @@
     </div>
     <div class="note__area">
         <div class="input {editClass}">
-            {#if $currentIdStore !== undefined}
-                <textarea bind:value={md} on:input={() => onInput(title, md, $currentIdStore)} />
-                    <h1>{$currentIdStore}</h1>
-            {:else}
-                <textarea bind:value={md} on:input={() => onInput(title, md)} />
-                    <h1>{$currentIdStore}</h1>
-            {/if}
+            <textarea bind:value={md} on:input={() => onInput(title, md, $currentIdStore)} />
         </div>
         <div class="output {editClass}">
             <Markdown {md} />
