@@ -1,8 +1,14 @@
 <script>
     import Markdown from 'svelte-exmarkdown';
+    import CodeMirror from 'svelte-codemirror-editor';
+    import { markdown } from '@codemirror/lang-markdown';
+    import { oneDark } from '@codemirror/theme-one-dark';
     import { notesStore, storeNote, currentIdStore, getNote} from "../../notesStore";
+    import codePlugin from "./CodeHighlight";
+    import { gfmPlugin } from "svelte-exmarkdown/gfm";
     let edit = true
     let inputTimeout
+    const plugins = [codePlugin, gfmPlugin];
 
     console.log($notesStore)
 
@@ -10,16 +16,17 @@
     let title = '';
 
     // Timeout function to save the note after some period of time
-    function onInput(title, markdown, id) {
+    function onInput(title, markdown) {
         function saveNote() {
-            let note = storeNote(title, markdown, id);
+            let note = storeNote(title, markdown, $currentIdStore);
 
-            if(id === undefined)
+            if($currentIdStore === undefined)
                 $currentIdStore = note.id;
             
             $notesStore[note.id] = note;
             $notesStore = $notesStore; // ensure update
         }
+        console.log(markdown)
         clearTimeout(inputTimeout);
         inputTimeout = setTimeout(saveNote, 1500);
     }
@@ -36,13 +43,15 @@
             md = currentNote.body;
         }
     }
+
+    $: if(title || md) onInput(title, md);
 </script>
 
 <div class="main">
     <div class="top__bar">
         <div class="edit__area">
             <button on:click={() => edit = !edit} >Edit</button>
-            <input class="edit__{edit}" type="text" bind:value="{title}" on:input={() => onInput(title, md,$currentIdStore)} />
+            <input class="edit__{edit}" type="text" bind:value="{title}" />
         </div>
         <div class="title__area">
             <div class="bar__title">{title}</div>
@@ -50,15 +59,29 @@
     </div>
     <div class="note__area">
         <div class="input edit__{edit}">
-            <textarea bind:value={md} on:input={() => onInput(title, md, $currentIdStore)} />
+            <CodeMirror 
+                bind:value={md}
+                lang={markdown()}
+                theme={oneDark}
+                styles={{
+                    "&": {
+                        textAlign: "left",
+                        width: "100%",
+                        height: "100%"
+                    }
+                }}
+            />
         </div>
         <div class="output edit__{edit}">
-            <Markdown {md} />
+            <Markdown {md} {plugins} />
         </div>
     </div>
 </div>
 
 <style>
+    :global(.codemirror-wrapper) {
+        height: 100%;
+    }
 
     .main {
         display: grid;
@@ -105,12 +128,6 @@
 
     .edit__false {
         display: grid;
-    }
-
-    textarea{
-        width: 100%;
-        height: 100%;
-        background: rgba(67, 57, 179, 0.829);
     }
 
     .input{
