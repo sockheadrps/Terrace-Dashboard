@@ -46,7 +46,7 @@
     grid-template-columns: 1fr;
     background: linear-gradient(
         to left top,
-         rgba(24, 24, 24, 0.822), 
+         rgba(24, 24, 24, 0.822),
          rgba(15, 15, 15, 0.863)
          );
     border-radius: 2rem;
@@ -113,7 +113,7 @@
 
 .bookmarks::-webkit-scrollbar-track-piece:end {
     background: transparent;
-    margin-right: 50px; 
+    margin-right: 50px;
 }
 
 .bookmarks::-webkit-scrollbar-track-piece:start {

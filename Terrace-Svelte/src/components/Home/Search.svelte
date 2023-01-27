@@ -1,6 +1,6 @@
 <div class="search__area">
     <div class="search__bar">
-        <img src="assets/g-svg.svg" width="35" height="35" class="i-svg g-svg" alt=""/> 
+        <img src="assets/g-svg.svg" width="35" height="35" class="i-svg g-svg" alt=""/>
         <form action="https://www.google.com/search" method="get" id="search-form">
             <input type="text" class="search" placeholder="Search...." name="q">
         </form>
@@ -16,7 +16,7 @@
     margin-right: 2rem;
     background: linear-gradient(
         to left top,
-         rgba(24, 24, 24, 0.822), 
+         rgba(24, 24, 24, 0.822),
          rgba(15, 15, 15, 0.863)
          );
     border-radius: 1.2em;
@@ -31,9 +31,9 @@
     margin-top: 5px;
 }
 
-.search__bar form{ 
+.search__bar form{
     display: inline-block;
-    width: 90%;  
+    width: 90%;
     background-color: rgba(39, 39, 39, 0.164);
     border-radius: 1.2em;
     margin: auto;
@@ -54,4 +54,3 @@ input {
     outline: 0;
 }
 </style>
-

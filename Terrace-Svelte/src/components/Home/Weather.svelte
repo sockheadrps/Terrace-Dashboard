@@ -4,12 +4,12 @@
         long = "-82.983330",
         weatherApiKey = "dbd30986d45f5c219692ea5d83e34a51",
         weatherDescription, temp, feelsLike, humidity, sunrise, sunset, wind, timeZone, iconUrl, icon, formattedTime = "", formattedDate = "", focusedNav,
-        elmWeatherIcon, elmWeatherIconSrc, 
-        elmTemperature = "73°F", 
-        elmFeelsLike = "60", 
-        elmHumidity = "50%", 
-        elmWindSpeed = "12 mph", 
-        elmSunrise = "7:00", 
+        elmWeatherIcon, elmWeatherIconSrc,
+        elmTemperature = "73°F",
+        elmFeelsLike = "60",
+        elmHumidity = "50%",
+        elmWindSpeed = "12 mph",
+        elmSunrise = "7:00",
         elmSunset = "9:00";
 
 
@@ -83,7 +83,7 @@
         </div>
         <div class="secondary-info">
             <div class="descriptor">
-                <div class="title">Humidity</div> 
+                <div class="title">Humidity</div>
                 <div id="humidity">{elmHumidity}</div>
             </div>
             <div class="descriptor">
@@ -118,7 +118,7 @@
     justify-content: center;
     background: linear-gradient(
         to left top,
-         rgba(24, 24, 24, 0.822), 
+         rgba(24, 24, 24, 0.822),
          rgba(15, 15, 15, 0.863)
          );
     border-radius: 2rem;
@@ -201,7 +201,7 @@
 }
 
 #date {
-    font-size: 25px;    
+    font-size: 25px;
 }
 
 h1{

@@ -12,12 +12,16 @@ async def client(host, name):
     async with websockets.connect(f"ws://{host}:8081/ws/stats") as websocket:
         try:
             # Initial connection
-            connect_event = {"event": "CONNECT", "client-type": client_type, "client-name": name}
+            connect_event = {
+                "event": "CONNECT",
+                "client-type": client_type,
+                "client-name": name,
+            }
             await websocket.send(json.dumps(connect_event))
 
             while True:
                 data = json.loads(await websocket.recv())
-                match data['event']:
+                match data["event"]:
                     case "HARDWARE-REQUEST":
                         clients += 1
                         if stream_task is None:
@@ -30,21 +34,31 @@ async def client(host, name):
                                 stream_task = None
 
         finally:
-            disconnect_event = {"event": "DISCONNECT", "client-type": client_type, "client-name": name}
+            disconnect_event = {
+                "event": "DISCONNECT",
+                "client-type": client_type,
+                "client-name": name,
+            }
             await websocket.send(json.dumps(disconnect_event))
 
 
 async def client_stream(websocket, interval=1):
     while True:
-        data_stream = {"event": "HARDWARE-DATA", "client": name, "data": Computer.get_stats_dict()}
+        data_stream = {
+            "event": "HARDWARE-DATA",
+            "client": name,
+            "data": Computer.get_stats_dict(),
+        }
         await websocket.send(json.dumps(data_stream))
         await asyncio.sleep(interval)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Hardware client for Terrace")
-    parser.add_argument('host', metavar="host", type=str, help="Enter the host URL")
-    parser.add_argument('name', metavar="name", type=str, help="Enter the name of this hardware client")
+    parser.add_argument("host", metavar="host", type=str, help="Enter the host URL")
+    parser.add_argument(
+        "name", metavar="name", type=str, help="Enter the name of this hardware client"
+    )
     args = parser.parse_args()
 
     host = args.host

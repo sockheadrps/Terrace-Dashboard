@@ -116,4 +116,3 @@ function requestTimer() {
   document.getElementById("time").innerHTML = `${hours}:${mins}:${seconds}`
   document.getElementById("date").innerHTML = `${daysOfWeek[day]}, ${months[month + 1]} ${dateDay} ${myDate.getFullYear()}`
 }
-

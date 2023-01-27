@@ -41,7 +41,7 @@
     </div>
 
 <style>
-    
+
 #board{
     display: grid;
     height: 90%;
@@ -50,10 +50,10 @@
     min-width: 1100px;
     background: linear-gradient(
         to left top,
-         rgba(36, 36, 36, 0.822), 
+         rgba(36, 36, 36, 0.822),
          rgba(20, 20, 20, 0.863)
          );
-    
+
     z-index: 4;
     backdrop-filter: blur(.23rem);
     margin: 3rem;

@@ -5,7 +5,7 @@
     let max_data_points = 25;
     let updateCount = 0;
     let ramChart
-    export let ram_data  
+    export let ram_data
 
     $: {
         addData(ram_data)
@@ -62,29 +62,29 @@
             text: "RAM Usage",
             fontSize: 18
             }
-        }) 
+        })
       };
 
 
     function addData(data) {
         if(data && ramUsageChartInstance !== undefined){
             let time = new Date().getHours() + ":" + String(new Date().getMinutes()).padStart(2, "0")
-            
+
             // Updates datepoints for the chart, up to the max datapoints limit
             if (ramUsageChartInstance.data.labels.length <= max_data_points) {
                 ramUsageChartInstance.data.labels.push(time);
                 ramUsageChartInstance.data.datasets.forEach((dataset) =>{dataset.data.push(data.ram_percentage)});
 
             // Shifts the array if it has more values than desired to display
-            } else if(ramUsageChartInstance.data.labels.length > max_data_points) {          
+            } else if(ramUsageChartInstance.data.labels.length > max_data_points) {
             ramUsageChartInstance.data.labels.shift();
             ramUsageChartInstance.data.datasets.forEach((dataset) =>{dataset.data.shift()});
             }
         updateCount++;
         ramUsageChartInstance.update();
         }
-    };  
-    
+    };
+
     function resetRamData() {
         ram_data = [];
     }
@@ -125,7 +125,7 @@
 .title__area{
     background: linear-gradient(
         to left top,
-         rgba(27, 27, 27, 0.911), 
+         rgba(27, 27, 27, 0.911),
          rgba(20, 20, 20, 0.904)
          );
     border-radius: 2rem 2rem 0rem 0rem;

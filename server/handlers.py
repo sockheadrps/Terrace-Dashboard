@@ -13,6 +13,7 @@ def new_event(functions: dict, event: str):
     :param event: A string used as a key in the functions dictionary
     :return: A function that returns the callback function
     """
+
     def func(callback):
         functions[event] = callback
         return callback
@@ -24,8 +25,8 @@ class ClientHandler(object):
     funcs = {}
 
     def __init__(self, data, ws_object):
-        self.client_type = data['client-type']
-        self.client_name = data.get('client-name')
+        self.client_type = data["client-type"]
+        self.client_name = data.get("client-name")
         self.ws_object = ws_object
 
     async def __call__(self, data, sender):
@@ -64,11 +65,21 @@ class DashboardHandler(ClientHandler):
     @new_event(funcs, "CONNECT")
     async def connect(self, data, sender):
         if data.get("client-type") != "DASHBOARD":
-            await self.ws_object.send_json({"event": "CONNECT", "client-type": data['client-type'],
-                                            "client-name": data["client-name"]})
+            await self.ws_object.send_json(
+                {
+                    "event": "CONNECT",
+                    "client-type": data["client-type"],
+                    "client-name": data["client-name"],
+                }
+            )
         elif sender is self:
-            await self.ws_object.send_json({"event": "CONNECT", "hardware-list": [*hardware_client_set],
-                                            "service-list": [*service_client_set]})
+            await self.ws_object.send_json(
+                {
+                    "event": "CONNECT",
+                    "hardware-list": [*hardware_client_set],
+                    "service-list": [*service_client_set],
+                }
+            )
 
     @new_event(funcs, "HARDWARE-DATA")
     async def hardware_data_recv(self, data, sender):
@@ -78,8 +89,13 @@ class DashboardHandler(ClientHandler):
     @new_event(funcs, "DISCONNECT")
     async def disconnect(self, data, sender):
         if data.get("client-type") != "DASHBOARD":
-            await self.ws_object.send_json({"event": "DISCONNECT", "client-type": data['client-type'],
-                                            "client-name": data["client-name"]})
+            await self.ws_object.send_json(
+                {
+                    "event": "DISCONNECT",
+                    "client-type": data["client-type"],
+                    "client-name": data["client-name"],
+                }
+            )
         elif sender is self:
             print("dashboard disconnected")
 
@@ -115,4 +131,3 @@ class ServiceHandler(ClientHandler):
 async def broadcast(clients, data, sender):
     coros = (client(data, sender) for client in chain(*clients.values()))
     await asyncio.gather(*coros)
-

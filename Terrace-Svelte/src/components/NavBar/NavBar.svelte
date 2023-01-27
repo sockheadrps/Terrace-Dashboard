@@ -6,8 +6,8 @@
     let hardware = [];
 
     state.subscribe(value => {
-        if (value.hardwareList){ 
-            hardware = value.hardwareList[0] 
+        if (value.hardwareList){
+            hardware = value.hardwareList[0]
         }
     });
 </script>
@@ -45,7 +45,7 @@
     grid-gap: 0px;
     background: linear-gradient(
         to left top,
-         rgba(27, 27, 27, 0.911), 
+         rgba(27, 27, 27, 0.911),
          rgba(20, 20, 20, 0.904)
          );
     border-radius: 2rem 0rem 0rem 2rem;
@@ -70,11 +70,11 @@
     background: rgba(12, 12, 12, 0.918);
 }
 
-.nav__item:hover { 
+.nav__item:hover {
     background: linear-gradient(rgb(0, 0, 0),rgb(15, 15, 15)) padding-box,
                 linear-gradient(to right, rgba(84, 69, 99, 0.034), rgba(101, 101, 143, 0)) border-box;
     border: 1px solid transparent;
-    
+
 }
 
 

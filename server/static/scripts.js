@@ -10,7 +10,7 @@ socket.onopen = function(event) {
   socket.send(JSON.stringify({event: "CONNECT", "client-type": "DASHBOARD"}));
 };
 
-//Attempt to send Dashboard disconnect message on window close 
+//Attempt to send Dashboard disconnect message on window close
 window.addEventListener('beforeunload', function (e) {
   e.preventDefault();
   socket.send(JSON.stringify({event: "DISCONNECT", "client-type": "DASHBOARD"}));
@@ -78,7 +78,7 @@ function addService(serviceName) {
 
 let statsPageState = document.getElementsByClassName('stats')[0]
 let backButtonState = document.getElementsByClassName('back-overlay')[0]
-let currentHardware 
+let currentHardware
 
 // Send hardware-terminate event when exiting the hardware statistics dashboard
 backButton.addEventListener('click', () => {
@@ -164,7 +164,7 @@ socket.onmessage = function(event) {
         } else if (data["client-type"] === "SERVICE") {
           serviceClients = serviceClients.filter(item => item !== data['client-name'])
           document.getElementById(data['client-name']).remove()
-        }        
+        }
         break;
     }
 
@@ -324,7 +324,7 @@ function addData(data) {
         }else{
             time = today.getHours() + ":" + today.getMinutes();
         }
-        
+
         if (cpuUsageChartInstance.data.labels.length <= max_data_points){
             // CPU Usage
             cpuUsageChartInstance.data.labels.push(time);
@@ -338,12 +338,12 @@ function addData(data) {
             diskUsageChartInstance.data.datasets[0].data[0] = data.disk_used;
             diskUsageChartInstance.data.datasets[0].data[1] = data.disk_free;
 
-        } else if(cpuUsageChartInstance.data.labels.length > max_data_points){          
+        } else if(cpuUsageChartInstance.data.labels.length > max_data_points){
           // For shifting the x axis markers
           // CPU Usage
           cpuUsageChartInstance.data.labels.shift();
           cpuUsageChartInstance.data.datasets.forEach((dataset) =>{dataset.data.shift()});
-        
+
           // RAM Usage
           ramUsageChartInstance.data.labels.shift();
           ramUsageChartInstance.data.datasets[0].data.shift();

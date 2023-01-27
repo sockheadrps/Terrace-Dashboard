@@ -18,7 +18,7 @@
         }
     };
 
-    
+
     state.subscribe(value => {
         try {
             if (value['hardwareData'][0] !== undefined) {
@@ -29,7 +29,7 @@
             console.log(error)
         }
     });
-    
+
 </script>
 
 <div class="chart__area">
@@ -82,5 +82,3 @@
 }
 
 </style>
-
-

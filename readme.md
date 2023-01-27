@@ -1,6 +1,6 @@
 # Terrace Dashboard
 ## _A free Dashboarding tool for all your tools_
-_This project is currently pre-release and under active development, some features may be incomplete._    
+_This project is currently pre-release and under active development, some features may be incomplete._
 _The status of the full release can be viewed by checking the [Version 1.0 Checklist](https://github.com/sockheadrps/Terrace-Dashboard/issues/23)_
 ![Alt Text](readmegif.gif)
 A tool comprised of a useful "Home Page" style dashboard running in a web browser, deployable remote Python clients that monitor hardware statistics and state of the host machine(s), as well as an available communication protocol for displaying the status of additional "services", that can be implemented into any project that utilizes Web Socket communication.
@@ -22,11 +22,11 @@ A tool comprised of a useful "Home Page" style dashboard running in a web browse
 ## Tech
 
 Terrace Dashboard uses the following technologies:
-- [Python](https://www.python.org/) 
+- [Python](https://www.python.org/)
 - [FastAPI](https://fastapi.tiangolo.com/)
-- Vanilla Javascript 
+- Vanilla Javascript
 - Chart.js (cdn)
-- HTML 
+- HTML
 - CSS
 
 
@@ -35,9 +35,9 @@ Terrace Dashboard uses the following technologies:
 ## Installation
 
 TDB has been tested on [Python 3.7+](https://www.python.org/), and requires the installation of all libraries in requirements.txt
-    
+
     pip install -r requirements.txt
-    
+
 1. Sign up for [OpenWeatherMap Free API](https://openweathermap.org/api)
 2. Add your latitude, Longitude and API Key in static/weatherAPI.js
 3. Run the server and connect to http://localhost/dashboard in your browser (Currently only been tested in Chrome)
@@ -65,7 +65,3 @@ Want to contribute? Great!
 
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
-
-
-
-

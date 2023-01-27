@@ -5,7 +5,7 @@
     let max_data_points = 25;
     let updateCount = 0;
     let cpuChart
-    export let cpu_data  
+    export let cpu_data
 
     $: {
         addData(cpu_data)
@@ -63,21 +63,21 @@
             text: "CPU Usage",
             fontSize: 18
             }
-        }) 
+        })
       };
 
 
     function addData(data) {
         if(data !== undefined && cpuUsageChartInstance !== undefined) {
             let time = new Date().getHours() + ":" + String(new Date().getMinutes()).padStart(2, "0")
-            
+
             // Updates datepoints for the chart, up to the max datapoints limit
             if (cpuUsageChartInstance.data.labels.length <= max_data_points){
                 cpuUsageChartInstance.data.labels.push(time);
                 cpuUsageChartInstance.data.datasets.forEach((dataset) =>{dataset.data.push(data.cpu_usage)});
 
             // Shifts the array if it has more values than desired to display
-            } else if(cpuUsageChartInstance.data.labels.length > max_data_points){          
+            } else if(cpuUsageChartInstance.data.labels.length > max_data_points){
             cpuUsageChartInstance.data.labels.shift();
             cpuUsageChartInstance.data.datasets.forEach((dataset) =>{dataset.data.shift()});
             }
@@ -85,7 +85,7 @@
         cpuUsageChartInstance.update();
         }
     };
-    
+
     function resetCpuData() {
         cpu_data = []
     }
@@ -125,7 +125,7 @@
 .title__area{
     background: linear-gradient(
         to left top,
-         rgba(27, 27, 27, 0.911), 
+         rgba(27, 27, 27, 0.911),
          rgba(20, 20, 20, 0.904)
          );
     border-radius: 2rem 2rem 0rem 0rem;

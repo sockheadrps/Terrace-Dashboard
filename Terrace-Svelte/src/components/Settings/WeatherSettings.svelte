@@ -44,7 +44,7 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     border: 1px solid rgba(10, 6, 24, 0.021);
-    background:rgba(125, 125, 129, 0.1);  
+    background:rgba(125, 125, 129, 0.1);
     cursor: pointer;
     transition: all .01s ease-out;
     font-size: larger;

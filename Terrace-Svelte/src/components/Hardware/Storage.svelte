@@ -42,7 +42,7 @@
 
 
     function addData(data) {
-        if(data && diskUsageChartInstance !== undefined){            
+        if(data && diskUsageChartInstance !== undefined){
             if (diskUsageChartInstance.data.labels.length <= max_data_points){
                 diskUsageChartInstance.data.datasets[0].data[0] = data.disk_used;
                 diskUsageChartInstance.data.datasets[0].data[1] = data.disk_free;
@@ -51,7 +51,7 @@
         diskUsageChartInstance.update();
         }
     };
-    
+
     function resetDiskData() {
         disk_data = [];
     }
@@ -98,7 +98,7 @@
 .title__area{
     background: linear-gradient(
         to left top,
-         rgba(27, 27, 27, 0.911), 
+         rgba(27, 27, 27, 0.911),
          rgba(20, 20, 20, 0.904)
          );
     border-radius: 2rem 2rem 0rem 0rem;

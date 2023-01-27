@@ -10,7 +10,7 @@
         } catch (error) {
             console.log(error)
         }
-    }   
+    }
 </script>
 
 <div class="service-area">
@@ -26,7 +26,7 @@
     align-items: center;
     background: linear-gradient(
         to left top,
-         rgba(24, 24, 24, 0.822), 
+         rgba(24, 24, 24, 0.822),
          rgba(15, 15, 15, 0.863)
          );
     border-radius: 2rem;

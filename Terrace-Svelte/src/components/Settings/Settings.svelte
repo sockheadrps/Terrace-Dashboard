@@ -3,7 +3,7 @@
     import WeatherSettings from "./WeatherSettings.svelte"
     export let activeSetting = "";
     export let settingsItems = ["Weather"];
-    
+
     // Tracks active settings tab for switching between settings scope
     const setView = (e) => {
         activeSetting = e.srcElement.innerText;
@@ -29,7 +29,7 @@
     grid-template-columns: 1fr;
     background: linear-gradient(
         to left top,
-         rgba(24, 24, 24, 0.822), 
+         rgba(24, 24, 24, 0.822),
          rgba(15, 15, 15, 0.863)
          );
     border-radius: 2rem;

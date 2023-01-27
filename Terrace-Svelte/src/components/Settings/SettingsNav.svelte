@@ -32,7 +32,7 @@
     flex-direction: column;
     padding-left: 2rem;
     padding-right: 2rem;
-    height: 0;    
+    height: 0;
 }
 
 
@@ -51,7 +51,7 @@
 }
 
 
-.nav__item:hover { 
+.nav__item:hover {
     background: rgba(0, 0, 0, 0.959);
   }
 

@@ -42,7 +42,7 @@
     grid-template-rows: 1fr 11fr 1fr;
     border: 1px solid red;
     background: linear-gradient(
-       rgba(23, 24, 71, 0.05), 
+       rgba(23, 24, 71, 0.05),
        rgba(24, 26, 75, 0.027)
        );
     border: none;
@@ -61,7 +61,7 @@
     align-items: center;
 }
 
-.back:hover { 
+.back:hover {
     background: rgba(12, 7, 31, 0.781);
 }
 
@@ -82,7 +82,7 @@ button {
     color: antiquewhite;
 }
 
-.note:hover { 
+.note:hover {
     background: rgba(12, 7, 31, 0.781);
 }
 

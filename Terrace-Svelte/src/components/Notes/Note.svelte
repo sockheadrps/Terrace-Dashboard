@@ -86,14 +86,14 @@
         grid-column: 1;
         text-align: left;
     }
-    
+
     .title__area {
         grid-column: 2;
         text-align: center;
     }
 
     .bar__title {
-        
+
     }
 
     button{
@@ -108,7 +108,7 @@
         display: grid;
         grid-template-columns: 2fr 3fr;
     }
-    
+
     .edit__false {
         display: grid;
     }
@@ -118,7 +118,7 @@
         height: 100%;
         background: rgba(67, 57, 179, 0.829);
     }
-    
+
     .input{
         grid-column: 1;
     }

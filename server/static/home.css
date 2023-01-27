@@ -7,7 +7,7 @@
   display: flex;
   width: 100%;
   transition: all 1s;
-  
+
 }
 
 .pages {
@@ -45,14 +45,14 @@ button {
   height: 6rem;
   align-items: center;
   justify-content: center;
-  
+
 }
 
 .label {
   width: 98%;
 }
 
-button:hover { 
+button:hover {
   background: rgb(10, 6, 24);
   opacity: .8;
 }
@@ -227,7 +227,7 @@ form{
   /* border: 1px solid rgb(88, 11, 11);  */
   justify-content: center;
   align-items: center;
-  
+
 }
 
 .secondary-info{

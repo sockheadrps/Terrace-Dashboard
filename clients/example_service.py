@@ -19,7 +19,11 @@ async def client(host, name):
     try:
         async with websockets.connect(f"ws://{host}:8081/ws/stats") as websocket:
             # Initial connection
-            connect_event = {"event": "CONNECT", "client-type": client_type, "client-name": name}
+            connect_event = {
+                "event": "CONNECT",
+                "client-type": client_type,
+                "client-name": name,
+            }
             await websocket.send(json.dumps(connect_event))
             while True:
                 try:
@@ -27,10 +31,13 @@ async def client(host, name):
                     if data:
                         print(data)
                         # SERVER EVENTS
-                        match data['event']:
+                        match data["event"]:
                             case "TEST-EVENT":
-                                connect_response = {"event": "TEST-EVENT", "client-name": name,
-                                                    "event-response": "OK"}
+                                connect_response = {
+                                    "event": "TEST-EVENT",
+                                    "client-name": name,
+                                    "event-response": "OK",
+                                }
                                 await websocket.send(json.dumps(connect_response))
                         data = None
 
@@ -42,20 +49,25 @@ async def client(host, name):
     finally:
         # Send disconnect message if service closes and there is a websocket connection
         try:
-            disconnect_event = {"event": "DISCONNECT", "client-type": client_type, "client-name": name}
+            disconnect_event = {
+                "event": "DISCONNECT",
+                "client-type": client_type,
+                "client-name": name,
+            }
             await websocket.send(json.dumps(disconnect_event))
         except ConnectionClosedOK:
             print("Client successfully closed")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Hardware client for Terrace")
-    parser.add_argument('host', metavar="host", type=str, help="Enter the host URL")
-    parser.add_argument('name', metavar="name", type=str, help="Enter the name of this hardware client")
+    parser.add_argument("host", metavar="host", type=str, help="Enter the host URL")
+    parser.add_argument(
+        "name", metavar="name", type=str, help="Enter the name of this hardware client"
+    )
     args = parser.parse_args()
 
     host = args.host
     name = args.name
     print(host, name)
     asyncio.run(client(host, name))
-
