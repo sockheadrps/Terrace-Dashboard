@@ -44,7 +44,7 @@
 
 #board{
     display: grid;
-    height: 90%;
+    height: 90vh;
     user-select: none;
     grid-template-columns: 15% 85%;
     min-width: 1100px;

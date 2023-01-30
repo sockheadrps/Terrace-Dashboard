@@ -30,12 +30,12 @@
 <div class="bookmark-area">
     <div class="bookmarks" on:mousewheel|preventDefault={transformScroll}>
         {#each bookMarks as book}
-        <div on:click on:keydown={() => {openBookmark(book.url)}} class="bookmark">
+        <a href={book.url} class="bookmark">
             <i class={book.icon}></i>
             <div class="title-area">
             <span class="bk-title">{book.name}</span>
             </div>
-        </div>
+        </a>
         {/each}
     </div>
 </div>
@@ -59,7 +59,6 @@
 
 .bookmarks{
     overflow-x: scroll;
-    overflow: overlay;
     white-space: nowrap;
     scrollbar-width: 90%;
 }
@@ -88,6 +87,8 @@
     transition: all .2s ease-out;
     min-width:  170px;
 }
+
+a { color: inherit; }
 
 .bookmark:hover {
     background: linear-gradient(rgb(0, 0, 0),rgb(15, 15, 15)) padding-box,

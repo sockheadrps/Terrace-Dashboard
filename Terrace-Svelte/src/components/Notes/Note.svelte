@@ -50,8 +50,10 @@
 <div class="main">
     <div class="top__bar">
         <div class="edit__area">
-            <button on:click={() => edit = !edit} >Edit</button>
-            <input class="edit__{edit}" type="text" bind:value="{title}" />
+            <button class="edit__button" on:click={() => edit = !edit} >
+                <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            <input class="edit__{edit} edit__title" type="text" placeholder="Title..." bind:value="{title}" />
         </div>
         <div class="title__area">
             <div class="bar__title">{title}</div>
@@ -87,8 +89,7 @@
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 10fr;
-        background: linear-gradient(to right bottom, rgba(10, 6, 24, 0.75), rgba(10, 6, 24, 0.69));
-        height: 100%;
+        height: 100%;        
     }
 
     .top__bar {
@@ -102,6 +103,19 @@
     .edit__area{
         grid-column: 1;
         text-align: left;
+        margin-left: 1rem;
+    }
+
+    .edit__button {
+        border-radius: 2rem;
+        margin: 0px;
+        height: 60px;
+        background: none;
+        border: none;
+        color: #808080;
+        font-size: 18px;
+        cursor: pointer;
+        background: rgba(12, 12, 12, 0.918);
     }
 
     .title__area {
@@ -109,25 +123,30 @@
         text-align: center;
     }
 
-    .bar__title {
-
-    }
-
     button{
         width: 6rem;
-    }
-
-    input{
-
     }
 
     .note__area {
         display: grid;
         grid-template-columns: 2fr 3fr;
+        margin-left: 1rem;
     }
 
     .edit__false {
         display: grid;
+    }
+    .edit__true.edit__title {
+        background-color: rgba(39, 39, 39, 0.705);
+        border-radius: 1.2em;
+        margin: auto;
+        border: none;
+    }
+
+    .edit__true.edit__title:focus {
+        outline: none !important;
+        box-shadow: 0 0 2px #719ECE;
+        border: #303030;
     }
 
     .input{
@@ -144,7 +163,7 @@
 
     .output{
         grid-column: 2;
-        color: red;
+        color: #c4c4c4;
         display: block;
         word-break: break-all;
         text-align: start;

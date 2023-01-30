@@ -42,4 +42,10 @@ export function getNote (id) {
     return note;
 }
 
+export function deleteNote (id) {
+    localStorage.removeItem(id)
+    delete notes[id]
+
+}
+
 export const currentIdStore = writable();

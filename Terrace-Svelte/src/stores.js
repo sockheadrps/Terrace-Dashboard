@@ -75,12 +75,12 @@ export const websocketConnect = () => {
         state.update((state) => ({
             ...state,
             data: [data],
-            hardwareList: [hardwareList],
+            hardwareList: ['hardwareList'],
             hardwareData: [hardwareData],
             serviceList: [serviceList][0]
         }));
     });
 };
 
-export const currentNavStore = writable('Home');
+export const currentNavStore = writable('Notes');
 export const activeHardwareClient = writable('');

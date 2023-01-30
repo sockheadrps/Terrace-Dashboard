@@ -74,7 +74,6 @@
     background: linear-gradient(rgb(0, 0, 0),rgb(15, 15, 15)) padding-box,
                 linear-gradient(to right, rgba(84, 69, 99, 0.034), rgba(101, 101, 143, 0)) border-box;
     border: 1px solid transparent;
-
 }
 
 
@@ -102,6 +101,8 @@
 
 .hardware__area::-webkit-scrollbar {
     display: block;
+    background: rgba(0, 0, 0, 0);
+
 }
 
 .hardware__area::-webkit-scrollbar-track {
@@ -119,7 +120,7 @@
 }
 
 .hardware__area::-webkit-scrollbar-thumb {
-    background: rgb(24, 27, 90);
+    background: rgb(44, 44, 44);
     border-radius: 10px;
     border: 5px solid #0000;
     background-clip: padding-box;
