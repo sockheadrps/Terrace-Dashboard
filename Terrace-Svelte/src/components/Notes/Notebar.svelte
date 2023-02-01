@@ -51,6 +51,7 @@
 }
 
 .notes {
+    height:100%;
     overflow-y: scoll;
 }
 
