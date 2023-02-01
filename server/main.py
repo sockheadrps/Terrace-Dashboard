@@ -20,9 +20,9 @@ path = "logs"
 # Check whether the specified path exists or not
 isExist = os.path.exists(path)
 if not isExist:
-   # Create a new directory because it does not exist
-   os.makedirs(path)
-   print("Created logs dir")
+    # Create a new directory because it does not exist
+    os.makedirs(path)
+    print("Created logs dir")
 
 clients = {"DASHBOARD": [], "HARDWARE": [], "SERVICE": []}
 client_types = {
