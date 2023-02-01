@@ -52,3 +52,4 @@ INFO:root:{'event': 'CONNECT', 'client-type': 'HARDWARE', 'client-name': 'testws
 02/01/2023 04:10:42 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
 02/01/2023 04:11:05 AM Using proactor: IocpProactor
 02/01/2023 04:20:05 AM Using proactor: IocpProactor
+02/01/2023 05:08:21 AM Using proactor: IocpProactor

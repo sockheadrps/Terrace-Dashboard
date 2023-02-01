@@ -13,7 +13,6 @@ from fastapi.responses import HTMLResponse
 from logging import basicConfig, INFO
 from uvicorn import run
 from handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast
-import argparse
 
 clients = {"DASHBOARD": [], "HARDWARE": [], "SERVICE": []}
 client_types = {
@@ -105,8 +104,4 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="The Terrace Dashboard Server")
-    parser.add_argument("host", metavar="host", type=str, help="Enter the host URL")
-    args = parser.parse_args()
-    host = args.host
-    run(app, port=8081, host=host, ws_ping_interval=10, ws_ping_timeout=10)
+    run(app, port=8081, host="0.0.0.0", ws_ping_interval=10, ws_ping_timeout=10)
