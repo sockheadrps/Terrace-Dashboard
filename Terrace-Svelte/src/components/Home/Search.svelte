@@ -1,7 +1,28 @@
+<script>
+    const actions = ["https://www.google.com/search", "https://www.youtube.com/results?search_query="]
+    let clicked = "",
+        action  = 0;
+
+    function onclick() {
+        clicked = clicked ? "" : "clicked";
+        action = action ? 0 : 1;
+    }
+</script>
+
+
 <div class="search__area">
+    <div class="flip-container" on:click={onclick} on:keydown={onclick}>
+        <div class="card {clicked}">
+            <div class="front">
+                <img src="/assets/g-svg.svg" width="35" height="35" class="i-svg g-svg" alt="google icon"/> 
+            </div>
+            <div class="back">
+                <img src="/assets/youtube-icon.svg" width="35" height="35" class="i-svg yt-svg" alt="youtube icon"/> 
+            </div>
+        </div>
+    </div>
     <div class="search__bar">
-        <img src="/assets/g-svg.svg" width="35" height="35" class="i-svg g-svg" alt=""/>
-        <form action="https://www.google.com/search" method="get" id="search-form">
+        <form action="{actions[action]}" method="get" id="search-form">
             <input type="text" class="search" placeholder="Search...." name="q">
         </form>
     </div>
@@ -23,12 +44,6 @@
     padding: .5rem;
     padding-left: 1rem;
     padding-right: 1rem;
-}
-
-.search__bar img {
-    float: left;
-    width: 5%;
-    margin-top: 5px;
 }
 
 .search__bar form{
@@ -53,4 +68,48 @@ input {
 .search__bar input:focus {
     outline: 0;
 }
+
+.flip-container{
+    position: relative;
+    float: left;
+    width: 5%;
+    height: 100%;
+    margin-bottom: 8px;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: all 0.5s;
+    border-radius: 50%;
+}
+
+.card:hover {
+    transform: scale(1.2);
+}
+
+.front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.clicked {
+    transform: rotateY(180deg);
+}
+
+.clicked:hover {
+    transform: rotateY(180deg);
+}
+
 </style>
