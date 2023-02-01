@@ -1,0 +1,54 @@
+DEBUG:asyncio:Using proactor: IocpProactor
+INFO:root:{'event': 'CONNECT', 'client-type': 'HARDWARE', 'client-name': 'testwsdfsadf'}
+01/30/2023 06:19:42 PM Using proactor: IocpProactor
+01/30/2023 06:19:48 PM {'event': 'CONNECT', 'client-type': 'HARDWARE', 'client-name': 'testwsdfsadf'}
+01/30/2023 06:20:07 PM {'event': 'CONNECT', 'client-type': 'HARDWARE', 'client-name': 'testwsdfsadf'}
+01/30/2023 06:37:13 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:37:14 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:37:16 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:37:16 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:37:21 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:37:23 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:37:24 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:37:25 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:38:13 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:38:13 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:59:55 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:49:25 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:49:25 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:52:42 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:52:42 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:52:47 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:53:00 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:53:00 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:53:23 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:53:23 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:53:29 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:53:29 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:54:21 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:54:21 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:57:00 PM Using proactor: IocpProactor
+02/01/2023 02:18:06 AM Using proactor: IocpProactor
+02/01/2023 02:20:04 AM Using proactor: IocpProactor
+02/01/2023 02:21:11 AM Using proactor: IocpProactor
+02/01/2023 02:21:45 AM Using proactor: IocpProactor
+02/01/2023 02:23:10 AM Using proactor: IocpProactor
+02/01/2023 02:23:37 AM Using proactor: IocpProactor
+02/01/2023 02:24:55 AM Using proactor: IocpProactor
+02/01/2023 02:25:28 AM Using proactor: IocpProactor
+02/01/2023 02:25:36 AM Using proactor: IocpProactor
+02/01/2023 02:27:01 AM Using proactor: IocpProactor
+02/01/2023 02:36:31 AM Using proactor: IocpProactor
+02/01/2023 02:39:01 AM Using proactor: IocpProactor
+02/01/2023 02:39:45 AM Using proactor: IocpProactor
+02/01/2023 02:40:29 AM Using proactor: IocpProactor
+02/01/2023 02:48:01 AM Using proactor: IocpProactor
+02/01/2023 02:56:49 AM Using proactor: IocpProactor
+02/01/2023 02:57:59 AM Using proactor: IocpProactor
+02/01/2023 03:14:22 AM Using proactor: IocpProactor
+02/01/2023 03:14:55 AM Using proactor: IocpProactor
+02/01/2023 03:35:24 AM Using proactor: IocpProactor
+02/01/2023 04:00:09 AM Using proactor: IocpProactor
+02/01/2023 04:10:42 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+02/01/2023 04:11:05 AM Using proactor: IocpProactor
+02/01/2023 04:20:05 AM Using proactor: IocpProactor

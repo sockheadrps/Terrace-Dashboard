@@ -1,0 +1,24 @@
+{
+  "name": "terrace",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.0.0",
+    "svelte": "^3.54.0",
+    "vite": "^4.0.0"
+  },
+  "dependencies": {
+    "@codemirror/lang-markdown": "^6.0.5",
+    "@codemirror/theme-one-dark": "^6.1.0",
+    "chart.js": "^4.2.0",
+    "svelte-codemirror-editor": "^1.1.0",
+    "svelte-exmarkdown": "^1.1.7",
+    "svelte-highlight": "^7.1.2"
+  }
+}
