@@ -13,6 +13,16 @@ from fastapi.responses import HTMLResponse
 from logging import basicConfig, INFO
 from uvicorn import run
 from handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast
+import os
+
+
+path = "logs"
+# Check whether the specified path exists or not
+isExist = os.path.exists(path)
+if not isExist:
+   # Create a new directory because it does not exist
+   os.makedirs(path)
+   print("Created logs dir")
 
 clients = {"DASHBOARD": [], "HARDWARE": [], "SERVICE": []}
 client_types = {
@@ -21,13 +31,15 @@ client_types = {
     "SERVICE": ServiceHandler,
 }
 
+
+
 app = FastAPI()
 templates = Jinja2Templates(directory="../Terrace-Svelte/dist")
 app.mount("/assets", StaticFiles(directory="../Terrace-Svelte/dist/assets"), name="static")
 basicConfig(
     format="%(asctime)s %(message)s",
     datefmt="%m/%d/%Y %I:%M:%S %p",
-    filename="../logs/server.log",
+    filename="logs/server.log",
     encoding="utf-8",
     level=logging.DEBUG,
 )
