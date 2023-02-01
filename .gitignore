@@ -14,7 +14,7 @@ ENV/
 env.bak/
 venv.bak/
 .idea/
-logs/server.log
+logs/
 
 server/templates/index.html
 static/weatherAPI-ignore.js
