@@ -9,7 +9,7 @@ from fastapi import (
 )
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
+from fastapi.responses import FileResponse
 from logging import basicConfig, INFO
 from uvicorn import run
 from handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast
@@ -20,9 +20,9 @@ path = "logs"
 # Check whether the specified path exists or not
 isExist = os.path.exists(path)
 if not isExist:
-   # Create a new directory because it does not exist
-   os.makedirs(path)
-   print("Created logs dir")
+    # Create a new directory because it does not exist
+    os.makedirs(path)
+    print("Created logs dir")
 
 clients = {"DASHBOARD": [], "HARDWARE": [], "SERVICE": []}
 client_types = {
@@ -61,14 +61,14 @@ def home_endpoint(request: Request):
     return {"status_code": "200"}
 
 
-@app.get("/dashboard", response_class=HTMLResponse)
-def dashboard_endpoint(request: Request) -> templates.TemplateResponse:
+@app.get("/dashboard", response_class=FileResponse)
+def dashboard_endpoint(request: Request) -> FileResponse:
     """
     HTTP endpoint to serve the Dashboard
     :param request: HTTP Request from Client
     :return: Returns the associated web files to the requesting client
     """
-    return templates.TemplateResponse("index.html", {"request": request})
+    return FileResponse("../Terrace-Svelte/dist/index.html")
 
 
 @app.websocket("/ws/stats")
