@@ -1,7 +1,7 @@
 # Terrace Dashboard
 ## _A free Dashboarding tool for all your tools_
 _Version 1.0 is out!_
-![Alt Text](show.gif)
+![Alt Text](readme_assets/show.gif)
 A tool comprised of a useful "Home Page" style dashboard running in a web browser, deployable remote Python clients that monitor hardware statistics and state of the host machine(s), as well as an available communication protocol for displaying the status of additional "services", that can be implemented into any project that utilizes Web Socket communication.
 
 # Features
@@ -43,16 +43,16 @@ cd Terrace-Svelte
 npm install
 npm run build
 ```
-1. Navigate to the server folder, and run the server using your LAN IP
+1. Navigate to the server folder, and run the server.
 ```
-python main.py xxx.xxx.xxx.xxx
+python main.py
 ```
-![Alt Text](runserver.gif)
+![Alt Text](readme_assets/runserver.gif)
 2. Connect to the dashboard via  xxx.xxx.xxx.xxx/dashboard in your browser.
 4. Sign up for [OpenWeatherMap Free API](https://openweathermap.org/api)
    1. Enter your longitude / latitude and API key in weather settings and save
 
-![Alt Text](weather.gif)
+![Alt Text](readme_assets/weather.gif)
 
 ### Optional:
 - Run the hardware client(s) on host machine and/or remote machines while the server is running
@@ -60,7 +60,7 @@ python main.py xxx.xxx.xxx.xxx
 ```
 python hardware_client.py xxx.xxx.xxx.xxx Hardware-client-name
 ```
-![Alt Text](runhardware.gif)
+![Alt Text](readme_assets/runhardware.gif)
 
 
 ## Development
