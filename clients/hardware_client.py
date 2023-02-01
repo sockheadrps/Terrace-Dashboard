@@ -52,7 +52,9 @@ async def main(host, name):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Hardware client for Terrace")
-    parser.add_argument("host", metavar="host", type=str, help="Enter the host URL")
+    parser.add_argument(
+        "host", nargs='?', metavar="host", const="127.0.0.1", type=str, help="Enter the host URL", default="127.0.0.1"
+    )
     parser.add_argument(
         "name", metavar="name", type=str, help="Enter the name of this hardware client"
     )

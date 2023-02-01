@@ -62,7 +62,7 @@ def home_endpoint(request: Request):
 
 
 @app.get("/dashboard", response_class=FileResponse)
-def dashboard_endpoint(request: Request) -> FileResponse:
+def dashboard_endpoint() -> FileResponse:
     """
     HTTP endpoint to serve the Dashboard
     :param request: HTTP Request from Client
