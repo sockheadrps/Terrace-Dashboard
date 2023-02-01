@@ -14,7 +14,7 @@ ENV/
 env.bak/
 venv.bak/
 .idea/
-# dont remove the logs/ folder, it will not work
+# dont remove the logs/ folder, it will not work (specifically, the server wont run)
 logs/server.log
 
 
