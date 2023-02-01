@@ -38,9 +38,10 @@
     flex-direction: column;
     justify-content: space-between;
     background: linear-gradient(
-       rgba(23, 24, 71, 0.05),
-       rgba(24, 26, 75, 0.027)
-       );
+        to left top,
+         rgba(27, 27, 27, 0.911),
+         rgba(20, 20, 20, 0.904)
+         );
     border: none;
     color: #ffffff;
     font-size: 1.25em;

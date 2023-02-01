@@ -22,11 +22,9 @@ client_types = {
     "SERVICE": ServiceHandler,
 }
 
-
-list_of_allowed_hosts = ["localhost", "127.0.0.1"]
 app = FastAPI()
-templates = Jinja2Templates(directory="templates")
-app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="../Terrace-Svelte/dist")
+app.mount("/assets", StaticFiles(directory="../Terrace-Svelte/dist/assets"), name="static")
 basicConfig(
     format="%(asctime)s %(message)s",
     datefmt="%m/%d/%Y %I:%M:%S %p",

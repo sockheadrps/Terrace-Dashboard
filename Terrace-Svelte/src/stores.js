@@ -82,5 +82,5 @@ export const websocketConnect = () => {
     });
 };
 
-export const currentNavStore = writable('Notes');
+export const currentNavStore = writable('Home');
 export const activeHardwareClient = writable('');
