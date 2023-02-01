@@ -9,8 +9,8 @@
     let edit = true
     let inputTimeout
     const plugins = [codePlugin, gfmPlugin];
+    let noteChanged = Date.now()
 
-    console.log($notesStore)
 
     let md = '';
     let title = '';
@@ -26,25 +26,29 @@
             $notesStore[note.id] = note;
             $notesStore = $notesStore; // ensure update
         }
-        console.log(markdown)
         clearTimeout(inputTimeout);
         inputTimeout = setTimeout(saveNote, 1500);
     }
 
     $: {
+        console.log($currentIdStore)
         // If no note is selected / the add button has be clicked
         if ($currentIdStore === undefined) {
             md = '';
             title = '';
         } else {
         // If a note in the notebar as been selected, set the note view title and body
-            let currentNote = getNote($currentIdStore);
+            let currentNote = getNote($currentIdStore)
+            noteChanged = Date.now()
+
             title = currentNote.title;
             md = currentNote.body;
         }
     }
 
-    $: if(title || md) onInput(title, md);
+    $: if((title || md) && (Date.now() - noteChanged  > 50)) {
+        onInput(title, md);
+    }
 </script>
 
 <div class="main">
@@ -89,7 +93,7 @@
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 10fr;
-        height: 100%;        
+        height: 100%;
     }
 
     .top__bar {
@@ -131,6 +135,7 @@
         display: grid;
         grid-template-columns: 2fr 3fr;
         margin-left: 1rem;
+        margin-bottom: 0px;
     }
 
     .edit__false {
@@ -139,8 +144,9 @@
     .edit__true.edit__title {
         background-color: rgba(39, 39, 39, 0.705);
         border-radius: 1.2em;
-        margin: auto;
+        color: #808080;
         border: none;
+        padding: 1rem;
     }
 
     .edit__true.edit__title:focus {

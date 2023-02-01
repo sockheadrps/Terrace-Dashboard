@@ -1,0 +1,30 @@
+DEBUG:asyncio:Using proactor: IocpProactor
+INFO:root:{'event': 'CONNECT', 'client-type': 'HARDWARE', 'client-name': 'testwsdfsadf'}
+01/30/2023 06:19:42 PM Using proactor: IocpProactor
+01/30/2023 06:19:48 PM {'event': 'CONNECT', 'client-type': 'HARDWARE', 'client-name': 'testwsdfsadf'}
+01/30/2023 06:20:07 PM {'event': 'CONNECT', 'client-type': 'HARDWARE', 'client-name': 'testwsdfsadf'}
+01/30/2023 06:37:13 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:37:14 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:37:16 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:37:16 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:37:21 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:37:23 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:37:24 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:37:25 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:38:13 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:38:13 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 06:59:55 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:49:25 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:49:25 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:52:42 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:52:42 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:52:47 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:53:00 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:53:00 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:53:23 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:53:23 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:53:29 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:53:29 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:54:21 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:54:21 PM {'event': 'CONNECT', 'client-type': 'DASHBOARD'}
+01/30/2023 08:57:00 PM Using proactor: IocpProactor

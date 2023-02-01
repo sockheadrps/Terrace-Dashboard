@@ -28,7 +28,7 @@
 #main__content{
     grid-column-start: 2;
     display: grid;
-    grid-template-rows: 4% 10% 25% 33% 26% auto;
+    grid-template-rows: 5% 10% 25% 25% 33%;
     align-items: top;
 }
 

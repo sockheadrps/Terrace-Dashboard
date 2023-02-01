@@ -1,9 +1,6 @@
 <script>
     import { currentNavStore } from "../../stores";
-    let lat = "39.983334",
-        long = "-82.983330",
-        weatherApiKey = "dbd30986d45f5c219692ea5d83e34a51",
-        weatherDescription, temp, feelsLike, humidity, sunrise, sunset, wind, timeZone, iconUrl, icon, formattedTime = "", formattedDate = "", focusedNav,
+    let weatherDescription, temp, feelsLike, humidity, sunrise, sunset, wind, timeZone, iconUrl, icon, formattedTime = "", formattedDate = "", focusedNav,
         elmWeatherIcon, elmWeatherIconSrc,
         elmTemperature = "73°F",
         elmFeelsLike = "60",
@@ -24,7 +21,7 @@
         try {
             weatherApiCall()
             } catch (error) {
-                console.log("No Weather API set")
+                console.log("No valid Weather API set")
             }
     }, 5000)
 
@@ -68,7 +65,7 @@
 
 </script>
 
-<svelte:window on:load={initCode()} />
+<svelte:window on:load={initCode} />
 
 <div class="weather-area">
     <div class="weather-card">
@@ -135,6 +132,21 @@
     flex-direction: column;
     margin-right: 1rem;
     justify-content: center;
+}
+
+.temperature-area > h4 {
+    margin: 0px;
+    padding: 0px;
+}
+
+.temperature-area > h1 {
+    margin: 0px;
+    padding: 0px;
+}
+
+.temperature-area > h2 {
+    margin: 0px;
+    padding: 0px;
 }
 
 .weather-card {

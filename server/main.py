@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import (
     FastAPI,
     Request,
@@ -5,11 +7,10 @@ from fastapi import (
     WebSocket,
     WebSocketDisconnect,
 )
-from websockets.exceptions import ConnectionClosedError
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
-from logging import basicConfig, DEBUG
+from logging import basicConfig, INFO
 from uvicorn import run
 from handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast
 import argparse
@@ -26,7 +27,13 @@ list_of_allowed_hosts = ["localhost", "127.0.0.1"]
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
-basicConfig(filename="../logs/logs.log", filemode="w", level=DEBUG)
+basicConfig(
+    format="%(asctime)s %(message)s",
+    datefmt="%m/%d/%Y %I:%M:%S %p",
+    filename="../logs/server.log",
+    encoding="utf-8",
+    level=logging.DEBUG,
+)
 
 
 @app.get("/favicon.ico")
@@ -64,13 +71,13 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
     """
     client = None
     await client_websocket.accept()
-
-    # Initial connection and CONNECT event
     try:
         data = await client_websocket.receive_json()
     except Exception as e:
-        raise
+        logging.warning(e)
+        raise e
 
+    # Initial connection and CONNECT event
     if data["event"] == "CONNECT":
         await client_websocket.send_json({"event": "CONNECT"})
         client = client_types[data["client-type"]](data, client_websocket)
@@ -93,10 +100,10 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
                 },
                 client,
             )
-            clients[data["client-type"]].remove(client)
             break
-        except (ConnectionClosedError, RuntimeError):
-            break
+        except Exception as e:
+            logging.warning(e)
+            raise e
 
 
 if __name__ == "__main__":

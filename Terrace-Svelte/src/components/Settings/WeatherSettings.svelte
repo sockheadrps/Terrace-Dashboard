@@ -19,8 +19,9 @@
         <input type="text" class="search" placeholder="Latitude" name="q" bind:value={latitude}>
         <input type="text" class="search" placeholder="API Key" name="q" bind:value={apiKey}>
     </form>
-    <button class="save__btn" type="submit" value="weather__api" on:click={(e) => saveApi(e)}>Save</button>
-
+    <div class="bottom-area">
+        <button class="save__btn" type="submit" value="weather__api" on:click={(e) => saveApi(e)}>Save</button>
+    </div>
 </div>
 
 
@@ -32,14 +33,20 @@
 }
 .weather_api_area {
     margin-top: 6rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.bottom-area {
+    text-align: center;
 }
 
 .save__btn {
     margin-top: 1rem;
     border-radius: .5rem;
     text-align: center;
-    width: 25%;
-    height: 25%;
+    width: 16rem;
+    height: 2.5rem;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -57,7 +64,7 @@
                 border-radius: .5rem;
 
     border: 1px solid transparent;
-    color: #000000;
+    color: #e9e9e9;
 }
 
 label{
@@ -74,6 +81,9 @@ input {
     box-sizing: border-box;
     border: 1px solid rgba(10, 6, 24, 0.021);
     background:rgba(64, 64, 73, 0.1);
+    color: #808080;
+    height: 2rem;
+
 }
 
 input:hover {
@@ -82,7 +92,6 @@ input:hover {
                 border-radius: .5rem;
 
     border: 1px solid transparent;
-    color: #161616;
 }
 input:focus {
     background: linear-gradient(rgb(43, 43, 43),rgb(66, 66, 66)) padding-box,

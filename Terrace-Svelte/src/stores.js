@@ -75,7 +75,7 @@ export const websocketConnect = () => {
         state.update((state) => ({
             ...state,
             data: [data],
-            hardwareList: ['hardwareList'],
+            hardwareList: [hardwareList],
             hardwareData: [hardwareData],
             serviceList: [serviceList][0]
         }));

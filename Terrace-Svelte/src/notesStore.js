@@ -11,9 +11,8 @@ export const notesStore = writable(notes);
 
 // eslint-disable-next-line require-jsdoc
 export function storeNote (title, markdown, id) {
-    console.log('id ' + id);
+    console.log('Storing note...');
     let note = JSON.parse(localStorage.getItem(id));
-    console.log(note);
     // If note exists, update note data
     if (note !== null) {
         note.title = title;
@@ -29,7 +28,6 @@ export function storeNote (title, markdown, id) {
         };
     }
     // Save to local storage
-    console.log(note)
     localStorage.setItem(note.id, JSON.stringify(note));
     return note;
 }
@@ -37,8 +35,6 @@ export function storeNote (title, markdown, id) {
 // eslint-disable-next-line require-jsdoc
 export function getNote (id) {
     const note = JSON.parse(localStorage.getItem(id));
-    console.log('getNote')
-    console.log(note)
     return note;
 }
 
@@ -48,4 +44,5 @@ export function deleteNote (id) {
 
 }
 
+export const deleting = writable(false);
 export const currentIdStore = writable();

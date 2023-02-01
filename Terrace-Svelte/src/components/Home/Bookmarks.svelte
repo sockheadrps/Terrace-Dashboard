@@ -4,7 +4,6 @@
         {name: "Reddit", url: "http://www.reddit.com", "icon": "book-icon fa-3x fa fa-brands fa-reddit-alien"},
         {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
         {name: "Instagram", url: "http://www.instagram.com", "icon": "book-icon fa-3x fa fa-brands fa-instagram"},
-        {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
     ]
 
     // Function allows for horizontal scroll of the bookmarks
@@ -86,6 +85,7 @@
     cursor: pointer;
     transition: all .2s ease-out;
     min-width:  170px;
+    text-decoration: none;
 }
 
 a { color: inherit; }

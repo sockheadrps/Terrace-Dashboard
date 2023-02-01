@@ -25,6 +25,14 @@
 </main>
 
 <style>
+
+	:global(:root) {
+		overflow: hidden ;
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
+		justify-content: center;
+	}
 	main {
 		text-align: center;
 		padding: 1em;
@@ -35,4 +43,18 @@
 			max-width: 700;
 		}
 	}
+
+	* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Asap', sans-serif;
+    font-family: 'Spline Sans', sans-serif;
+  }
+	main{
+		height: 100%;
+	}
+
+
+
 </style>

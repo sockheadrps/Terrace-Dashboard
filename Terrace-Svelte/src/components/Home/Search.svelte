@@ -1,6 +1,6 @@
 <div class="search__area">
     <div class="search__bar">
-        <img src="assets/g-svg.svg" width="35" height="35" class="i-svg g-svg" alt=""/>
+        <img src="/assets/g-svg.svg" width="35" height="35" class="i-svg g-svg" alt=""/>
         <form action="https://www.google.com/search" method="get" id="search-form">
             <input type="text" class="search" placeholder="Search...." name="q">
         </form>

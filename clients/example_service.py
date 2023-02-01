@@ -1,5 +1,5 @@
 import websockets
-from websockets.exceptions import ConnectionClosedError, ConnectionClosedOK
+from websockets.exceptions import ConnectionClosedError
 import asyncio
 import json
 import argparse
@@ -42,21 +42,11 @@ async def client(host, name):
                         data = None
 
                 except ConnectionClosedError:
-                    print("The server has refused connection. Is the server running?")
+                    print("The server has shut down!")
+                    break
 
     except ConnectionRefusedError:
         print("Server is either offline, or connection point is wrong!")
-    finally:
-        # Send disconnect message if service closes and there is a websocket connection
-        try:
-            disconnect_event = {
-                "event": "DISCONNECT",
-                "client-type": client_type,
-                "client-name": name,
-            }
-            await websocket.send(json.dumps(disconnect_event))
-        except ConnectionClosedOK:
-            print("Client successfully closed")
 
 
 if __name__ == "__main__":
