@@ -34,9 +34,9 @@
 
 
 .notes__nav{
-    display: grid;
-    grid-column: 1;
-    grid-template-rows: 1fr 7fr 1fr;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background: linear-gradient(
        rgba(23, 24, 71, 0.05),
        rgba(24, 26, 75, 0.027)
@@ -46,7 +46,12 @@
     font-size: 1.25em;
     font-weight: bold;
     width: 100%;
+    height: 100%;
     user-select: none;
+}
+
+.notes {
+    overflow-y: scoll;
 }
 
 .back {
@@ -81,6 +86,7 @@ button {
          );
     backdrop-filter: blur(.2rem);
     display: block;
+    color: #808080;
     height: 90px;
     align-items: center;
     bottom: 0px;
