@@ -89,6 +89,7 @@ input {
     transform: scale(1.2);
 }
 
+
 .front {
   position: absolute;
   width: 100%;
@@ -109,7 +110,7 @@ input {
 }
 
 .clicked:hover {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) scale(1.2);
 }
 
 </style>
