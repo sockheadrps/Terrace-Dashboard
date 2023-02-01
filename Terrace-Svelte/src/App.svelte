@@ -32,6 +32,7 @@
 		flex-direction: column;
 		height: 100vh;
 		justify-content: center;
+		background: Radial-gradient(rgba(255, 255, 255, 0.35), rgb(43, 43, 43)), Radial-gradient(at 0 0, #181818, #1f1f1f);
 	}
 	main {
 		text-align: center;
