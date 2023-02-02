@@ -11,27 +11,32 @@
 
 
     function weatherApiCall() {
-        let url = JSON.parse(window.localStorage.getItem("weatherAPI"));
-        fetch(url.url)
-                .then((response) => response.json())
-                .then((data) => saveWeather(data))
+        try {
+            let url = JSON.parse(window.localStorage.getItem("weatherAPI"));
+            fetch(url.url)
+                    .then((response) => response.json())
+                    .then((data) => saveWeather(data))
+        } catch (error) {
+            console.log("No valid Weather API set");
+        }
     }
 
-    setInterval(() => {
-        try {
-            weatherApiCall()
-            } catch (error) {
-                console.log("No valid Weather API set")
-            }
-    }, 5000)
+    setInterval(weatherApiCall, 600000)
 
-    setInterval(() => {
-        if ($currentNavStore == "Home") {
+    function getTime() {
+        if ($currentNavStore === "Home") {
             let myDate = new Date();
             formattedTime = `${myDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }).replace(/AM|PM/g, "").trim()}`;
             formattedDate = `${myDate.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`;
         }
-    }, 1000);
+    }
+
+    $: if($currentNavStore === "Home") {
+        getTime();
+        weatherApiCall();
+    }
+
+    setInterval(getTime, 1000);
 
     function saveWeather(data) {
         weatherDescription = data.weather[0].description;
@@ -47,8 +52,8 @@
         //Math.round(1.8 * (k - 273) + 32)
         elmWeatherIcon = icon;
         elmWeatherIconSrc = iconUrl;
-        elmTemperature = Math.round(1.8 * (temp - 273) + 32) + ' \u2109';
-        elmFeelsLike = Math.round(1.8 * (feelsLike - 273) + 32) + ' \u2109';
+        elmTemperature = Math.round(1.8 * (temp - 273) + 32) + ' \u00B0F';
+        elmFeelsLike = Math.round(1.8 * (feelsLike - 273) + 32) + ' \u00B0F';
         elmHumidity = humidity + "%";
         elmWindSpeed = wind + "MPH";
         elmSunrise = new Date(sunrise * 1000).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
@@ -108,7 +113,6 @@
 
 <style>
 .weather-area {
-    user-select: none;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;

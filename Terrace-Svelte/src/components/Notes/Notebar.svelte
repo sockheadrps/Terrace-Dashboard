@@ -53,7 +53,6 @@
 
 .notes {
     height:100%;
-    overflow-y: scoll;
 }
 
 .back {
@@ -92,7 +91,8 @@ button {
     height: 90px;
     align-items: center;
     bottom: 0px;
-    position: sticky;
+    position: absolute;
+    width: 177px;
     padding: auto;
 }
 

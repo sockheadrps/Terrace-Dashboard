@@ -2,6 +2,7 @@
     import { bookmarkList } from "../../../bookmarksStore"
     import AddBookmark from "./AddBookmark.svelte";
     import Icon from '@iconify/svelte';
+    import 'iconify-icon'
     let addBookMark = true
 
     $: {console.log($bookmarkList)}
@@ -20,9 +21,14 @@
             <li>
                 <span class="name">{bookmark.name}</span>
                 <span class="url">{bookmark.url}</span>
-                <!-- Doesnt seem to load the icon -->
                 <Icon icon={bookmark.icon} />    
             </li>
             {/each}
         </ol>
 </div>
+
+<style>
+button {
+    cursor: pointer;
+}
+</style>

@@ -32,7 +32,6 @@
     border-radius: 2rem;
     justify-content: center;
     min-height: 5rem;
-    user-select: none;
     margin-left: 2rem;
     margin-right: 2rem;
 }

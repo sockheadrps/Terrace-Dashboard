@@ -1,5 +1,6 @@
 <script>
     import { bookmarkList } from '../../bookmarksStore'
+    import Icon from '@iconify/svelte';
     $: console.log("Bklist ", $bookmarkList)
 
 
@@ -29,7 +30,7 @@
     <div class="bookmarks" on:mousewheel|preventDefault={transformScroll}>
         {#each $bookmarkList as book}
         <a href={book.url} class="bookmark">
-            <i class={book.icon}></i>
+            <Icon icon={book.icon} style="font-size: 2.5rem;" />
             <div class="title-area">
             <span class="bk-title">{book.name}</span>
             </div>

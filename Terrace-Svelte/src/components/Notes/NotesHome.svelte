@@ -14,20 +14,18 @@
 <style>
     
     .nav__area{
-        overflow-y: auto;
-        overflow: overlay;
+        overflow-y: overlay;
         border-radius: 2rem 0rem 0 2rem;
     }
 
     .main__area {
         overflow-y: auto;
-        overflow: overlay;
     }
 
     .scroll::-webkit-scrollbar {
         display: block;
         background: rgba(0, 0, 0, 0);
-}
+    }
 
     .scroll::-webkit-scrollbar-track {
         border-radius: 10px;
