@@ -2,6 +2,7 @@
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
     export let settingsItems = ["Weather"];
+    export let activeSetting;
 
 </script>
 
@@ -10,7 +11,7 @@
     <div id="nav__items">
         {#each settingsItems as setting}
             <div class="nav__lay"></div>
-            <button on:click class={setting.toLowerCase() + " nav__item" +" route"} id={setting.toLowerCase()+"__nav"}>{setting}
+            <button on:click={() => activeSetting=setting} class="{setting.toLowerCase()} nav__item route {activeSetting === setting ?'active' : ''}" id={setting.toLowerCase()+"__nav"}>{setting}
             </button>
         {/each}
     </div>
@@ -29,10 +30,9 @@
 
 #nav__items{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding-left: 2rem;
     padding-right: 2rem;
-    height: 0;
 }
 
 
@@ -54,5 +54,10 @@
 .nav__item:hover {
     background: rgba(0, 0, 0, 0.959);
   }
+
+.active {
+    background: rgba(41, 41, 41, 0.918);
+
+}
 
 </style>
