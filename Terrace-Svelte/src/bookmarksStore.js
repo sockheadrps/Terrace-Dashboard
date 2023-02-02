@@ -1,14 +1,16 @@
 import { writable } from "svelte/store";
 
-let initBookmarks = [
-    {name: "Youtube", url: "http://www.youtube.com", "icon": "book-icon fa-3x fa fa-brands fa-youtube"},
-    {name: "Reddit", url: "http://www.reddit.com", "icon": "book-icon fa-3x fa fa-brands fa-reddit-alien"},
-    {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
-    {name: "Instagram", url: "http://www.instagram.com", "icon": "book-icon fa-3x fa fa-brands fa-instagram"},
+let bookmarkStorage = [
+    {name: "Youtube", url: "http://www.youtube.com", "icon": "logos:youtube-icon"},
+    {name: "Reddit", url: "http://www.reddit.com", "icon": "logos:reddit-icon"},
+    {name: "Twitch", url: "http://www.twitch.com", "icon": "logos:twitch"},
+    {name: "Instagram", url: "http://www.instagram.com", "icon": "skill-icons:instagram"},
 ]
-// TODO only if doesnt exist
-localStorage.setItem("bookmarks", JSON.stringify(initBookmarks))
-let bookmarkStorage = JSON.parse(localStorage.getItem("bookmarks") )
+
+if(localStorage.getItem("bookmarks") === undefined)
+    localStorage.setItem("bookmarks", JSON.stringify(initBookmarks))
+else
+    bookmarkStorage = JSON.parse(localStorage.getItem("bookmarks"))
 
 
 export function newBookmark(name, url, icon) {

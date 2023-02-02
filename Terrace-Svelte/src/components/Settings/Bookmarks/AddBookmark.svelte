@@ -3,7 +3,7 @@
     import { bookmarkList, newBookmark } from "../../../bookmarksStore"
     import { onMount } from "svelte";
     import "carbon-components-svelte/css/g100.css";
-    import { Search, Dropdown  } from "carbon-components-svelte";
+    import { Search, Dropdown, Button  } from "carbon-components-svelte";
     import Icon from '@iconify/svelte';
     import 'iconify-icon'
     let bookmarks = $bookmarkList
@@ -16,14 +16,10 @@
 
 
     async function checkIcon(name) {
-        let icons = [];
         return await fetch(`https://api.iconify.design/search?query=${name}`)
             .then(res => res.json())
             .then(json => {
-                json.icons.forEach(element => {
-                    icons.push(element)
-                });
-                return icons
+                return json.icons || [];
             });
     }
 
@@ -75,18 +71,26 @@
 
 <div class="modal" role="dialog" aria-modal="true" bind:this={modal}>
     <div class="container">
-        <form action="">
             <div class="input__area">
                 <input type="text" class="name" placeholder="Bookmark Title..." bind:value={name}>
                 <input type="text" class="url" placeholder="Bookmark URL..." bind:value={url}>
             </div>
             <div class="icon__area">
                 <Search placeholder="Search catalog..." bind:value={iconValue} />
-                {#each icons as ic}
-                    <button on:click|preventDefault={() => icon = ic}>
-                        <Icon icon={ic} />
-                    </button>
-                {/each}
+                <div class="results">
+                    {#if icon !== ""}
+                        <button class="selected" on:click={() => icon = ""}>
+                            <Icon {icon} />
+                        </button>
+                    {/if}
+                    {#each icons as ic}
+                        {#if ic !== icon}
+                            <button on:click={() => icon = ic}>
+                                <Icon icon={ic} />
+                            </button>
+                        {/if}
+                    {/each}
+                </div>
             </div>
             <div class="save__area">
                 <button autofocus type="submit" class="submit" 
@@ -95,11 +99,44 @@
                 </button>
             </div>
             
-        </form>
     </div>
 </div>
 
 <style>
+    button {
+        cursor: pointer;
+        background: none;
+        border: none;
+        outline: none;
+    }
+
+    .add_bookmark button {
+        cursor: pointer;
+    }
+
+    .results {
+        display: grid;
+        grid-gap: 5px;
+        grid-template-columns: repeat(15, 1fr);
+        margin-top: 10px;
+    }
+
+    .selected {
+        outline: 2px #55D solid;
+        background-color: #444;
+    }
+
+    .results button {
+        font-size: 1.8rem;
+        transition: 0.2s background-color ease-in-out;
+        background-color: #333;
+        border-radius: 4px;
+    }
+
+    .results button:hover {
+        background-color: #444;
+    }
+
 	.modal-background {
 		position: fixed;
 		top: 0;
@@ -140,7 +177,7 @@
     .icon__area{
         grid-template-columns: 1;
         grid-row: 2;
-        height: 250px;
+        height: 100%;
         font-size: 45px;
     }
 
@@ -176,7 +213,7 @@
 
         border: 1px solid transparent;
         color: #c4c3c3;
-}
+    }
 
     input {
         background-color: rgb(26, 27, 31);
