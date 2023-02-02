@@ -1,10 +1,9 @@
 <script>
-    let bookMarks = [
-        {name: "Youtube", url: "http://www.youtube.com", "icon": "book-icon fa-3x fa fa-brands fa-youtube"},
-        {name: "Reddit", url: "http://www.reddit.com", "icon": "book-icon fa-3x fa fa-brands fa-reddit-alien"},
-        {name: "Twitch", url: "http://www.twitch.com", "icon": "book-icon fa-3x fa fa-brands fa-twitch"},
-        {name: "Instagram", url: "http://www.instagram.com", "icon": "book-icon fa-3x fa fa-brands fa-instagram"},
-    ]
+    import { bookmarkList } from '../../bookmarksStore'
+    $: console.log("Bklist ", $bookmarkList)
+
+
+    
 
     // Function allows for horizontal scroll of the bookmarks
     function transformScroll(event) {
@@ -28,7 +27,7 @@
 
 <div class="bookmark-area">
     <div class="bookmarks" on:mousewheel|preventDefault={transformScroll}>
-        {#each bookMarks as book}
+        {#each $bookmarkList as book}
         <a href={book.url} class="bookmark">
             <i class={book.icon}></i>
             <div class="title-area">
