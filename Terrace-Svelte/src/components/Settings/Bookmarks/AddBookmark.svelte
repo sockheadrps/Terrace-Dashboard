@@ -10,27 +10,28 @@
     let name =""
     let url = ""
     let icon = ""
-    let iList = []
+    let icons = []
     const endpoint = (`https://api.iconify.design/collections?pretty=1`)
-
+    let iconValue = ""
 
 
     async function checkIcon(name) {
-        let urls = [];
-        const iresponse = await fetch(`https://api.iconify.design/search?query=${name}`)
+        let icons = [];
+        return await fetch(`https://api.iconify.design/search?query=${name}`)
             .then(res => res.json())
             .then(json => {
                 json.icons.forEach(element => {
-                    let [ prefix, icon ] = element.split(":");
-                    let url = `https://api.iconify.design/${prefix}/${icon}.svg`
-                    urls.push(url)
+                    icons.push(element)
                 });
-                console.log(urls)
-                return urls
+                return icons
             });
     }
 
-    checkIcon("hand")
+
+    $: checkIcon(iconValue).then(res => {
+        icons = res;
+    })
+
 
 	const dispatch = createEventDispatcher();
 	const close = () => dispatch('close');
@@ -78,17 +79,17 @@
             <div class="input__area">
                 <input type="text" class="name" placeholder="Bookmark Title..." bind:value={name}>
                 <input type="text" class="url" placeholder="Bookmark URL..." bind:value={url}>
-            <!-- TODO CHOOSE ICON -->
             </div>
             <div class="icon__area">
-                <Dropdown titleText="Contact" selectedId="0" items={[]}
-/>
-                <Search placeholder="Search catalog..." value="Cloud functions" />
-                <!-- <Icon icon="mdi-light:add-home" /> -->
-                <iconify-icon icon="mdi-light:cancel" />
+                <Search placeholder="Search catalog..." bind:value={iconValue} />
+                {#each icons as ic}
+                    <button on:click|preventDefault={() => icon = ic}>
+                        <Icon icon={ic} />
+                    </button>
+                {/each}
             </div>
             <div class="save__area">
-                <button autofocus type="submit" 
+                <button autofocus type="submit" class="submit" 
                     on:click|preventDefault={() => newBookmark(name, url, icon)}
                     on:click={close}>Submit
                 </button>
@@ -140,6 +141,7 @@
         grid-template-columns: 1;
         grid-row: 2;
         height: 250px;
+        font-size: 45px;
     }
 
     .save__area{
@@ -150,7 +152,7 @@
 
     }
 
-	button {
+	button.submit{
         margin-top: 1rem;
         border-radius: .5rem;
         text-align: center;
@@ -167,7 +169,7 @@
         color: rgb(136, 136, 136);
 	}
 
-    button:hover {
+    button.submit:hover {
         background: linear-gradient(rgb(37, 37, 37),rgb(51, 51, 51)) padding-box,
                     linear-gradient(to right, rgba(61, 61, 61, 0.11), rgba(129, 129, 129, 0)) border-box;
                     border-radius: .5rem;

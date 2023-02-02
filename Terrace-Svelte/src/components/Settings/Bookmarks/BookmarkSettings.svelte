@@ -1,9 +1,10 @@
 <script>
-    import { each } from "svelte/internal";
-    import { bookmarkList, newBookmark } from "../../../bookmarksStore"
+    import { bookmarkList } from "../../../bookmarksStore"
     import AddBookmark from "./AddBookmark.svelte";
+    import Icon from '@iconify/svelte';
     let addBookMark = true
 
+    $: {console.log($bookmarkList)}
     
 </script>
 
@@ -19,10 +20,9 @@
             <li>
                 <span class="name">{bookmark.name}</span>
                 <span class="url">{bookmark.url}</span>
-                <!-- <span class="icon">{bookmark.icon}</span> -->
+                <!-- Doesnt seem to load the icon -->
+                <Icon icon={bookmark.icon} />    
             </li>
             {/each}
         </ol>
-    
-
 </div>
