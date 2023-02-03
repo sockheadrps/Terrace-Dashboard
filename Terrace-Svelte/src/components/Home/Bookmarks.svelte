@@ -1,10 +1,6 @@
 <script>
     import { bookmarkList } from '../../bookmarksStore'
     import Icon from '@iconify/svelte';
-    $: console.log("Bklist ", $bookmarkList)
-
-
-    
 
     // Function allows for horizontal scroll of the bookmarks
     function transformScroll(event) {

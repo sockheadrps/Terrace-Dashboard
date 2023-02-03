@@ -138,10 +138,6 @@
     }
 
 
-    .add_bookmark button {
-        cursor: pointer;
-    }
-
     .results {
         display: grid;
         grid-gap: 5px;

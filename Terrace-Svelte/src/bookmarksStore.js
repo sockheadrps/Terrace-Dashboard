@@ -7,8 +7,9 @@ let bookmarkStorage = [
     {name: "Instagram", url: "http://www.instagram.com", "icon": "skill-icons:instagram"},
 ]
 
-if(localStorage.getItem("bookmarks") === undefined)
-    localStorage.setItem("bookmarks", JSON.stringify(initBookmarks))
+
+if(localStorage.getItem("bookmarks") === null)
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarkStorage))
 else
     bookmarkStorage = JSON.parse(localStorage.getItem("bookmarks"))
 
