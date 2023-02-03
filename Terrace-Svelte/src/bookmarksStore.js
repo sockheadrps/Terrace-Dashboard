@@ -20,9 +20,14 @@ export function newBookmark(name, url, icon) {
         url: url,
         icon: icon
     }
-    bookmarkStorage = bookmarkStorage.filter(item => item.name != newBookmark.name)
-    console.log(bookmarkStorage.filter(item => item.name !== newBookmark.name))
-    bookmarkStorage.push(newBookmark)
+    let index = bookmarkStorage.findIndex((n) => {
+         return name === n.name
+    })
+    if (index > -1) {
+        bookmarkStorage[index] = newBookmark
+    } else {
+        bookmarkStorage.push(newBookmark)
+    }
     localStorage.setItem("bookmarks", JSON.stringify(bookmarkStorage))
     bookmarkList.set(bookmarkStorage)
 }
