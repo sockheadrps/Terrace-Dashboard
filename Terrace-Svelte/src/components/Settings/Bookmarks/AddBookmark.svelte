@@ -2,8 +2,6 @@
 	import { createEventDispatcher, onDestroy } from 'svelte';
     import { bookmarkList, newBookmark } from "../../../bookmarksStore"
     import { onMount } from "svelte";
-    import "carbon-components-svelte/css/g100.css";
-    import { Search, Dropdown, Button  } from "carbon-components-svelte";
     import Icon from '@iconify/svelte';
     import 'iconify-icon'
     let bookmarks = $bookmarkList
@@ -72,11 +70,13 @@
 <div class="modal" role="dialog" aria-modal="true" bind:this={modal}>
     <div class="container">
             <div class="input__area">
-                <input type="text" class="name" placeholder="Bookmark Title..." bind:value={name}>
-                <input type="text" class="url" placeholder="Bookmark URL..." bind:value={url}>
+                <input type="text" class="bk__data" placeholder="Bookmark Title..." bind:value={name}>
+                <input type="text" class="bk__data" placeholder="Bookmark URL..." bind:value={url}>
             </div>
             <div class="icon__area">
-                <Search placeholder="Search catalog..." bind:value={iconValue} />
+                <div class="icon__searchbar">
+                    <input type="text" class="icon__search" bind:value={iconValue}>
+                </div>
                 <div class="results">
                     {#if icon !== ""}
                         <button class="selected" on:click={() => icon = ""}>
@@ -109,6 +109,34 @@
         border: none;
         outline: none;
     }
+
+    .icon__searchbar{
+        vertical-align: middle;
+        position: relative;
+
+    }
+
+    .icon__search {
+        display: inline-block;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-top: 50px;
+        height: 50px;
+        font-size: 35px;
+        width: 100%;
+        padding: 0px 50px;
+        background-color: rgb(43, 43, 43);
+        outline: none;
+        border-bottom: 1px solid rgb(82, 82, 82);
+        border-right: 0px;
+        background-image:url('https://api.iconify.design/ic/baseline-search.svg');
+        background-repeat:no-repeat;
+        background-position:left center;outline:0;
+        background-size: 30px;
+        background-position: 10px 10px;
+        color: #a0a0a0;
+    }
+
 
     .add_bookmark button {
         cursor: pointer;
@@ -215,7 +243,7 @@
         color: #c4c3c3;
     }
 
-    input {
+    .bk__data  {
         background-color: rgb(26, 27, 31);
         border-radius: .5rem;
         text-align: center;
@@ -229,14 +257,14 @@
         margin: 0 1rem 1rem 0;
     }
 
-    input:hover {
+    .bk__data :hover {
         background: linear-gradient(rgb(37, 37, 37),rgb(51, 51, 51)) padding-box,
                     linear-gradient(to right, rgba(61, 61, 61, 0.11), rgba(129, 129, 129, 0)) border-box;
                     border-radius: .5rem;
 
         border: 1px solid transparent;
     }
-    input:focus {
+    .bk__data :focus {
         background: linear-gradient(rgb(43, 43, 43),rgb(66, 66, 66)) padding-box,
                     linear-gradient(to right, rgba(61, 61, 61, 0.11), rgba(129, 129, 129, 0)) border-box;
                     border-radius: .5rem;
