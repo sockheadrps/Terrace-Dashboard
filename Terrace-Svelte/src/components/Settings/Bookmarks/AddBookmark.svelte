@@ -5,9 +5,9 @@
     import Icon from '@iconify/svelte';
     import 'iconify-icon'
     let bookmarks = $bookmarkList
-    let name =""
-    let url = ""
-    let icon = ""
+    export let name = ""
+    export let url = ""
+    export let icon = ""
     let icons = []
     const endpoint = (`https://api.iconify.design/collections?pretty=1`)
     let iconValue = ""
