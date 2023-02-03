@@ -123,7 +123,7 @@
         margin-top: 50px;
         height: 50px;
         font-size: 35px;
-        width: 100%;
+        width: 80%;
         padding: 0px 50px;
         background-color: rgb(43, 43, 43);
         outline: none;
