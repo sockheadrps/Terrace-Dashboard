@@ -7,7 +7,6 @@ from fastapi import (
     WebSocket,
     WebSocketDisconnect,
 )
-from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from logging import basicConfig, INFO
@@ -34,7 +33,6 @@ client_types = {
 
 
 app = FastAPI()
-templates = Jinja2Templates(directory="../Terrace-Svelte/dist")
 app.mount("/assets", StaticFiles(directory="../Terrace-Svelte/dist/assets"), name="static")
 basicConfig(
     format="%(asctime)s %(message)s",
