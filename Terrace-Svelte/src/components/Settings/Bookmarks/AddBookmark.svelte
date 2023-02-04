@@ -66,7 +66,6 @@
 <svelte:window on:keydown={handle_keydown}/>
 
 <div class="modal-background" on:click={close}></div>
-
 <div class="modal" role="dialog" aria-modal="true" bind:this={modal}>
     <div class="container">
             <div class="input__area">
@@ -169,9 +168,11 @@
 		height: 100%;
 		background: rgba(0, 0, 0, 0.74);
         border-radius: 2rem;
+        z-index: 3;
 	}
 
 	.modal {
+        z-index: 4;
 		position: absolute;
 		left: 50%;
 		top: 50%;

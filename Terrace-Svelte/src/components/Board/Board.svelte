@@ -53,7 +53,7 @@
          rgba(20, 20, 20, 0.863)
          );
 
-    z-index: 4;
+    z-index: -1;
     backdrop-filter: blur(.23rem);
     margin: 3rem;
     border-radius: 2rem;
