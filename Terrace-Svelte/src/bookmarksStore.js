@@ -43,4 +43,8 @@ export function deleteBookmark(name) {
     }
 }
 
+export function saveBookmarks() {
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarkStorage));
+}
+
 export let bookmarkList = writable(bookmarkStorage)
