@@ -27,8 +27,10 @@ def functions_dict():
 
 def test_new_event(functions_dict):
     """
-    Assertion 1: Tests that a callable is created in the functions_dict at specified key
-    Assertion 2: Tests that the correct callback function is inserted at the specified key
+    Assertion 1: Tests that a callable is created in the functions_dict at specified
+    key
+    Assertion 2: Tests that the correct callback function is inserted at the specified
+    key
     :param functions_dict: Pytest fixture
     :empty_callback_function() simulates a callback function
     """
@@ -46,7 +48,8 @@ def test_client_handler():
     """
     Tests the init function of the base class
     Assertion 1: Verifies the initial event is CONNECT
-    Assertion 2: Verifies server response for "client-type" is the correct class client type
+    Assertion 2: Verifies server response for "client-type" is the correct class client
+    type
     Assertion 3: Verifies the class ws_object is of type WebSocket
     """
 
@@ -67,13 +70,17 @@ def test_client_handler():
 # ----- TESTS FOR DASHBOARDHANDLER SUBCLASS -----
 def test_dashboard_handler_connect_dashboard():
     """
-    Assertion 1: Simulates a DashboardHandler serverside CONNECT event for clients that are Dashboards
+    Assertion 1: Simulates a DashboardHandler serverside CONNECT event for clients that
+    are Dashboards
     Assertion 2: Simulates a dashboard client and verifies a CONNECT event
-    Assertion 3: Simulates a dashboard client and verifies the CONNECT event returns a 'hardware-list'
-    Assertion 4: Simulates a dashboard client and verifies the CONNECT event returns a 'service-list'
+    Assertion 3: Simulates a dashboard client and verifies the CONNECT event returns a
+    'hardware-list'
+    Assertion 4: Simulates a dashboard client and verifies the CONNECT event returns a
+    'service-list'
 
     Server connect event for dashboard handlers will respond with:
-    {"event": "CONNECT", "hardware-list": [*hardware_client_set], "service-list": [*service_client_set]}
+    {"event": "CONNECT", "hardware-list": [*hardware_client_set],
+    "service-list": [*service_client_set]}
     """
 
     @app.websocket_route("/test_connect_dashboard")
@@ -95,13 +102,17 @@ def test_dashboard_handler_connect_dashboard():
 
 def test_dashboard_handler_connect_hardware():
     """
-    Assertion 1: Simulates a DashboardHandler serverside CONNECT event for clients that are Hardware
+    Assertion 1: Simulates a DashboardHandler serverside CONNECT event for clients that
+    are Hardware
     Assertion 2: Simulates a hardware client and verifies a CONNECT event
-    Assertion 3: Simulates a hardware client and verifies the CONNECT event returns the correct client-type
-    Assertion 4: Simulates a hardware client and verifies the CONNECT event returns the correct client-name
+    Assertion 3: Simulates a hardware client and verifies the CONNECT event returns the
+    correct client-type
+    Assertion 4: Simulates a hardware client and verifies the CONNECT event returns the
+    correct client-name
 
     Server connect event for non dashboard clients will respond with:
-    {"event": "CONNECT", "client-type": data['client-type'], "client-name": data["client-name"]}
+    {"event": "CONNECT", "client-type": data['client-type'],
+    "client-name": data["client-name"]}
     """
 
     @app.websocket_route("/test_connect_hardware")
@@ -129,7 +140,8 @@ def test_dashboard_handler_disconnect_hardware():
     Assertion 2: Simulates and verifies the hardware client DISCONNECT event
 
     Disconnect event returns:
-    {"event": "DISCONNECT", "client-type": data['client-type'], "client-name": data["client-name"]}
+    {"event": "DISCONNECT", "client-type": data['client-type'],
+    "client-name": data["client-name"]}
     """
 
     @app.websocket_route("/test_disconnect_hardware")
@@ -147,7 +159,8 @@ def test_dashboard_handler_disconnect_hardware():
         websocket.send_json(
             {"event": "CONNECT", "client-type": "HARDWARE", "client-name": "test"}
         )
-        # Data is not necessary here, just need to capture the connect event before asserting the disconnect
+        # Data is not necessary here, just need to capture the
+        # connect event before asserting the disconnect
         data = websocket.receive_json()
         websocket.send_json(
             {"event": "DISCONNECT", "client-type": "HARDWARE", "client-name": "test"}
@@ -158,13 +171,17 @@ def test_dashboard_handler_disconnect_hardware():
 
 def test_dashboard_handler_connect_service():
     """
-    Assertion 1: Simulates a DashboardHandler serverside CONNECT event for clients that are Services
+    Assertion 1: Simulates a DashboardHandler serverside CONNECT event for clients
+    that are Services
     Assertion 2: Simulates a service client and verifies a CONNECT event
-    Assertion 3: Simulates a service client and verifies the CONNECT event returns the correct client-type
-    Assertion 4: Simulates a service client and verifies the CONNECT event returns the correct client-name
+    Assertion 3: Simulates a service client and verifies the CONNECT event returns
+    the correct client-type
+    Assertion 4: Simulates a service client and verifies the CONNECT event returns
+    the correct client-name
 
     Server connect event for non dashboard clients will respond with:
-    {"event": "CONNECT", "client-type": data['client-type'], "client-name": data["client-name"]}
+    {"event": "CONNECT", "client-type": data['client-type'],
+    "client-name": data["client-name"]}
     """
 
     @app.websocket_route("/test_connect_service")
@@ -192,7 +209,8 @@ def test_dashboard_handler_disconnect_service():
     Assertion 2: Simulates and verifies the service client DISCONNECT event
 
     Disconnect event returns:
-    {"event": "DISCONNECT", "client-type": data['client-type'], "client-name": data["client-name"]}
+    {"event": "DISCONNECT", "client-type": data['client-type'],
+    "client-name": data["client-name"]}
     """
 
     @app.websocket_route("/test_disconnect_service")
@@ -210,7 +228,8 @@ def test_dashboard_handler_disconnect_service():
         websocket.send_json(
             {"event": "CONNECT", "client-type": "SERVICE", "client-name": "test"}
         )
-        # Data is not necessary here, just need to capture the connect event before asserting the disconnect
+        # Data is not necessary here, just need to capture the
+        # connect event before asserting the disconnect
         data = websocket.receive_json()
         websocket.send_json(
             {"event": "DISCONNECT", "client-type": "SERVICE", "client-name": "test"}
@@ -237,7 +256,8 @@ def test_dashboard_handler_hardware_data_recv():
         data = await websocket.receive_json()
         assert data["event"] == "HARDWARE-DATA"
         # Dont even need to do this part because the function in
-        # dashboard handler at this point only cares if the communication is from a HW client
+        # dashboard handler at this point only cares if the
+        # communication is from a HW client
         await dashboard_handler(data, dashboard_handler)
         await websocket.close()
 
@@ -250,8 +270,10 @@ def test_dashboard_handler_hardware_data_recv():
 def test_hardwarehandler_init():
     """
     Tests __init__ of HardwareHandler subclass
-    Assertion 1: Simulates and verifies that client_name instance property is properly set
-    Assertion 2: Simulates and verifies the client_name is added to the hardware_client_set
+    Assertion 1: Simulates and verifies that client_name instance property
+    is properly set
+    Assertion 2: Simulates and verifies the client_name is added to the
+    hardware_client_set
     """
 
     @app.websocket_route("/test_hardwarehandler_init")
@@ -277,7 +299,8 @@ def test_hardwarehandler_hardware_request():
     """
     Tests the HARDWARE-REQUEST event sent by a dashboard client
     Assertion 1: Simulates and verifies the serverside HARDWARE-REQUEST event
-    Assertion 2: Verifies the 'requested-client' is the client name of the hardware handler
+    Assertion 2: Verifies the 'requested-client' is the client name of the hardware
+     handler
 
     The event from JS:
     socket.send(JSON.stringify({event: "HARDWARE-REQUEST", "requested-client": i }));
@@ -310,10 +333,12 @@ def test_hardwarehandler_terminate_request():
     """
     Tests the HARDWARE-TERMINATE event sent by a dashboard client
     Assertion 1: Simulates and verifies the serverside HARDWARE-TERMINATE event
-    Assertion 2: Verifies the 'requested-client' is the client name of the hardware handler
+    Assertion 2: Verifies the 'requested-client' is the client name of the hardware
+    handler
 
     The event from JS:
-    JS - > socket.send(JSON.stringify({event: "HARDWARE-TERMINATE", "requested-client": currentHardware }));
+    JS - > socket.send(JSON.stringify({event: "HARDWARE-TERMINATE",
+    "requested-client": currentHardware }));
     """
 
     @app.websocket_route("/test_terminate_request")
@@ -377,7 +402,8 @@ def test_hardwarehandler_connected_hardware():
 def test_servicehandler_init():
     """
     Tests the ServiceHandler __init__
-    Assertion 1: Simulates and verifies the service handler gets created with the correct client type
+    Assertion 1: Simulates and verifies the service handler gets created with the
+    correct client type
     Assertion 2: Verifies the service name gets added to the service_client_set
 
     The service client connect event:

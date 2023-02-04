@@ -93,12 +93,12 @@
                 {/each}
             </div>
             <div class="save__area">
-                <button autofocus type="submit" class="submit" 
+                <button autofocus type="submit" class="submit"
                     on:click|preventDefault={() => newBookmark(name, url, icon)}
                     on:click={close}>Submit
                 </button>
             </div>
-            
+
     </div>
 </div>
 
@@ -118,7 +118,7 @@
         position: relative;
         top: 50%;
         height: 50px;
-        
+
         padding: 0 10px;
         padding-top: 5px;
         margin-top: -33px;

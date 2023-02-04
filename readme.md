@@ -37,7 +37,7 @@ TDB has been tested on [Python 3.7+](https://www.python.org/), and requires the 
 ```
 pip install -r requirements.txt
 ```
-TDB also requires you to build the Svelte frontend before you can use it. This requires [Node.js 12+](https://nodejs.org/en/) 
+TDB also requires you to build the Svelte frontend before you can use it. This requires [Node.js 12+](https://nodejs.org/en/)
 ```
 cd Terrace-Svelte
 npm install

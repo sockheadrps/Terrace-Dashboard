@@ -34,7 +34,7 @@
     {#if addBookMark}
         <AddBookmark bind:name bind:url bind:icon on:close="{() => {addBookMark = false;name='';url='';icon=''}}"  />
     {/if}
-    
+
     <div class="bookmarks__table__container">
         <table class="bookmark__table">
             <thead>
@@ -56,7 +56,7 @@
                     </td>
                     <td class="td__icon">
                         <button on:click="{() => addBookMark = true}">
-                            <Icon icon="material-symbols:bookmark-add-outline" /> 
+                            <Icon icon="material-symbols:bookmark-add-outline" />
                         </button>
                     </td>
                 </tr>
@@ -65,11 +65,11 @@
                 {#each $bookmarkList as bookmark, idx (idx)}
                 <tr data-name={bookmark.name} class="draggable {index === idx ? 'dragging' : ''}"
                     draggable="true"
-                    on:dblclick={() => handleDblClick(bookmark)} 
+                    on:dblclick={() => handleDblClick(bookmark)}
                     on:dragstart={() => index = idx}
                     on:dragover={() => afterIndex = idx}
                     on:dragend={handleDragEnd}>
-                    
+
                     <td>
                         <div class="bookmark__input__bar">
                             <span class="bookmark__input" contenteditable="true" spellcheck="false" bind:textContent={bookmark.name} on:input={saveBookmarks}></span>
@@ -81,7 +81,7 @@
                         </div>
                     </td>
                     <td class="td__icon">
-                        <Icon icon={bookmark.icon} /> 
+                        <Icon icon={bookmark.icon} />
                     </td>
                 </tr>
                 {/each}

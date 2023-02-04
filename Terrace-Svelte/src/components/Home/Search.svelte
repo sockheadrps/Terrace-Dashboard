@@ -14,10 +14,10 @@
     <div class="flip-container" on:click={onclick} on:keydown={onclick}>
         <div class="card {clicked}">
             <div class="front">
-                <img src="/assets/g-svg.svg" width="35" height="35" class="i-svg g-svg" alt="google icon"/> 
+                <img src="/assets/g-svg.svg" width="35" height="35" class="i-svg g-svg" alt="google icon"/>
             </div>
             <div class="back">
-                <img src="/assets/youtube-icon.svg" width="35" height="35" class="i-svg yt-svg" alt="youtube icon"/> 
+                <img src="/assets/youtube-icon.svg" width="35" height="35" class="i-svg yt-svg" alt="youtube icon"/>
             </div>
         </div>
     </div>

@@ -15,7 +15,6 @@ client_type = "SERVICE"
 
 
 async def client(host, name):
-    data = None
     try:
         async with websockets.connect(f"ws://{host}:8081/ws/stats") as websocket:
             # Initial connection

@@ -9,7 +9,8 @@ client_sets = {"HARDWARE": hardware_client_set, "SERVICE": service_client_set}
 
 def new_event(functions: dict, event: str):
     """
-    :param functions: A dictionary instantiated by the ClientHandler class that maps the event to a callback function
+    :param functions: A dictionary instantiated by the ClientHandler class that maps
+    the event to a callback function
     :param event: A string used as a key in the functions dictionary
     :return: A function that returns the callback function
     """

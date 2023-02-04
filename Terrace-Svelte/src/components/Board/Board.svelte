@@ -44,9 +44,9 @@
 
 #board{
     display: grid;
-    height: 90vh;
+    height: 100vh;
+    width: 100vw;
     grid-template-columns: 15% 85%;
-    min-width: 1100px;
     background: linear-gradient(
         to left top,
          rgba(36, 36, 36, 0.822),

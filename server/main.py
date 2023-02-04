@@ -9,7 +9,7 @@ from fastapi import (
 )
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from logging import basicConfig, INFO
+from logging import basicConfig
 from uvicorn import run
 from handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast
 import os
@@ -31,9 +31,10 @@ client_types = {
 }
 
 
-
 app = FastAPI()
-app.mount("/assets", StaticFiles(directory="../Terrace-Svelte/dist/assets"), name="static")
+app.mount(
+    "/assets", StaticFiles(directory="../Terrace-Svelte/dist/assets"), name="static"
+)
 basicConfig(
     format="%(asctime)s %(message)s",
     datefmt="%m/%d/%Y %I:%M:%S %p",

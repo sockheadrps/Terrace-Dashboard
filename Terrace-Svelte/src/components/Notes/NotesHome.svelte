@@ -12,7 +12,7 @@
     </div>
 
 <style>
-    
+
     .nav__area{
         overflow-y: overlay;
         border-radius: 2rem 0rem 0 2rem;
