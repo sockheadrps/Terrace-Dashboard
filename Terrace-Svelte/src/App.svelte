@@ -28,9 +28,9 @@
 :global(:root) {
     overflow: hidden ;
     display: flex;
-             flex-direction: column;
+    flex-direction: column;
     height: 100vh;
-            justify-content: center;
+    justify-content: center;
     background: Radial-gradient(rgba(255, 255, 255, 0.35), rgb(43, 43, 43)), Radial-gradient(at 0 0, #181818, #1f1f1f);
 }
 
@@ -49,9 +49,9 @@ main {
 * {
     margin: 0;
     padding: 0;
-     box-sizing: border-box;
-     font-family: 'Asap', sans-serif;
-     font-family: 'Spline Sans', sans-serif;
+    box-sizing: border-box;
+    font-family: 'Asap', sans-serif;
+    font-family: 'Spline Sans', sans-serif;
 }
 
 main{
