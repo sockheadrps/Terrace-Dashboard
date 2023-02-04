@@ -25,37 +25,36 @@
 </main>
 
 <style>
+:global(:root) {
+    overflow: hidden ;
+    display: flex;
+             flex-direction: column;
+    height: 100vh;
+            justify-content: center;
+    background: Radial-gradient(rgba(255, 255, 255, 0.35), rgb(43, 43, 43)), Radial-gradient(at 0 0, #181818, #1f1f1f);
+}
 
-	:global(:root) {
-		overflow: hidden ;
-		display: flex;
-		flex-direction: column;
-		height: 100vh;
-		justify-content: center;
-		background: Radial-gradient(rgba(255, 255, 255, 0.35), rgb(43, 43, 43)), Radial-gradient(at 0 0, #181818, #1f1f1f);
-	}
-	main {
-		text-align: center;
-		padding: 1em;
-		margin: 0 auto;
-	}
-	@media (min-width: 640px) {
-		main {
-			max-width: 700;
-		}
-	}
+main {
+    text-align: center;
+    padding: 1em;
+    margin: 0 auto;
+}
 
-	* {
+@media (min-width: 640px) {
+    main {
+        max-width: 700;
+    }
+}
+
+* {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Asap', sans-serif;
-    font-family: 'Spline Sans', sans-serif;
-  }
-	main{
-		height: 100%;
-	}
+     box-sizing: border-box;
+     font-family: 'Asap', sans-serif;
+     font-family: 'Spline Sans', sans-serif;
+}
 
-
-
+main{
+    height: 100%;
+}
 </style>
