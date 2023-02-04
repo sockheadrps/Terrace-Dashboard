@@ -2,7 +2,7 @@
     import SettingsNav from "./SettingsNav.svelte";
     import WeatherSettings from "./WeatherSettings.svelte"
     import BookmarkSettings from "./Bookmarks/BookmarkSettings.svelte";
-    export let activeSetting = "";
+    export let activeSetting = "Weather";
     export let settingsItems = ["Weather", "Bookmarks"];
 
 </script>

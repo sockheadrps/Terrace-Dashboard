@@ -74,22 +74,23 @@
             </div>
             <div class="icon__area">
                 <div class="icon__searchbar">
+                    <Icon icon="ic:baseline-search" />
                     <input type="text" class="icon__search" bind:value={iconValue}>
                 </div>
-                <div class="results">
-                    {#if icon !== ""}
-                        <button class="selected" on:click={() => icon = ""}>
-                            <Icon {icon} />
+            </div>
+            <div class="results">
+                {#if icon !== ""}
+                    <button class="selected" on:click={() => icon = ""}>
+                        <Icon {icon} />
+                    </button>
+                {/if}
+                {#each icons as ic}
+                    {#if ic !== icon}
+                        <button style="color:inherit" on:click={() => icon = ic}>
+                            <Icon icon={ic} />
                         </button>
                     {/if}
-                    {#each icons as ic}
-                        {#if ic !== icon}
-                            <button on:click={() => icon = ic}>
-                                <Icon icon={ic} />
-                            </button>
-                        {/if}
-                    {/each}
-                </div>
+                {/each}
             </div>
             <div class="save__area">
                 <button autofocus type="submit" class="submit" 
@@ -110,30 +111,40 @@
     }
 
     .icon__searchbar{
-        vertical-align: middle;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: auto;
         position: relative;
+        top: 50%;
+        height: 50px;
+        
+        padding: 0 10px;
+        padding-top: 5px;
+        margin-top: -33px;
+        width: 80%;
+        background-color: rgb(43, 43, 43);
+        border-bottom: 1px solid rgb(82, 82, 82);
 
+        background-size: 30px;
+        background-position: 10px 10px;
     }
 
     .icon__search {
-        display: inline-block;
-        top: 50%;
-        transform: translateY(-50%);
-        margin-top: 50px;
-        height: 50px;
-        font-size: 35px;
-        width: 80%;
-        padding: 0px 50px;
-        background-color: rgb(43, 43, 43);
-        outline: none;
-        border-bottom: 1px solid rgb(82, 82, 82);
+        width: 100%;
         border-right: 0px;
-        background-image:url('https://api.iconify.design/ic/baseline-search.svg');
+        background: none;
+        outline: none;
+        border: none;
+        font-size: 35px;
         background-repeat:no-repeat;
-        background-position:left center;outline:0;
-        background-size: 30px;
-        background-position: 10px 10px;
-        color: #a0a0a0;
+        background-position:left center;
+        color: inherit;
+        margin-bottom: 10px;
+    }
+
+    .icon__search::before {
+        background: url('https://api.iconify.design/ic/baseline-search.svg') no-repeat left 10px center;
     }
 
 
@@ -147,6 +158,7 @@
     .selected {
         outline: 2px #55D solid;
         background-color: #444;
+        color: inherit;
     }
 
     .results button {
@@ -190,6 +202,7 @@
     .container{
         display: grid;
         align-items: center;
+        row-gap: 20px;
     }
 
     .input__area{
@@ -207,9 +220,9 @@
     }
 
     .save__area{
-        grid-row: 3;
-        display: block;
-        flex-direction: column-reverse;
+        /* grid-row: 3; */
+        /* display: block; */
+        /* flex-direction: column-reverse; */
         align-items: center;
 
     }
