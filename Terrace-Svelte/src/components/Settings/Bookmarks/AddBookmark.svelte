@@ -5,9 +5,7 @@
     import Icon from '@iconify/svelte';
     import 'iconify-icon'
     let bookmarks = $bookmarkList
-    export let name = ""
-    export let url = ""
-    export let icon = ""
+    export let currentBookmark
     let icons = []
     const endpoint = (`https://api.iconify.design/collections?pretty=1`)
     let iconValue = ""
@@ -68,25 +66,21 @@
 <div class="modal-background" on:click={close}></div>
 <div class="modal" role="dialog" aria-modal="true" bind:this={modal}>
     <div class="container">
-            <div class="input__area">
-                <input type="text" class="bk__data" placeholder="Bookmark Title..." bind:value={name}>
-                <input type="text" class="bk__data" placeholder="Bookmark URL..." bind:value={url}>
-            </div>
             <div class="icon__area">
                 <div class="icon__searchbar">
-                    <Icon icon="ic:baseline-search" />
+                    <Icon currentBookmark.icon="ic:baseline-search" />
                     <input type="text" class="icon__search" bind:value={iconValue}>
                 </div>
             </div>
             <div class="results">
-                {#if icon !== ""}
-                    <button class="selected" on:click={() => icon = ""}>
-                        <Icon {icon} />
+                {#if currentBookmark.icon && currentBookmark.icon !== ""}
+                    <button class="selected" on:click={() => currentBookmark.icon = ""}>
+                        <Icon icon={currentBookmark.icon} />
                     </button>
                 {/if}
                 {#each icons as ic}
-                    {#if ic !== icon}
-                        <button style="color:inherit" on:click={() => icon = ic}>
+                    {#if ic !== currentBookmark.icon}
+                        <button style="color:inherit" on:click={() => currentBookmark.icon = ic}>
                             <Icon icon={ic} />
                         </button>
                     {/if}
@@ -94,7 +88,7 @@
             </div>
             <div class="save__area">
                 <button autofocus type="submit" class="submit" 
-                    on:click|preventDefault={() => newBookmark(name, url, icon)}
+                    on:click|preventDefault={() => newBookmark(currentBookmark)}
                     on:click={close}>Submit
                 </button>
             </div>
@@ -201,30 +195,19 @@
 
     .container{
         display: grid;
+        padding: 2rem 2rem 0 2rem;
         align-items: center;
         row-gap: 20px;
     }
 
-    .input__area{
-        margin-top: 1rem;
-        grid-row: 1;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-
     .icon__area{
         grid-template-columns: 1;
-        grid-row: 2;
         height: 100%;
         font-size: 45px;
     }
 
     .save__area{
-        /* grid-row: 3; */
-        /* display: block; */
-        /* flex-direction: column-reverse; */
         align-items: center;
-
     }
 
 	button.submit{

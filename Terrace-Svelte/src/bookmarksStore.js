@@ -14,14 +14,9 @@ else
     bookmarkStorage = JSON.parse(localStorage.getItem("bookmarks"))
 
 
-export function newBookmark(name, url, icon) {
-    const newBookmark = {
-        name: name,
-        url: url,
-        icon: icon
-    }
+export function newBookmark(newBookmark) {
     let index = bookmarkStorage.findIndex((n) => {
-         return name === n.name
+         return newBookmark.name === n.name
     })
     if (index > -1) {
         bookmarkStorage[index] = newBookmark

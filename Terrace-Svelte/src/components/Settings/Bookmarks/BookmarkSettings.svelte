@@ -3,20 +3,16 @@
     import AddBookmark from "./AddBookmark.svelte";
     import Icon from '@iconify/svelte';
     import 'iconify-icon'
-    let addBookMark = false
+    let currentBookmark
     let name = ""
     let url = ""
-    let icon = ""
     let body
     let index
     let afterIndex
 
 
-    function handleDblClick(bookmark) {
-        addBookMark = true
-        name = bookmark.name
-        url = bookmark.url
-        icon = bookmark.icon
+    function editBookmark(bookmark) {
+        currentBookmark = bookmark;
     }
 
     function handleDragEnd(){
@@ -71,8 +67,8 @@
 </script>
 
 <div class="add_bookmark">
-    {#if addBookMark}
-        <AddBookmark bind:name bind:url bind:icon on:close="{() => {addBookMark = false;name='';url='';icon=''}}"  />
+    {#if currentBookmark !== undefined}
+        <AddBookmark bind:currentBookmark on:close="{() => {currentBookmark=undefined;name='';url=''}}"  />
     {/if}
     
     <div class="bookmarks__table__container">
@@ -90,7 +86,7 @@
                         </div>
                     </th>
                     <th class="td__icon">
-                        <button on:click="{() => addBookMark = true}">
+                        <button on:click="{() => editBookmark({ name, url })}">
                             <Icon icon="material-symbols:bookmark-add-outline" /> 
                         </button>
                     </th>
@@ -98,9 +94,8 @@
             </thead>
             <tbody bind:this={body}>
                 {#each $bookmarkList as bookmark, idx (idx)}
-                <tr data-name={bookmark.name} class="draggable"
+                <tr class="draggable"
                     draggable="true"
-                    on:dblclick={() => handleDblClick(bookmark)} 
                     on:dragstart={() => index = idx}
                     on:dragover={() => afterIndex = idx}
                     on:dragend={handleDragEnd}>
@@ -116,7 +111,9 @@
                         </div>
                     </td>
                     <td class="td__icon">
-                        <Icon icon={bookmark.icon} /> 
+                        <button on:click={() => editBookmark(bookmark)}>
+                            <Icon icon={bookmark.icon} /> 
+                        </button>
                     </td>
                 </tr>
                 {/each}
