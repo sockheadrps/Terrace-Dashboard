@@ -79,26 +79,21 @@
         <table class="bookmark__table">
             <thead>
                 <tr>
-                    <th>Bookmark Name</th>
-                    <th>Bookmark URL</th>
-                    <th class="td__icon"></th>
-                </tr>
-                <tr>
-                    <td>
+                    <th>
                         <div class="bookmark__input__bar">
                             <span class="bookmark__input" contenteditable="true" spellcheck="false" placeholder="Title" bind:textContent={name}></span>
                         </div>
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         <div class="bookmark__input__bar">
                             <span class="bookmark__input" contenteditable="true" spellcheck="false" placeholder="URL" bind:textContent={url}></span>
                         </div>
-                    </td>
-                    <td class="td__icon">
+                    </th>
+                    <th class="td__icon">
                         <button on:click="{() => addBookMark = true}">
                             <Icon icon="material-symbols:bookmark-add-outline" /> 
                         </button>
-                    </td>
+                    </th>
                 </tr>
             </thead>
             <tbody bind:this={body}>
@@ -160,6 +155,10 @@
 
 .bookmark__input:focus {
     background-color: rgba(51, 51, 51, 0.493);
+}
+
+th .bookmark__input:focus {
+    background-color: rgba(62, 62, 62, 0.493);
 }
 
 :global(.bookmark__input[contentEditable="true"]:empty:before) {
