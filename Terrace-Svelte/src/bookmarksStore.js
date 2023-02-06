@@ -1,10 +1,10 @@
 import { writable } from "svelte/store";
 
 let bookmarkStorage = [
-    {name: "Youtube", url: "http://www.youtube.com", "icon": "logos:youtube-icon"},
-    {name: "Reddit", url: "http://www.reddit.com", "icon": "logos:reddit-icon"},
-    {name: "Twitch", url: "http://www.twitch.com", "icon": "logos:twitch"},
-    {name: "Instagram", url: "http://www.instagram.com", "icon": "skill-icons:instagram"},
+    {name: "Youtube", url: "https://www.youtube.com", "icon": "logos:youtube-icon"},
+    {name: "Reddit", url: "https://www.reddit.com", "icon": "logos:reddit-icon"},
+    {name: "Twitch", url: "https://www.twitch.com", "icon": "logos:twitch"},
+    {name: "Instagram", url: "https://www.instagram.com", "icon": "skill-icons:instagram"},
 ]
 
 
