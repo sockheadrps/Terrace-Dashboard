@@ -3,69 +3,99 @@
     import AddBookmark from "./AddBookmark.svelte";
     import Icon from '@iconify/svelte';
     import 'iconify-icon'
-    let addBookMark = false
+    let currentBookmark
     let name = ""
     let url = ""
-    let icon = ""
+    let body
     let index
     let afterIndex
 
 
-    function handleDblClick(bookmark) {
-        addBookMark = true
-        name = bookmark.name
-        url = bookmark.url
-        icon = bookmark.icon
+    function editBookmark(bookmark) {
+        currentBookmark = bookmark;
     }
 
     function handleDragEnd(){
-        let bookmark = $bookmarkList[index]
+        let startKeys = transitionKeys();
+        let endKeys = move([...startKeys], index, afterIndex);
 
-        $bookmarkList.splice(index, 1);
-        $bookmarkList.splice(afterIndex, 0, bookmark);
+        animateShift(startKeys, endKeys);
+        move($bookmarkList, index, afterIndex);
 
-        $bookmarkList = $bookmarkList
+        $bookmarkList = $bookmarkList;
         saveBookmarks();
-        index = undefined;
+    }
+
+
+    function transitionKeys() {
+        return Array.from(body.children).map((e) => e.getBoundingClientRect());
+    }
+
+    function animateShift(startKeys, endKeys) {
+        requestAnimationFrame(() => {
+            let children = Array.from(body.children);
+            children.forEach((e, idx) => {
+                e.style.transition = 'transform 0s';
+                e.style.transform = `translate(${endKeys[idx].x - startKeys[idx].x}px, ${endKeys[idx].y - startKeys[idx].y}px)`;
+            });
+
+
+            requestAnimationFrame(() => {
+                let cnt = index < afterIndex ? 0 : index - afterIndex - 1;
+                children.forEach((e, idx) => {
+                    if(idx !== afterIndex) {
+                        e.style.transition = `transform 500ms ${cnt*50}ms ease-in-out`;
+                        if(index < afterIndex)
+                            cnt += index <= idx ? 1 : 0;
+                        else
+                            cnt -= idx < index ? 1 : 0;
+                    } else {
+                        e.style.transition = `transform ${450+Math.abs(afterIndex-index)*50}ms ease-in-out`;
+                    }
+                    e.style.transform = '';
+                });
+            });
+        });
+    }
+
+    function move(arr, origIdx, newIdx) {
+        let val = arr[origIdx];
+        arr.splice(origIdx, 1);
+        arr.splice(newIdx, 0, val);
+        return arr;
     }
 </script>
 
 <div class="add_bookmark">
-    {#if addBookMark}
-        <AddBookmark bind:name bind:url bind:icon on:close="{() => {addBookMark = false;name='';url='';icon=''}}"  />
+    {#if currentBookmark !== undefined}
+        <AddBookmark bind:currentBookmark on:close="{() => {currentBookmark=undefined;name='';url=''}}"  />
     {/if}
 
     <div class="bookmarks__table__container">
         <table class="bookmark__table">
             <thead>
                 <tr>
-                    <th>Bookmark Name</th>
-                    <th>Bookmark URL</th>
-                    <th class="td__icon"></th>
-                </tr>
-                <tr>
-                    <td>
+                    <th>
                         <div class="bookmark__input__bar">
                             <span class="bookmark__input" contenteditable="true" spellcheck="false" placeholder="Title" bind:textContent={name}></span>
                         </div>
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         <div class="bookmark__input__bar">
                             <span class="bookmark__input" contenteditable="true" spellcheck="false" placeholder="URL" bind:textContent={url}></span>
                         </div>
-                    </td>
-                    <td class="td__icon">
-                        <button on:click="{() => addBookMark = true}">
-                            <Icon icon="material-symbols:bookmark-add-outline" />
+                    </th>
+                    <th class="td__icon">
+                        <button on:click="{() => editBookmark({ name, url })}">
+                            <Icon icon="material-symbols:bookmark-add-outline" /> 
                         </button>
-                    </td>
+                    </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody bind:this={body}>
                 {#each $bookmarkList as bookmark, idx (idx)}
-                <tr data-name={bookmark.name} class="draggable {index === idx ? 'dragging' : ''}"
+                <tr class="draggable"
                     draggable="true"
-                    on:dblclick={() => handleDblClick(bookmark)}
                     on:dragstart={() => index = idx}
                     on:dragover={() => afterIndex = idx}
                     on:dragend={handleDragEnd}>
@@ -81,7 +111,9 @@
                         </div>
                     </td>
                     <td class="td__icon">
-                        <Icon icon={bookmark.icon} />
+                        <button on:click={() => editBookmark(bookmark)}>
+                            <Icon icon={bookmark.icon} /> 
+                        </button>
                     </td>
                 </tr>
                 {/each}
@@ -120,6 +152,10 @@
 
 .bookmark__input:focus {
     background-color: rgba(51, 51, 51, 0.493);
+}
+
+th .bookmark__input:focus {
+    background-color: rgba(62, 62, 62, 0.493);
 }
 
 :global(.bookmark__input[contentEditable="true"]:empty:before) {
