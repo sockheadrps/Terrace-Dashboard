@@ -7,6 +7,7 @@
     let name = ""
     let url = ""
     let icon = ""
+    let body
     let index
     let afterIndex
 
@@ -19,14 +20,53 @@
     }
 
     function handleDragEnd(){
-        let bookmark = $bookmarkList[index]
+        let startKeys = transitionKeys();
+        let endKeys = move([...startKeys], index, afterIndex);
 
-        $bookmarkList.splice(index, 1);
-        $bookmarkList.splice(afterIndex, 0, bookmark);
+        animateShift(startKeys, endKeys);
+        move($bookmarkList, index, afterIndex);
 
-        $bookmarkList = $bookmarkList
+        $bookmarkList = $bookmarkList;
         saveBookmarks();
-        index = undefined;
+    }
+
+
+    function transitionKeys() {
+        return Array.from(body.children).map((e) => e.getBoundingClientRect());
+    }
+
+    function animateShift(startKeys, endKeys) {
+        requestAnimationFrame(() => {
+            let children = Array.from(body.children);
+            children.forEach((e, idx) => {
+                e.style.transition = 'transform 0s';
+                e.style.transform = `translate(${endKeys[idx].x - startKeys[idx].x}px, ${endKeys[idx].y - startKeys[idx].y}px)`;
+            });
+
+
+            requestAnimationFrame(() => {
+                let cnt = index < afterIndex ? 0 : index - afterIndex - 1;
+                children.forEach((e, idx) => {
+                    if(idx !== afterIndex) {
+                        e.style.transition = `transform 500ms ${cnt*50}ms ease-in-out`;
+                        if(index < afterIndex)
+                            cnt += index <= idx ? 1 : 0;
+                        else
+                            cnt -= idx < index ? 1 : 0;
+                    } else {
+                        e.style.transition = `transform ${450+Math.abs(afterIndex-index)*50}ms ease-in-out`;
+                    }
+                    e.style.transform = '';
+                });
+            });
+        });
+    }
+
+    function move(arr, origIdx, newIdx) {
+        let val = arr[origIdx];
+        arr.splice(origIdx, 1);
+        arr.splice(newIdx, 0, val);
+        return arr;
     }
 </script>
 
@@ -61,9 +101,9 @@
                     </td>
                 </tr>
             </thead>
-            <tbody>
+            <tbody bind:this={body}>
                 {#each $bookmarkList as bookmark, idx (idx)}
-                <tr data-name={bookmark.name} class="draggable {index === idx ? 'dragging' : ''}"
+                <tr data-name={bookmark.name} class="draggable"
                     draggable="true"
                     on:dblclick={() => handleDblClick(bookmark)} 
                     on:dragstart={() => index = idx}
