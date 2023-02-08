@@ -9,9 +9,9 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+<button on:click={() => currentNavStore.set("Home")} class="back"><i class="fa fa-solid fa-rotate-left" style="vertical-align: middle"></i></button>
 <div class="notes__nav">
-    <button on:click={() => currentNavStore.set("Home")} class="back"><i class="fa fa-solid fa-rotate-left" style="vertical-align: middle"></i></button>
-    <div class="notes">
+    <div class="notes scroll">
         {#each Object.entries($notesStore) as [id, note]}
             <NoteButton {id} {note} />
         {/each}
@@ -53,10 +53,10 @@
 
 .notes {
     height:100%;
+    overflow-y: overlay;
 }
 
 .back {
-    border-radius: 2rem 0rem 0rem 0rem;
     display: block;
     margin: 0px;
     width: 100%;
@@ -92,7 +92,7 @@ button {
     align-items: center;
     bottom: 0px;
     position: absolute;
-    width: 177px;
+    width: 14%;
     padding: auto;
 }
 
