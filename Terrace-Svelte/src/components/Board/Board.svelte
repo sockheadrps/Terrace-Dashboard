@@ -44,7 +44,8 @@
 
 #board{
     display: grid;
-    height: 90vh;
+    height: 100vh;
+    width: 100vw;
     grid-template-columns: 15% 85%;
     background: linear-gradient(
         to left top,
@@ -54,7 +55,7 @@
 
     z-index: -1;
     backdrop-filter: blur(.23rem);
-    /* margin: 3rem; */
+    margin: 3rem;
     border-radius: 2rem;
 }
 
