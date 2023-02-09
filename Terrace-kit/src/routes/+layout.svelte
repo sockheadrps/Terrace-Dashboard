@@ -19,7 +19,7 @@ function onConnect() {
 }
 </script>
 
-<div id="board">
+<div id="board" class="original-theme">
     <NavBar />
     <slot />
 </div>

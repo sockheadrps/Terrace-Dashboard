@@ -149,8 +149,7 @@
     border-radius: 2rem;
     margin: 0rem 2rem;
     padding: 2rem;
-    height: auto;
-    width: auto;
+
     color: #808080;
     align-items: center;
 }

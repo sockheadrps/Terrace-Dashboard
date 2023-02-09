@@ -7,7 +7,7 @@
 
 
 <div class="settings__area">
-    <div id="settings__nav" >
+    <div class="settings__nav" >
         <SettingsNav />
         <slot />
     </div>
@@ -29,5 +29,9 @@
     color: #808080;
 }
 
+.settings__nav {
+    display: grid;
+    grid-template-rows: 1fr 9fr;
+}
 
 </style>

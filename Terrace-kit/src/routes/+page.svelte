@@ -6,12 +6,11 @@
 
 </script>
 
-<div id="main__content">
-    <div class="top__spacer"></div>
-    <div class="search__area">
+<div id="main__content" class="grid grid-rows-4 align-top py-5">
+    <div class="search__area row-span-1">
         <Search />
     </div>
-    <div class="weather__area">
+    <div class="weather__area row-span-1">
         <Weather />
     </div>
     <div class="bookmark__area">
@@ -20,25 +19,10 @@
     <div class="service__area">
         <Services />
     </div>
-    <div class="bottom__spacer"></div>
 
 </div>
 
 <style>
-#main__content{
-    grid-column-start: 2;
-    display: grid;
-    grid-template-rows: 5% 10% 25% 25% 33%;
-    align-items: top;
-}
-
-.top__spacer{
-    height: 100%;
-}
-
-.bottom__spacer{
-    height: 100%;
-}
 
 .service__area {
     display: flex;

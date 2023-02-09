@@ -3,7 +3,6 @@
 </script>
 
 <nav id="navbar">
-    <div class="nav__top"></div>
     <div id="nav__items">
         {#each settingsItems as setting}
             <a href="/settings/{setting.toLowerCase()}">

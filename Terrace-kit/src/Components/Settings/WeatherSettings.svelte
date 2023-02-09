@@ -1,4 +1,5 @@
 <script>
+    import Input from "../Input/Input.svelte";
     let longitude = "";
     let badLong = true
     let latitude = "";
@@ -61,20 +62,30 @@
     
 </script>
 
-
-<div class="weather_api_area">
+<!-- <div class="weather_api_area">
     <label for="Weather API">Weather API</label>
     <a href="{url}">{url}</a>
     <form id="weather__api">
-        <input type="text" class="search" placeholder="Longitude" name="q" bind:value={longitude}>
-        <input type="text" class="search" placeholder="Latitude" name="q" bind:value={latitude}>
-        <input type="text" class="search" placeholder="API Key" name="q" bind:value={apiKey}>
+        <input type="text" class="search {badLat === true ? "bad__input": ""} {badLat === false ? "good__input": ""} {latitude === "" ? "no__input" : ""}" 
+        placeholder="Latitude" name="q" bind:value={latitude} on:input={checkLat}>
+
+        <input type="text" class="search {badLong === true ? "bad__input": ""} {badLong === false ? "good__input": ""} {longitude === "" ? "no__input" : ""}"
+        placeholder="Longitude" name="q" bind:value={longitude} on:input={checkLong}>
+        
+        <input type="text" class="search {badKey === true ? "bad__input": ""} {badKey === false ? "good__input": ""} {apiKey === "" ? "no__input" : ""}" placeholder="API Key" name="q" bind:value={apiKey} on:input={checkApiKey}>
     </form>
     <div class="bottom-area">
-        <button class="save__btn" type="submit" value="weather__api" on:click={(e) => saveApi(e)}>Save</button>
+        <button class="save__btn {respCode === 200 ? "good__input" : ""} {respCode === 401 ? "error__input" : ""} {respCode === 0 ? "bad__input" : ""}" 
+        type="submit" value="weather__api" on:click={() => saveApi()}>Save</button>
+    </div>
+</div> -->
+
+<div class="h-full grid grid-rows-6">
+    <div class="row-start-2 row-span-4 w-full bg-slate-500 grid grid-rows-3 gap-4 items-center justify-center">
+        <label for="Weather API" class="border-2 border-red-500">Weather Api</label>
+        <div class="row-span-3 border-2 border-green-500">01</div>
     </div>
 </div>
-
 
 <style>
 
@@ -134,21 +145,29 @@ input {
     background:rgba(64, 64, 73, 0.1);
     color: #808080;
     height: 2rem;
+}
 
+.bad__input {
+    background:rgba(151, 80, 59, 0.884);
+}
+
+.good__input {
+    background:rgba(59, 151, 79, 0.568);
+}
+
+.error__input {
+    background:rgba(173, 133, 4, 0.568);
+}
+
+.no__input {
+    background:rgba(64, 64, 73, 0.1);
 }
 
 input:hover {
-    background: linear-gradient(rgb(37, 37, 37),rgb(51, 51, 51)) padding-box,
-                linear-gradient(to right, rgba(61, 61, 61, 0.11), rgba(129, 129, 129, 0)) border-box;
-                border-radius: .5rem;
-
+    opacity: .6;
     border: 1px solid transparent;
 }
 input:focus {
-    background: linear-gradient(rgb(43, 43, 43),rgb(66, 66, 66)) padding-box,
-                linear-gradient(to right, rgba(61, 61, 61, 0.11), rgba(129, 129, 129, 0)) border-box;
-                border-radius: .5rem;
-
     border-radius: 2rem;
     border: 1px solid rgba(10, 6, 24, 0.021);
     opacity: .7;

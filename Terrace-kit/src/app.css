@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+
+    }
+    [class~="original-theme"] {
+        /* Text */
+        --color-text-base: rgb(184, 184, 184);
+        --color-text-muted: #616161;
+        /* Inputs */
+        --color-input-bg-light: rgb(43, 43, 43);
+        --color-input-bg-hover: rgb(54, 54, 54);
+        /* Backgrounds */
+    }
+}
