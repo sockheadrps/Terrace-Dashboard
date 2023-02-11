@@ -68,27 +68,24 @@
     }
 </script>
 
-<div class="add_bookmark">
+<div>
     {#if currentBookmark !== undefined}
         <AddBookmark bind:currentBookmark on:close="{() => {currentBookmark=undefined;name='';url=''}}"  />
     {/if}
 
-    <div class="bookmarks__table__container">
-        <table class="bookmark__table">
-            <thead>
+    <div class="mt-20">
+        <table class="w-11/12 mx-auto select-none">
+            <thead class="bg-original-table-header text-left">
                 <tr>
-                    <th>
-                        <div class="bookmark__input__bar">
-                            <span class="bookmark__input" contenteditable="true" spellcheck="false" placeholder="Title" bind:textContent={name}></span>
-                        </div>
+                    <th class="p-2">
+                        <span class="inline-block cursor-text min-w-[12rem] max-w-[30rem] w-auto bg-inherit outline-none border-none text-original-base transition-colors duration-200 ease-in-out bg px-1.5 py-0.5 rounded-md focus:bg-original-table-header-focus" contenteditable="true" spellcheck="false" placeholder="Title" bind:textContent={name}></span>
                     </th>
                     <th>
-                        <div class="bookmark__input__bar">
-                            <span class="bookmark__input" contenteditable="true" spellcheck="false" placeholder="URL" bind:textContent={url}></span>
-                        </div>
+                        <span class="inline-block cursor-text min-w-[12rem] max-w-[30rem] w-auto bg-inherit outline-none border-none text-original-base transition-colors duration-200 ease-in-out bg px-1.5 py-0.5 rounded-md focus:bg-original-table-header-focus"  contenteditable="true" spellcheck="false" placeholder="URL" bind:textContent={url}></span>
+                        
                     </th>
-                    <th class="td__icon">
-                        <button on:click="{() => editBookmark({ name, url, icon: null })}">
+                    <th class="text-center">
+                        <button class="align-middle text-3xl" on:click="{() => editBookmark({ name, url, icon: null })}">
                             <Icon icon="material-symbols:bookmark-add-outline" /> 
                         </button>
                     </th>
@@ -96,24 +93,20 @@
             </thead>
             <tbody bind:this={body}>
                 {#each $bookmarkList as bookmark, idx (idx)}
-                <tr class="draggable"
+                <tr class="even:bg-original-table-row-even cursor-move h-10"
                     draggable="true"
                     on:dragstart={() => index = idx}
                     on:dragover={() => afterIndex = idx}
                     on:dragend={handleDragEnd}>
 
                     <td>
-                        <div class="bookmark__input__bar">
-                            <span class="bookmark__input" contenteditable="true" spellcheck="false" bind:textContent={bookmark.name} on:input={saveBookmarks}></span>
-                        </div>
+                        <span class="inline-block cursor-text min-w-[12rem] max-w-[30rem] w-auto bg-inherit outline-none border-none text-original-base transition-colors duration-200 ease-in-out bg px-1.5 rounded-md focus:bg-original-table-header-focus" contenteditable="true" spellcheck="false" bind:textContent={bookmark.name} on:input={saveBookmarks}></span>
                     </td>
                     <td>
-                        <div class="bookmark__input__bar">
-                            <span class="bookmark__input" contenteditable="true" spellcheck="false" bind:textContent={bookmark.url} on:input={saveBookmarks}></span>
-                        </div>
+                        <span class="inline-block cursor-text min-w-[12rem] max-w-[30rem] w-auto bg-inherit outline-none border-none text-original-base transition-colors duration-200 ease-in-out bg px-1.5 rounded-md focus:bg-original-table-header-focus" contenteditable="true" spellcheck="false" bind:textContent={bookmark.url} on:input={saveBookmarks}></span>
                     </td>
-                    <td class="td__icon">
-                        <button on:click={() => editBookmark(bookmark)}>
+                    <td class="text-center">
+                        <button class="text-center align-middle cursor-pointer bg-none border-none outline-none text-inherit transition-colors duration-200 ease-in-out hover:text-original-iconhover text-3xl" on:click={() => editBookmark(bookmark)}>
                             <Icon icon={bookmark.icon} /> 
                         </button>
                     </td>
@@ -123,94 +116,10 @@
         </table>
     </div>
 </div>
+
 <style>
-
-
-.bookmarks__table__container{
-    margin-top: 5rem;
-}
-
-.bookmark__input__bar{
-    vertical-align: middle;
-    position: relative;
-    z-index: 1;
-}
-
-.bookmark__input {
-    display: inline-block;
-    cursor: text;
-    min-width: 12rem;
-    max-width: 30rem;
-    width: auto;
-    font-size: 15px;
-    background-color: inherit;
-    outline: none;
-    border: none;
-    color: #838383;
-    transition: 0.2s background-color ease-in-out;
-    padding: 5px 4px 5px 4px;
-    border-radius: 5px;
-}
-
-.bookmark__input:focus {
-    background-color: rgba(51, 51, 51, 0.493);
-}
-
-th .bookmark__input:focus {
-    background-color: rgba(62, 62, 62, 0.493);
-}
-
-:global(.bookmark__input[contentEditable="true"]:empty:before) {
+:global(span[contentEditable="true"]:empty:before) {
     content: attr(placeholder);
     color: #636363;
 }
-
-.bookmark__table{
-    border-collapse: collapse;
-    width: 90%;
-    margin-left: 5%;
-    user-select: none;
-}
-
-.bookmark__table td, .bookmark__table th {
-    padding: 8px;
-    text-align: left;
-    user-select: none;
-}
-
-.bookmark__table tr:nth-child(even){
-    background-color: #20202071;
-}
-
-.bookmark__table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #35353577;
-}
-
-.bookmark__table .td__icon {
-    text-align: center;
-    font-size: 25px;
-}
-
-button {
-    cursor: pointer;
-    background: none;
-    border: none;
-    outline: none;
-    font-size: 25px;
-    color: inherit;
-    transition: 0.2s color ease-in-out;
-}
-
-button:hover {
-    outline: 1px solid transparent;
-    color: #c4c3c3;
-}
-
-.draggable {
-    cursor: move;
-}
-
 </style>

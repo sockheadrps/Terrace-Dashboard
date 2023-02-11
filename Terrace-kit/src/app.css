@@ -14,5 +14,10 @@
         --color-input-bg-light: rgb(43, 43, 43);
         --color-input-bg-hover: rgb(54, 54, 54);
         /* Backgrounds */
+        /* Tables */
+        --color-table-header: rgb(44, 44, 44);
+        --color-table-header-focus: rgba(70, 70, 70, 0.397);
+        --color-table-row-even: rgb(32, 32, 32);
+        --color-table-icon-hover: rgb(196, 195, 195);
     }
 }

@@ -10,12 +10,16 @@ module.exports = {
 				original : {
 					base: 'var(--color-text-base)',
 					muted: 'var(--color-text-muted)',
+					iconhover: 'var(color-table-icon-hover)'
 				},
 			},
 			backgroundColor: {
 				original: {
 					fill: 'var(--color-input-bg-light)',
-					'input-hover': 'var(--color-input-bg-hover)'
+					'input-hover': 'var(--color-input-bg-hover)',
+					'table-header': 'var(--color-table-header)',
+					'table-header-focus': 'var(--color-table-header-focus)',
+					'table-row-even': 'var(--color-table-row-even)'
 				}
 			},
 			borderColor: {
