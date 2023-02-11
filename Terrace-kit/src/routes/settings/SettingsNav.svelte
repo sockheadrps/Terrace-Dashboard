@@ -1,5 +1,5 @@
 <script>
-    let settingsItems = ["Weather", "Bookmarks"];
+    let settingsItems = ["Weather", "Bookmarks", "Server"];
 </script>
 
 <nav id="navbar">
@@ -25,7 +25,7 @@
 
 #nav__items{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     justify-content: start;
     padding-left: 2rem;
     padding-right: 2rem;

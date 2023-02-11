@@ -14,6 +14,7 @@
         --color-input-bg-light: rgb(43, 43, 43);
         --color-input-bg-hover: rgb(54, 54, 54);
         /* Backgrounds */
+        --color-bg-dark: rgba(12, 12, 12, 0.596);
         /* Tables */
         --color-table-header: rgb(44, 44, 44);
         --color-table-header-focus: rgba(70, 70, 70, 0.397);

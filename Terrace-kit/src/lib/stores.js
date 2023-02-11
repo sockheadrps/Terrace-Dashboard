@@ -1,7 +1,9 @@
 import { writable } from 'svelte/store';
 let hardwareList = [];
 let serviceList = [];
+let services = {}
 let hardwareData;
+let wsMessage
 let ws = '';
 
 /**
@@ -31,21 +33,24 @@ export function terminateHwCommunication (hardwareClient) {
 }
 
 export const state = writable({
+    wsMessage: "",
     data: [],
     hardwareList: [],
     hardwareData: [],
-    serviceList: []
+    serviceList: [],
+    services: []
 });
 
-export const websocketConnect = () => {
-    ws = new WebSocket(`ws://${location.host}/ws/stats`);
+export const websocketConnect = (url) => {
+    ws = new WebSocket(`${url}/ws/stats`);
     ws.addEventListener('open', () => {
         ws.send(JSON.stringify({ event: 'CONNECT', 'client-type': 'DASHBOARD' }));
     });
 
     ws.addEventListener('message', (message) => {
         const data = JSON.parse(message.data);
-
+        console.log(data)
+        wsMessage = data
         if (data.event === 'CONNECT') {
             if (data['hardware-list']) {
                 hardwareList = data['hardware-list'];
@@ -69,21 +74,31 @@ export const websocketConnect = () => {
                 serviceList = serviceList.filter(
                     function (e) { return e !== data['client-name']; }
                 );
+                services = services.filter(
+                    function (e) { return e !== data['client-name']; }
+                );
             }
         }
 
         if (data.event === 'HARDWARE-DATA') {
             hardwareData = data.data;
         }
+        if (data.event === 'SERVICE-DATA') {
+            services[data['client-name']] = data.data
+        }
+            
         state.update((state) => ({
             ...state,
+            message: wsMessage,
             data: [data],
             hardwareList: [hardwareList],
             hardwareData: [hardwareData],
-            serviceList: [serviceList][0]
+            serviceList: [serviceList][0],
+            services:{services}
         }));
+        
     });
 };
 
-export const currentNavStore = writable('Home');
+export const currentNavStore = writable('Settings');
 export const activeHardwareClient = writable('');

@@ -19,7 +19,8 @@ module.exports = {
 					'input-hover': 'var(--color-input-bg-hover)',
 					'table-header': 'var(--color-table-header)',
 					'table-header-focus': 'var(--color-table-header-focus)',
-					'table-row-even': 'var(--color-table-row-even)'
+					'table-row-even': 'var(--color-table-row-even)',
+					'card-bg-dark': 'var(--color-bg-dark)'
 				}
 			},
 			borderColor: {

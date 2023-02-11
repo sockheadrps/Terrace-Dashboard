@@ -7,7 +7,7 @@ from fastapi import (
     WebSocket,
     WebSocketDisconnect,
 )
-from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from logging import basicConfig
 from uvicorn import run
@@ -32,9 +32,24 @@ client_types = {
 
 
 app = FastAPI()
-app.mount(
-    "/assets", StaticFiles(directory="../Terrace-Svelte/dist/assets"), name="static"
+# app.mount(
+#     "/assets", StaticFiles(directory="../Terrace-Svelte/dist/assets"), name="static"
+# )
+
+origins = [
+    "http://localhost",
+    "http://localhost:8081",
+    "http://localhost:5173"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
 basicConfig(
     format="%(asctime)s %(message)s",
     datefmt="%m/%d/%Y %I:%M:%S %p",
@@ -60,14 +75,14 @@ def home_endpoint(request: Request):
     return {"status_code": "200"}
 
 
-@app.get("/dashboard", response_class=FileResponse)
-def dashboard_endpoint() -> FileResponse:
-    """
-    HTTP endpoint to serve the Dashboard
-    :param request: HTTP Request from Client
-    :return: Returns the associated web files to the requesting client
-    """
-    return FileResponse("../Terrace-Svelte/dist/index.html")
+# @app.get("/dashboard", response_class=FileResponse)
+# def dashboard_endpoint() -> FileResponse:
+#     """
+#     HTTP endpoint to serve the Dashboard
+#     :param request: HTTP Request from Client
+#     :return: Returns the associated web files to the requesting client
+#     """
+#     return FileResponse("../Terrace-Svelte/dist/index.html")
 
 
 @app.websocket("/ws/stats")
@@ -87,7 +102,7 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
 
     # Initial connection and CONNECT event
     if data["event"] == "CONNECT":
-        await client_websocket.send_json({"event": "CONNECT"})
+        await client_websocket.send_json({"event": "SERVER-CONNECT"})
         client = client_types[data["client-type"]](data, client_websocket)
         clients[data["client-type"]].append(client)
         await broadcast(clients, data, client)

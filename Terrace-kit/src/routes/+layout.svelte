@@ -1,7 +1,10 @@
 <script>
 import NavBar from "$lib/NavBar.svelte";
+import { onMount } from 'svelte';
+
 import "../app.css";
 import { activeHardwareClient, wsDisconnect, terminateHwCommunication, websocketConnect } from "$lib/stores.js";
+
 
 // If window closes while communicating with a hw client, let it know to stop communicating with server
 function beforeunload() {
@@ -15,9 +18,14 @@ function beforeunload() {
 // Function for window on load
 function onConnect() {
     // make initial WS connection
-    websocketConnect()
+    // websocketConnect()
 }
+
+onMount(() => {
+    onConnect()
+});
 </script>
+
 
 <div id="board" class="original-theme">
     <NavBar />
