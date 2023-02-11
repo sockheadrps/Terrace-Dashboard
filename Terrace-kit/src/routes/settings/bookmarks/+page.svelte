@@ -11,10 +11,20 @@
     let body: Element
     let index: number
     let afterIndex: number
+    let position: object
 
 
-    function editBookmark(bookmark: BookMark) {
+    function editBookmark(event: MouseEvent, bookmark: BookMark) {
+        console.log(event.srcElement)
+        position = {
+            x: event.srcElement.getBoundingClientRect().x,
+            y: event.srcElement.getBoundingClientRect().y,
+            iconWidth: event.srcElement.getBoundingClientRect().width,
+            iconHeight: event.srcElement.getBoundingClientRect().height
+        }
         currentBookmark = bookmark;
+
+
     }
 
     function handleDragEnd(){
@@ -70,7 +80,8 @@
 
 <div>
     {#if currentBookmark !== undefined}
-        <AddBookmark bind:currentBookmark on:close="{() => {currentBookmark=undefined;name='';url=''}}"  />
+        <AddBookmark {position} bind:currentBookmark on:close="{() => {currentBookmark=undefined;name='';url=''}}"  />
+
     {/if}
 
     <div class="mt-20">
@@ -85,7 +96,7 @@
                         
                     </th>
                     <th class="text-center">
-                        <button class="align-middle text-3xl" on:click="{() => editBookmark({ name, url, icon: null })}">
+                        <button class="align-middle text-3xl" on:click="{(event) => editBookmark(event, { name, url, icon: null })}">
                             <Icon icon="material-symbols:bookmark-add-outline" /> 
                         </button>
                     </th>
@@ -106,7 +117,7 @@
                         <span class="inline-block cursor-text min-w-[12rem] max-w-[30rem] w-auto bg-inherit outline-none border-none text-original-base transition-colors duration-200 ease-in-out bg px-1.5 rounded-md focus:bg-original-table-header-focus" contenteditable="true" spellcheck="false" bind:textContent={bookmark.url} on:input={saveBookmarks}></span>
                     </td>
                     <td class="text-center">
-                        <button class="text-center align-middle cursor-pointer bg-none border-none outline-none text-inherit transition-colors duration-200 ease-in-out hover:text-original-iconhover text-3xl" on:click={() => editBookmark(bookmark)}>
+                        <button class="text-center align-middle cursor-pointer bg-none border-none outline-none text-inherit transition-colors duration-200 ease-in-out hover:text-original-iconhover text-3xl" on:click={() => editBookmark(event, bookmark)}>
                             <Icon icon={bookmark.icon} /> 
                         </button>
                     </td>

@@ -4,12 +4,13 @@
     import { onMount } from "svelte";
     import Icon from '@iconify/svelte';
     import 'iconify-icon'
+	import { fade } from 'svelte/transition';
     let bookmarks = $bookmarkList
     export let currentBookmark
     let icons = []
     const endpoint = (`https://api.iconify.design/collections?pretty=1`)
     let iconValue = ""
-
+    export let position
 
     async function checkIcon(name) {
         return await fetch(`https://api.iconify.design/search?query=${name}`)
@@ -59,18 +60,38 @@
 			previously_focused.focus();
 		});
 	}
+
+    $: {
+        setModal(modal)
+    }
+
+    function setModal(modal) {
+        if (modal !== undefined) {
+            modal.style.top = `${position.y + (position.iconHeight /2)}px`
+            modal.style.left= `${position.x + (position.iconWidth /2) - modal.getBoundingClientRect().width}px`
+        }
+    }
+    
+
+
+
 </script>
 
 <svelte:window on:keydown={handle_keydown}/>
 
 <div class="modal-background" on:click={close}></div>
-<div class="modal" role="dialog" aria-modal="true" bind:this={modal}>
+<div class="modal" transition:fade role="dialog" aria-modal="true" bind:this={modal}>
     <div class="container">
             <div class="icon__area">
                 <div class="icon__searchbar">
                     <Icon currentBookmark.icon="ic:baseline-search" />
                     <input type="text" class="icon__search" bind:value={iconValue}>
+                    <button autofocus type="submit" class="submit" 
+                        on:click|preventDefault={() => newBookmark(currentBookmark)}
+                        on:click={close}>Save
+                    </button>
                 </div>
+                
             </div>
             <div class="results">
                 {#if currentBookmark.icon && currentBookmark.icon !== ""}
@@ -86,12 +107,7 @@
                     {/if}
                 {/each}
             </div>
-            <div class="save__area">
-                <button autofocus type="submit" class="submit" 
-                    on:click|preventDefault={() => newBookmark(currentBookmark)}
-                    on:click={close}>Submit
-                </button>
-            </div>
+                
 
     </div>
 </div>
@@ -107,34 +123,19 @@
     .icon__searchbar{
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
-        margin: auto;
-        position: relative;
-        top: 50%;
-        height: 50px;
-
-        padding: 0 10px;
-        padding-top: 5px;
-        margin-top: -33px;
-        width: 80%;
-        background-color: rgb(43, 43, 43);
-        border-bottom: 1px solid rgb(82, 82, 82);
-
-        background-size: 30px;
-        background-position: 10px 10px;
     }
 
     .icon__search {
-        width: 100%;
-        border-right: 0px;
-        background: none;
+        background-color: rgb(43, 43, 43);
+        padding: 0 10px;
+
+        width: 90%;
         outline: none;
         border: none;
-        font-size: 35px;
-        background-repeat:no-repeat;
-        background-position:left center;
+        font-size: 25px;
         color: inherit;
-        margin-bottom: 10px;
+        border-radius: 1rem;
+
     }
 
     .icon__search::before {
@@ -145,8 +146,8 @@
     .results {
         display: grid;
         grid-gap: 5px;
-        grid-template-columns: repeat(15, 1fr);
-        margin-top: 10px;
+        grid-template-columns: repeat(10, 1fr);
+        margin: 0px 5px 5px 5px;
     }
 
     .selected {
@@ -172,7 +173,7 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background: rgba(0, 0, 0, 0.74);
+		background: rgba(0, 0, 0, 0);
         border-radius: 2rem;
         z-index: 3;
 	}
@@ -180,41 +181,25 @@
 	.modal {
         z-index: 4;
 		position: absolute;
-		left: 50%;
-		top: 50%;
-		width: calc(100vw - 4em);
-		max-width: 70em;
-		max-height: calc(100vh - 4em);
-        height: 35em;
+		width: 25rem;
+		max-height: 27rem;
 		overflow: auto;
-		transform: translate(-50%,-50%);
-		padding: 1em;
 		border-radius: 2em;
-		background: rgb(27, 27, 27);
+		background: rgba(0, 0, 0, 0.877);
 	}
 
     .container{
         display: grid;
-        padding: 2rem 2rem 0 2rem;
+        padding: 1rem 1rem 0rem 1rem;
         align-items: center;
-        row-gap: 20px;
+        row-gap: 10px;
     }
 
-    .icon__area{
-        grid-template-columns: 1;
-        height: 100%;
-        font-size: 45px;
-    }
-
-    .save__area{
-        align-items: center;
-    }
 
 	button.submit{
-        margin-top: 1rem;
         border-radius: .5rem;
         text-align: center;
-        width: 16rem;
+        width: 5rem;
         height: 2.5rem;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -236,36 +221,4 @@
         color: #c4c3c3;
     }
 
-    .bk__data  {
-        background-color: rgb(26, 27, 31);
-        border-radius: .5rem;
-        text-align: center;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        border: 1px solid rgba(10, 6, 24, 0.021);
-        background:rgba(64, 64, 73, 0.1);
-        color: #808080;
-        height: 2rem;
-        margin: 0 1rem 1rem 0;
-    }
-
-    .bk__data :hover {
-        background: linear-gradient(rgb(37, 37, 37),rgb(51, 51, 51)) padding-box,
-                    linear-gradient(to right, rgba(61, 61, 61, 0.11), rgba(129, 129, 129, 0)) border-box;
-                    border-radius: .5rem;
-
-        border: 1px solid transparent;
-    }
-    .bk__data :focus {
-        background: linear-gradient(rgb(43, 43, 43),rgb(66, 66, 66)) padding-box,
-                    linear-gradient(to right, rgba(61, 61, 61, 0.11), rgba(129, 129, 129, 0)) border-box;
-                    border-radius: .5rem;
-
-        border-radius: 2rem;
-        border: 1px solid rgba(10, 6, 24, 0.021);
-        opacity: .7;
-        color: #bebebe;
-        outline: none;
-    }
 </style>
