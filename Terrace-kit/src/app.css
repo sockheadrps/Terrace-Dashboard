@@ -17,9 +17,10 @@
 		--color-text-base: rgb(184, 184, 184);
 		--color-text-muted: #616161;
 		--color-text-muted-hover: #838383;
+		--color-text-success: rgba(10, 83, 0);
 		/* Inputs */
 		--color-input-bg-light: rgb(43, 43, 43);
-		--color-input-bg-hover: rgba(0, 0, 0, 0.644);
+		--color-input-bg-hover: rgba(12, 57, 109, 0.329);
 		/* Backgrounds */
 		--color-bg-dark: rgba(12, 12, 12, 0.596);
 		--color-service-bg-dark: rgb(12, 12, 12);
@@ -27,6 +28,7 @@
 		--color-bg-lighter-dark: rgba(0, 0, 0, 0.034);
 		--color-bg-nav-background: rgba(29, 47, 73, 0.521);
 		--color-bg-nav-background-hover: rgba(49, 106, 180, 0.342);
+		--color-bg-success: rgba(10, 83, 0);
         --bg-astro: "url('/assets/backgrnd.jpeg')";
 		/* Tables */
 		--color-table-header: rgb(44, 44, 44);

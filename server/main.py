@@ -6,15 +6,19 @@ from fastapi import (
     HTTPException,
     WebSocket,
     WebSocketDisconnect,
+    status,
+    Response
 )
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from logging import basicConfig
 from uvicorn import run
 from handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast, \
     client_sets
+from pydantic import BaseModel
 import os
+from data_handling import find_user, insert_user, check_pw
 
 
 path = "logs"
@@ -31,6 +35,11 @@ client_types = {
     "HARDWARE": HardwareHandler,
     "SERVICE": ServiceHandler,
 }
+
+
+class LoginCreds(BaseModel):
+    username: str
+    password: str
 
 
 app = FastAPI()
@@ -78,6 +87,27 @@ def dashboard_endpoint() -> FileResponse:
     :return: Returns the associated web files to the requesting client
     """
     return FileResponse("../Terrace-Kit/build/index.html")
+
+
+@app.post("/api/register")
+async def create_user_endpoint(data: LoginCreds, response: Response):
+    if await find_user(data.username):
+        response.status_code = status.HTTP_409_CONFLICT
+    else:
+        await insert_user(data.username, data.password)
+        response.status_code = status.HTTP_201_CREATED
+
+
+@app.post("/api/login")
+async def login_endpoint(data: LoginCreds, response: Response):
+    user = await find_user(data.username)
+    if user is not None and await check_pw(user, data.password):
+        response.status_code = status.HTTP_200_OK
+    else:
+        response.status_code = status.HTTP_400_BAD_REQUEST
+
+
+
 
 
 @app.websocket("/ws/stats")

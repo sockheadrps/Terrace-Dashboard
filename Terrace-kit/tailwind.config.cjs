@@ -16,6 +16,7 @@ module.exports = {
 					muted: 'var(--color-text-muted)',
 					iconhover: 'var(color-table-icon-hover)',
 					'muted-hover': 'var(--color-text-muted-hover)',
+					success: 'var(--color-text-success)'
 				},
 			},
 			backgroundColor: {
@@ -30,7 +31,8 @@ module.exports = {
 					'service-dark': 'var(--color-service-bg-dark)',
 					'icon-finder-background': 'var(--color-icon-finder-bg)',
 					'settings-nav-bg': 'var(--color-bg-nav-background)',
-					'settings-nav-bg-hover': 'var(--color-bg-nav-background-hover)'
+					'settings-nav-bg-hover': 'var(--color-bg-nav-background-hover)',
+					'success-background': 'var(--color-bg-success)'
 
 				}
 			},
