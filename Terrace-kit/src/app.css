@@ -3,22 +3,37 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
-
-    }
-    [class~="original-theme"] {
-        /* Text */
-        --color-text-base: rgb(184, 184, 184);
-        --color-text-muted: #616161;
-        /* Inputs */
-        --color-input-bg-light: rgb(43, 43, 43);
-        --color-input-bg-hover: rgb(54, 54, 54);
-        /* Backgrounds */
-        --color-bg-dark: rgba(12, 12, 12, 0.596);
-        /* Tables */
-        --color-table-header: rgb(44, 44, 44);
-        --color-table-header-focus: rgba(70, 70, 70, 0.397);
-        --color-table-row-even: rgb(32, 32, 32);
-        --color-table-icon-hover: rgb(196, 195, 195);
-    }
+	:root {
+		height: 100%;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		justify-content: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+	[class~='original-theme'] {
+		/* Text */
+		--color-text-base: rgb(184, 184, 184);
+		--color-text-muted: #616161;
+		--color-text-muted-hover: #838383;
+		/* Inputs */
+		--color-input-bg-light: rgb(43, 43, 43);
+		--color-input-bg-hover: rgba(0, 0, 0, 0.644);
+		/* Backgrounds */
+		--color-bg-dark: rgba(12, 12, 12, 0.596);
+		--color-service-bg-dark: rgb(12, 12, 12);
+		--color-icon-finder-bg: rgba(17, 17, 17, 0.795);
+		--color-bg-lighter-dark: rgba(0, 0, 0, 0.034);
+		--color-bg-nav-background: rgba(29, 47, 73, 0.521);
+		--color-bg-nav-background-hover: rgba(49, 106, 180, 0.342);
+        --bg-astro: "url('/assets/backgrnd.jpeg')";
+		/* Tables */
+		--color-table-header: rgb(44, 44, 44);
+		--color-table-header-focus: rgba(70, 70, 70, 0.397);
+		--color-table-row-even: rgb(32, 32, 32);
+		--color-table-icon-hover: rgb(196, 195, 195);
+		/* borders */
+		--color-border-dark: rgba(24, 24, 24, 0.95);
+	}
 }

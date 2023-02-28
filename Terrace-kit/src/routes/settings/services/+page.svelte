@@ -1,35 +1,27 @@
 <script lang="ts">
-	import { bookmarkList, deleteBookmark, loadBookmarks, saveBookmarks } from '$lib/bookmarksStore';
-	import AddBookmark from './AddBookmark.svelte';
+	import { serviceList, saveServices, loadServices, deleteService } from '$lib/stores/serviceStore';
+	import AddService from './AddService.svelte';
 	import Icon from '@iconify/svelte';
 	import 'iconify-icon';
-	import type { BookMark, KeyFrame } from '$lib/bookmarkTypes';
-	import { onMount } from 'svelte';
-    import { fade } from 'svelte/transition';
-    import { quintIn, quintOut } from 'svelte/easing';
-
-	let currentBookmark: BookMark | undefined;
+	import type { Service, KeyFrame } from '$lib/stores/serviceTypes';
+	import { fade } from 'svelte/transition';
+	import { quintIn, quintOut } from 'svelte/easing';
+	let currentService: Service | undefined;
 	let name = '';
 	let url = '';
 	let body: Element;
 	let index: number;
 	let afterIndex: number;
 	let position: object;
-	let ready = false;
 
-	onMount(() => {
-		$bookmarkList = loadBookmarks();
-		ready = true;
-	});
-
-	function editBookmark(event: MouseEvent, bookmark: BookMark) {
+	function editService(event: MouseEvent, service: Service) {
 		position = {
 			x: event.srcElement.getBoundingClientRect().x,
 			y: event.srcElement.getBoundingClientRect().y,
 			iconWidth: event.srcElement.getBoundingClientRect().width,
 			iconHeight: event.srcElement.getBoundingClientRect().height
 		};
-		currentBookmark = bookmark;
+		currentService = service;
 	}
 
 	function handleDragEnd() {
@@ -37,10 +29,10 @@
 		let endKeys = move([...startKeys], index, afterIndex);
 
 		animateShift(startKeys, endKeys);
-		move($bookmarkList, index, afterIndex);
+		move($serviceList, index, afterIndex);
 
-		$bookmarkList = $bookmarkList;
-		saveBookmarks($bookmarkList);
+		$serviceList = $serviceList;
+		saveServices($serviceList);
 	}
 
 	function transitionKeys() {
@@ -81,17 +73,20 @@
 		arr.splice(newIdx, 0, val);
 		return arr;
 	}
+
+	$: console.log($serviceList);
 </script>
 
-{#if ready}
-	<div in:fade={{ duration: 250, easing: quintIn, delay:250 }}
-	out:fade={{duration: 100, easing: quintOut}}>
-		{#if currentBookmark !== undefined}
-			<AddBookmark
+<div in:fade={{ duration: 250, easing: quintIn, delay: 100 }}
+	out:fade={{duration: 100, easing: quintOut}}
+>
+	<div>
+		{#if currentService !== undefined}
+			<AddService
 				{position}
-				bind:currentBookmark
+				bind:currentService
 				on:close={() => {
-					currentBookmark = undefined;
+					currentService = undefined;
 					name = '';
 					url = '';
 				}}
@@ -102,36 +97,19 @@
 			<table class="w-11/12 mx-auto select-none">
 				<thead class="bg-original-table-header text-left">
 					<tr>
-						<th class="p-2">
+						<th class="p-2 w-11/12">
 							<span
 								class="inline-block cursor-text min-w-[12rem] max-w-[30rem] w-auto bg-inherit outline-none border-none text-original-base transition-colors duration-200 ease-in-out bg px-1.5 py-0.5 rounded-md focus:bg-original-table-header-focus"
-								contenteditable="true"
-								spellcheck="false"
-								placeholder="Title"
-								bind:textContent={name}
-							/>
-						</th>
-						<th>
-							<span
-								class="inline-block cursor-text min-w-[12rem] max-w-[30rem] w-auto bg-inherit outline-none border-none text-original-base transition-colors duration-200 ease-in-out bg px-1.5 py-0.5 rounded-md focus:bg-original-table-header-focus"
-								contenteditable="true"
-								spellcheck="false"
-								placeholder="URL"
-								bind:textContent={url}
-							/>
-						</th>
-						<th class="text-center">
-							<button
-								class="align-middle text-3xl"
-								on:click={(event) => editBookmark(event, { name, url, icon: null })}
 							>
-								<Icon icon="material-symbols:bookmark-add-outline" />
-							</button>
+								Services
+							</span>
 						</th>
+
+						<th class="text-center" />
 					</tr>
 				</thead>
 				<tbody bind:this={body}>
-					{#each $bookmarkList as bookmark, idx (idx)}
+					{#each $serviceList as service, idx (idx)}
 						<tr
 							class="even:bg-original-table-row-even cursor-move h-10"
 							draggable="true"
@@ -142,33 +120,17 @@
 							<td>
 								<span
 									class="inline-block cursor-text min-w-[12rem] max-w-[30rem] w-auto bg-inherit outline-none border-none text-original-base transition-colors duration-200 ease-in-out bg px-1.5 rounded-md focus:bg-original-table-header-focus"
-									contenteditable="true"
-									spellcheck="false"
-									bind:textContent={bookmark.name}
-									on:input={saveBookmarks}
-								/>
-							</td>
-							<td>
-								<span
-									class="inline-block cursor-text min-w-[12rem] max-w-[30rem] w-auto bg-inherit outline-none border-none text-original-base transition-colors duration-200 ease-in-out bg px-1.5 rounded-md focus:bg-original-table-header-focus"
-									contenteditable="true"
-									spellcheck="false"
-									bind:textContent={bookmark.url}
-									on:input={saveBookmarks}
+									contenteditable="false"
+									bind:textContent={service.name}
+									on:input={saveServices}
 								/>
 							</td>
 							<td class="text-center">
 								<button
 									class="text-center align-middle cursor-pointer bg-none border-none outline-none text-inherit transition-colors duration-200 ease-in-out hover:text-original-iconhover text-3xl"
-									on:click={() => editBookmark(event, bookmark)}
+									on:click={() => editService(event, service)}
 								>
-									<Icon icon={bookmark.icon} />
-								</button>
-								<button
-									class="text-center text-red-400 align-middle cursor-pointer bg-none border-none outline-none text-inherit transition-colors duration-200 ease-in-out hover:text-original-iconhover text-3xl"
-									on:click={() => deleteBookmark(bookmark)}
-								>
-									<Icon icon="carbon:trash-can" />
+									<Icon icon={service.icon} />
 								</button>
 							</td>
 						</tr>
@@ -177,7 +139,7 @@
 			</table>
 		</div>
 	</div>
-{/if}
+</div>
 
 <style>
 	:global(span[contentEditable='true']:empty:before) {

@@ -2,15 +2,20 @@
 module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
+
+		
 		extend: {
 			backgroundImage: {
-				space: "url('./src/assets/backgrnd.jpeg)",
+				original: {
+					astro: "var(--bg-astro)"
+			}
 			},
 			textColor: {
 				original : {
 					base: 'var(--color-text-base)',
 					muted: 'var(--color-text-muted)',
-					iconhover: 'var(color-table-icon-hover)'
+					iconhover: 'var(color-table-icon-hover)',
+					'muted-hover': 'var(--color-text-muted-hover)',
 				},
 			},
 			backgroundColor: {
@@ -20,12 +25,19 @@ module.exports = {
 					'table-header': 'var(--color-table-header)',
 					'table-header-focus': 'var(--color-table-header-focus)',
 					'table-row-even': 'var(--color-table-row-even)',
-					'card-bg-dark': 'var(--color-bg-dark)'
+					'card-bg-dark': 'var(--color-bg-dark)',
+					'nav-background': 'var(--color-bg-lighter-dark)',
+					'service-dark': 'var(--color-service-bg-dark)',
+					'icon-finder-background': 'var(--color-icon-finder-bg)',
+					'settings-nav-bg': 'var(--color-bg-nav-background)',
+					'settings-nav-bg-hover': 'var(--color-bg-nav-background-hover)'
+
 				}
 			},
 			borderColor: {
 				original: {
-					muted: 'var(--color-text-muted)'
+					muted: 'var(--color-text-muted)',
+					dark: 'var(--color-border-dark)'
 				}
 			}
 		}

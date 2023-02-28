@@ -1,37 +1,35 @@
 <script>
 	import { onMount } from "svelte";
     import SettingsNav from "./SettingsNav.svelte";
+	import { fade } from 'svelte/transition';
+	import { quintInOut } from "svelte/easing";
+    let ready = false
 
-    onMount(() => console.log("fuck"))
+    onMount(() => {
+        ready=true
+    })
 </script>
 
-
-<div class="settings__area">
-    <div class="settings__nav" >
-        <SettingsNav />
-        <slot />
+{#if ready}
+    <div class="settings__area rounded-md m-2 text-original-muted"
+    transition:fade={{easing: quintInOut}}
+    >
+        <div class="settings__nav" >
+            <SettingsNav />
+            <div in:fade|local={{delay: 500}}>
+                <slot />
+            </div>
+        </div>
     </div>
-</div>
-
+{/if}
 
 <style>
 
 .settings__area {
-    display: grid;
-    grid-template-columns: 1fr;
     background: linear-gradient(
         to left top,
          rgba(24, 24, 24, 0.822),
          rgba(15, 15, 15, 0.863)
          );
-    border-radius: 2rem;
-    margin: 2rem;
-    color: #808080;
 }
-
-.settings__nav {
-    display: grid;
-    grid-template-rows: 1fr 9fr;
-}
-
 </style>

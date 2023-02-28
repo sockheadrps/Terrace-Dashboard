@@ -3,6 +3,7 @@ from websockets.exceptions import ConnectionClosedError
 import asyncio
 import json
 import argparse
+import random
 
 """
 This is a basic example client. Handle for server events in the match data['event'] event logic loop.
@@ -15,6 +16,7 @@ client_type = "SERVICE"
 
 
 async def client(host, name):
+    stream_task = None
     try:
         async with websockets.connect(f"ws://{host}:8081/ws/stats") as websocket:
             # Initial connection
@@ -30,6 +32,8 @@ async def client(host, name):
                     if data:
                         print(data)
                         # SERVER EVENTS
+                        if stream_task is None:
+                            stream_task = asyncio.create_task(client_stream(websocket))
                         match data["event"]:
                             case "TEST-EVENT":
                                 connect_response = {
@@ -47,6 +51,17 @@ async def client(host, name):
     except ConnectionRefusedError:
         print("Server is either offline, or connection point is wrong!")
 
+async def client_stream(websocket, interval=1):
+    while True:
+        test_event = {
+            "event": "SERVICE-DATA",
+            "client-type": client_type,
+            "client-name": name,
+            "data": random.randint(1, 100)
+        }
+        print(test_event)
+        await websocket.send(json.dumps(test_event))
+        await asyncio.sleep(interval)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Hardware client for Terrace")

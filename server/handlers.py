@@ -7,6 +7,7 @@ service_client_set = set()
 client_sets = {"HARDWARE": hardware_client_set, "SERVICE": service_client_set}
 
 
+
 def new_event(functions: dict, event: str):
     """
     :param functions: A dictionary instantiated by the ClientHandler class that maps
@@ -37,10 +38,13 @@ class ClientHandler(object):
     async def connect(self, data, sender):
         pass
 
+    # @new_event(funcs, "DISCONNECT")
+    # async def disconnect(self, data, sender):
+    #     if sender is self and self.client_type in client_sets:
+    #         client_sets[self.client_type].remove(self.client_name)
     @new_event(funcs, "DISCONNECT")
     async def disconnect(self, data, sender):
-        if sender is self and self.client_type in client_sets:
-            client_sets[self.client_type].remove(self.client_name)
+        pass
 
     @new_event(funcs, "HARDWARE-REQUEST")
     async def hardware_request(self, data, sender):
@@ -52,6 +56,18 @@ class ClientHandler(object):
 
     @new_event(funcs, "HARDWARE-DATA")
     async def hardware_data_recv(self, data, sender):
+        pass
+
+    @new_event(funcs, "SERVICE-DATA")
+    async def service_data_recv(self, data, sender):
+        pass
+
+    @new_event(funcs, "DATA-REQUEST")
+    async def service_data_recv(self, data, sender):
+        pass
+
+    @new_event(funcs, "CONNECTIONS-REQUEST")
+    async def services_req(self, data, sender):
         pass
 
 
@@ -81,6 +97,20 @@ class DashboardHandler(ClientHandler):
                     "service-list": [*service_client_set],
                 }
             )
+
+    @new_event(funcs, "CONNECTIONS-REQUEST")
+    async def services_req(self, data, sender):
+        await self.ws_object.send_json(
+            {
+                "event": "CONNECTIONS-REQUEST",
+                "hardware-list": [*hardware_client_set],
+                "service-list": [*service_client_set],
+            }
+        )
+
+    @new_event(funcs, "SERVICE-DATA")
+    async def service_data_recv(self, data, sender):
+        await self.ws_object.send_json(data)
 
     @new_event(funcs, "HARDWARE-DATA")
     async def hardware_data_recv(self, data, sender):
@@ -127,6 +157,16 @@ class ServiceHandler(ClientHandler):
     def __init__(self, data, ws_object):
         super().__init__(data, ws_object)
         service_client_set.add(self.client_name)
+
+    @new_event(funcs, "SERVICE-DATA")
+    async def service_data_recv(self, data, sender):
+        if data['data'].get('TARGET-CLIENT') == self.client_name:
+            await self.ws_object.send_json(data)
+
+    @new_event(funcs, "DATA-REQUEST")
+    async def service_data_req(self, data, sender):
+        if data['data'].get('TARGET-CLIENT') == self.client_name:
+            await self.ws_object.send_json(data)
 
 
 async def broadcast(clients, data, sender):

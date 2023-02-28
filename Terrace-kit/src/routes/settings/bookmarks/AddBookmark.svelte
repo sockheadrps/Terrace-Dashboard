@@ -67,10 +67,17 @@
 
     function setModal(modal) {
         if (modal !== undefined) {
-            modal.style.top = `${position.y + (position.iconHeight /2)}px`
-            modal.style.left= `${position.x + (position.iconWidth /2) - modal.getBoundingClientRect().width}px`
+                // If cursor too close to bottom
+            if (position.y >= window.innerHeight - modal.getBoundingClientRect().height) {
+                modal.style.top = `${position.y + (position.iconHeight /2) - modal.getBoundingClientRect().height}px`
+                modal.style.left= `${position.x + (position.iconWidth /2) - modal.getBoundingClientRect().width}px`
+            // Set modal at center of edit icon
+            } else {
+                modal.style.top = `${position.y + (position.iconHeight /2)}px`
+                modal.style.left= `${position.x + (position.iconWidth /2) - modal.getBoundingClientRect().width}px`
+            }
+            } 
         }
-    }
     
 
 
@@ -80,12 +87,12 @@
 <svelte:window on:keydown={handle_keydown}/>
 
 <div class="modal-background" on:click={close}></div>
-<div class="modal" transition:fade role="dialog" aria-modal="true" bind:this={modal}>
+<div class="z-10 absolute w-92 h-[19rem] overflow-auto rounded-md bg-original-card-bg-dark" transition:fade role="dialog" aria-modal="true" bind:this={modal}>
     <div class="container">
             <div class="icon__area">
                 <div class="icon__searchbar">
                     <Icon currentBookmark.icon="ic:baseline-search" />
-                    <input type="text" class="icon__search" bind:value={iconValue}>
+                    <input type="text" class="w-full rounded-md text-original-muted bg-original-table-header outline-none pl-2 focus:bg-original-input-hover placeholder:focus:text-[rgba(100,100,100,.70)] hover:bg-original-input-hover transition-colors mr-2" bind:value={iconValue}>
                     <button autofocus type="submit" class="submit" 
                         on:click|preventDefault={() => newBookmark(currentBookmark)}
                         on:click={close}>Save

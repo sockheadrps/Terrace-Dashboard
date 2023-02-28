@@ -1,50 +1,72 @@
-<script>
-import NavBar from "$lib/NavBar.svelte";
-import { onMount } from 'svelte';
+<script lang="ts">
+	import NavBar from '$lib/NavBar.svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
+	import '../app.css';
+	export const trailingSlash = 'ignore';
+	import { websocketConnect } from '../lib/stores';
+	let ready = false;
+	import { quintIn } from 'svelte/easing';
+	
+	
 
-import "../app.css";
-import { activeHardwareClient, wsDisconnect, terminateHwCommunication, websocketConnect } from "$lib/stores.js";
+	onMount(() => {
+		let localStorage: { url: string } | null;
+		localStorage = JSON.parse(window.localStorage.getItem('server'));
+		console.log({ localStorage });
+		if (localStorage !== null) {
+			websocketConnect(localStorage.url.replace(/(http)s?:\/\//, 'ws://'));
+		}
+		ready = true;
+	});
 
 
-// If window closes while communicating with a hw client, let it know to stop communicating with server
-function beforeunload() {
-    if (activeHardwareClient) {
-        terminateHwCommunication(activeHardwareClient)
-    }
-    // Let the server know the dashboard has disconnected
-    wsDisconnect()
-}
+	// If window closes while communicating with a hw client, let it know to stop communicating with server
+	function beforeunload() {
+		// if (activeHardwareClient) {
+		//     terminateHwCommunication(activeHardwareClient)
+		// }
+		// // Let the server know the dashboard has disconnected
+		// wsDisconnect()
+	}
 
-// Function for window on load
-function onConnect() {
-    // make initial WS connection
-    // websocketConnect()
-}
-
-onMount(() => {
-    onConnect()
-});
+	// Function for window on load
+	function onConnect() {
+		// make initial WS connection
+		// websocketConnect()
+	}
 </script>
 
-
-<div id="board" class="original-theme">
-    <NavBar />
-    <slot />
+{#if ready}
+<div class="main">
+	<div id="board" class="original-theme -z-10  backdrop-blur-sm h-[100vh] bg-clip-content"
+	>
+		<NavBar />
+		<slot />
+	</div>
 </div>
 
-<style>
-#board {
-    display: grid;
-    height: 90vh;
-    grid-template-columns: 15% 85%;
-    background: linear-gradient(
-        to left top,
-        rgba(36, 36, 36, 0.822),
-        rgba(20, 20, 20, 0.863)
-    );
+{/if}
 
-    z-index: -1;
-    backdrop-filter: blur(.23rem);
-    border-radius: 2rem;
-}
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Asap&family=Spline+Sans:wght@500&display=swap');
+	.main {
+		background: url('/assets/backgrnd.jpeg');
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+	#board {
+		display: grid;
+		justify-content: center;
+		grid-template-columns: 15% 85%;
+		background: linear-gradient(to left top, rgba(36, 36, 36, 0.719), rgba(20, 20, 20, 0.671));
+	}
+	*{
+        overflow: hidden;
+		font-family: 'Asap', sans-serif;
+		font-family: 'Spline Sans', sans-serif;
+		
+    }
 </style>
+
+

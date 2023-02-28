@@ -1,116 +1,42 @@
-<script>
+<script lang="ts">
+    import Icon from "@iconify/svelte";
     const actions = ["https://www.google.com/search", "https://www.youtube.com/results?search_query="]
     let clicked = "",
         action  = 0;
+    let value: string
+    let google = true
+    import { fade } from "svelte/transition";
 
-    function onclick() {
+    function changeSearch() {
+        google = ! google
         clicked = clicked ? "" : "clicked";
         action = action ? 0 : 1;
     }
 </script>
 
 
-<div class="search__area">
-    <div class="flip-container" on:click={onclick} on:keydown={onclick}>
-        <div class="card {clicked}">
-            <div class="front">
-                <img src="/assets/g-svg.svg" width="35" height="35" class="i-svg g-svg" alt="google icon"/>
-            </div>
-            <div class="back">
-                <img src="/assets/youtube-icon.svg" width="35" height="35" class="i-svg yt-svg" alt="youtube icon"/>
-            </div>
+<div class="w-full rounded-md hover:bg-original-input-hover transition-colors mt-5">
+    <div class="flex flex-row h-14">
+        <div class="text-3xl inline-block relative">
+                {#if google}
+                <div class="absolute top-1/2 -translate-y-1/2 pl-4" 
+                in:fade|local={{ delay: 400, duration: 400 }} out:fade|local={{ duration: 400 }}
+                on:click={() => changeSearch()} on:keydown={(e) => {if (e.key == "Enter") changeSearch()}}>
+                    <Icon icon="flat-color-icons:google" />
+                </div>
+
+                {:else}
+                <div class="text-2xl absolute top-1/2 -translate-y-1/2 pl-4" in:fade|local={{ delay: 400, duration: 400 }}
+                on:click={() => changeSearch()} on:keydown={(e) => {if (e.key == "Enter") changeSearch()}} out:fade|local={{ duration: 400 }}>
+                    <Icon icon="logos:youtube-icon" />
+                </div>
+                {/if}
+        </div>
+        <div class="w-full">
+            <form class="h-full w-full" action="{actions[action]}" method="get">
+                <input type="text" class="h-full w-full rounded-md text-original-muted bg-original-card-bg-dark outline-none pl-16 focus:bg-original-input-hover placeholder:focus:text-[rgba(100,100,100,.70)] " 
+                placeholder="Search..." name="q" bind:value />
+            </form>
         </div>
     </div>
-    <div class="search__bar">
-        <form action="{actions[action]}" method="get" id="search-form">
-            <input type="text" class="search" placeholder="Search...." name="q">
-        </form>
-    </div>
 </div>
-
-
-<style>
-.search__area {
-    display: grid;
-    grid-template-columns: 1fr;
-    margin-left: 2rem;
-    margin-right: 2rem;
-    background: linear-gradient(
-        to left top,
-         rgba(24, 24, 24, 0.822),
-         rgba(15, 15, 15, 0.863)
-         );
-    border-radius: 1.2em;
-    padding: .5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-
-.search__bar form{
-    display: inline-block;
-    width: 90%;
-    background-color: rgba(39, 39, 39, 0.164);
-    border-radius: 1.2em;
-    margin: auto;
-}
-
-input {
-    text-align: center;
-    border: 0;
-    background-color: transparent;
-    color: rgb(243, 255, 240);
-    width: 100%;
-    padding: auto;
-    height: 100%;
-    margin-top: 10px;
-}
-
-.search__bar input:focus {
-    outline: 0;
-}
-
-.flip-container{
-    position: relative;
-    float: left;
-    width: 5%;
-    height: 100%;
-    margin-bottom: 8px;
-}
-
-.card {
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: all 0.5s;
-    border-radius: 50%;
-}
-
-.card:hover {
-    transform: scale(1.2);
-}
-
-
-.front {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-}
-
-.back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  transform: rotateY(180deg);
-}
-
-.clicked {
-    transform: rotateY(180deg);
-}
-
-.clicked:hover {
-    transform: rotateY(180deg) scale(1.2);
-}
-
-</style>

@@ -12,7 +12,7 @@
     
 </script>
 
-<div class="grid grid-rows-4 bg-original-card-bg-dark px-20 rounded-lg min-w-full border-1">
+<div class="grid grid-rows-4 bg-original-card-bg-dark px-20 rounded-lg min-w-full border-1 h-full">
     <div class="flex flex-col justify-center items-center text-6xl row-span-2" >
         {#if code === 200}
             <div class="absolute pb-10" in:fade|local={{ delay: 400, duration: 400 }} out:fade|local={{ duration: 400 }}>

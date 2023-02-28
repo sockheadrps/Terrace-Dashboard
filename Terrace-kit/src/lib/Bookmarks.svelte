@@ -1,42 +1,34 @@
 <script lang="ts">
     import { bookmarkList, loadBookmarks } from '$lib/bookmarksStore'
-    import Icon from '@iconify/svelte';
+    import Icon, { disableCache } from '@iconify/svelte';
 	import { onMount } from 'svelte';
-
-    // Function allows for horizontal scroll of the bookmarks
-    /* function transformScroll(event: WheelEvent) { */
-    /*     if (!event.deltaY) { */
-    /*         return; */
-    /*     } */
-    /*     event.currentTarget.scrollLeft += event.deltaY + event.deltaX; */
-    /*     event.preventDefault(); */
-    /* } */
-
-    /* let element = document.scrollingElement || document.documentElement; */
-    /* element.addEventListener('wheel', transformScroll); */
-
-    // Google search
-    /* function openBookmark(url: string) { */
-    /*     window.open(url,'_blank') */
-    /* } */
-
+	import { quadIn } from 'svelte/easing';
+	import { blur } from 'svelte/transition';
+    let timing: number = 100;
     onMount(() => {
-        loadBookmarks();
-        $bookmarkList = $bookmarkList;
+        $bookmarkList = loadBookmarks();
     })
+
+    console.log(timing)
 
 </script>
 
 
-<div class="bookmark-area">
-    <div class="bookmarks">
-        {#each $bookmarkList as book}
-        <a href={book.url} class="bookmark">
-            <Icon icon={book.icon} style="font-size: 2.5rem;" />
-            <div class="title-area">
-            <span class="bk-title">{book.name}</span>
-            </div>
-        </a>
+<div class="bookmark-area rounded-md">
+    <div class="flex flex-row my-auto">
+        {#each $bookmarkList as book, index}
+        <div class="m-auto text-center h-full"
+        in:blur={{delay: (index * 150) + 100, easing: quadIn}}
+        >
+            <a href={book.url} class="bookmark rounded-md inline-block" >
+                <div class="flex flex-row justify-center">
+                    <Icon icon={book.icon} style="font-size: 2.5rem;" />
+                </div>
+                <div class="title-area inline-block">
+                    <span class="bk-title">{book.name}</span>
+                </div>
+            </a>
+        </div>
         {/each}
     </div>
 </div>
@@ -44,33 +36,21 @@
 <style>
 .bookmark-area {
     display: grid;
-    grid-template-columns: 1fr;
     background: linear-gradient(
         to left top,
          rgba(24, 24, 24, 0.822),
          rgba(15, 15, 15, 0.863)
          );
-    border-radius: 2rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    /* border-radius: 2rem; */
     padding-left: 1rem;
     padding-right: 1rem;
     color: #808080;
-}
-
-.bookmarks{
-    overflow-x: scroll;
-    white-space: nowrap;
-    scrollbar-width: 90%;
 }
 
 .title-area {
     margin: auto;
 }
 
-.book-icon{
-    display: inline-block;
-}
 
 .bookmark{
     display: inline-block;
@@ -80,7 +60,6 @@
     box-sizing: border-box;
     border: 1px solid rgba(10, 6, 24, 0.021);
     background:rgba(64, 64, 73, 0.1);
-    border-radius: 2rem;
     backdrop-filter: blur(1.1rem);
     margin: .5rem;
     padding: .5rem;
@@ -95,43 +74,9 @@ a { color: inherit; }
 .bookmark:hover {
     background: linear-gradient(rgb(0, 0, 0),rgb(15, 15, 15)) padding-box,
                 linear-gradient(to right, rgba(84, 69, 99, 0.034), rgba(101, 101, 143, 0)) border-box;
-    border-radius: 2rem;
     border: 1px solid transparent;
     opacity: .7;
     color: #525151;
 }
 
-.book-icon {
-    margin-bottom: .25rem;
-}
-
-.bookmarks::-webkit-scrollbar {
-    background: rgba(0, 0, 0, 0);
-    display: block;
-}
-.bookmarks::-webkit-scrollbar-track {
-    border-radius: 10px;
-    background-clip: padding-box;
-}
-
-.bookmarks::-webkit-scrollbar-track-piece:end {
-    background: transparent;
-    margin-right: 50px;
-}
-
-.bookmarks::-webkit-scrollbar-track-piece:start {
-    background: transparent;
-    margin-left: 50px;
-}
-
-.bookmarks::-webkit-scrollbar-thumb {
-    background: rgb(44, 44, 44);
-    border-radius: 10px;
-    border: 5px solid #0000;
-    background-clip: padding-box;
-  }
-.bookmarks::-webkit-scrollbar-thumb:hover {
-    background: #222;
-    background-clip: padding-box;
-}
 </style>

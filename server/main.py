@@ -9,9 +9,11 @@ from fastapi import (
 )
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from logging import basicConfig
 from uvicorn import run
-from handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast
+from handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast, \
+    client_sets
 import os
 
 
@@ -32,15 +34,18 @@ client_types = {
 
 
 app = FastAPI()
-# app.mount(
-#     "/assets", StaticFiles(directory="../Terrace-Svelte/dist/assets"), name="static"
-# )
+app.mount(
+    "/_app/immutable/", StaticFiles(directory="../Terrace-kit/build/_app/immutable/"),
+    name="static"
+)
 
-origins = [
-    "http://localhost",
-    "http://localhost:8081",
-    "http://localhost:5173"
-]
+app.mount(
+    "/assets/", StaticFiles(directory="../Terrace-kit/build/"),
+    name="assets"
+)
+
+
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -65,24 +70,14 @@ async def favicon() -> None:
     raise HTTPException(status_code=403, detail="No favicon")
 
 
-@app.get("/", status_code=200)
-def home_endpoint(request: Request):
+@app.get("/", response_class=FileResponse)
+def dashboard_endpoint() -> FileResponse:
     """
-    HTTP home endpoint
+    HTTP endpoint to serve the Dashboard
     :param request: HTTP Request from Client
-    :return: Returns 200 status code
+    :return: Returns the associated web files to the requesting client
     """
-    return {"status_code": "200"}
-
-
-# @app.get("/dashboard", response_class=FileResponse)
-# def dashboard_endpoint() -> FileResponse:
-#     """
-#     HTTP endpoint to serve the Dashboard
-#     :param request: HTTP Request from Client
-#     :return: Returns the associated web files to the requesting client
-#     """
-#     return FileResponse("../Terrace-Svelte/dist/index.html")
+    return FileResponse("../Terrace-Kit/build/index.html")
 
 
 @app.websocket("/ws/stats")
@@ -111,9 +106,29 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
         # Typical event communication
         try:
             data = await client_websocket.receive_json()
+            print(f"data {data}")
             await broadcast(clients, data, client)
 
+            # graceful disconnects
+            if data["event"] == "DISCONNECT":
+                clients[data["client-type"]].remove(client)
+                await broadcast(
+                    clients,
+                    {
+                        "event": "DISCONNECT",
+                        "client-type": client.client_type,
+                        "client-name": client.client_name,
+                    },
+                    client)
+                break
+
+        # non-graceful disconnects
         except WebSocketDisconnect:
+            print(data)
+            if data['client-type'] != "DASHBOARD":
+                client_sets[data["client-type"]].remove(data['client-name'])
+            if client in clients[data["client-type"]]:
+                clients[data["client-type"]].remove(client)
             await broadcast(
                 clients,
                 {
@@ -125,6 +140,7 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
             )
             break
         except Exception as e:
+            print('second')
             logging.warning(e)
             raise e
 

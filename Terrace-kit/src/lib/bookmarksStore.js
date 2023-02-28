@@ -1,3 +1,4 @@
+import { onMount } from "svelte";
 import { writable } from "svelte/store";
 
 let bookmarkStorage = [
@@ -11,13 +12,15 @@ let bookmarkStorage = [
 export function loadBookmarks() {
     if(localStorage.getItem("bookmarks") === null) {
         localStorage.setItem("bookmarks", JSON.stringify(bookmarkStorage))
-    } else {
-        console.log('doodly')
-        bookmarkStorage = JSON.parse(localStorage.getItem("bookmarks"))
     }
+    return JSON.parse(localStorage.getItem("bookmarks"))
 }
 
+
+
+
 export function newBookmark(newBookmark) {
+    bookmarkStorage = loadBookmarks()
     let index = bookmarkStorage.findIndex((n) => {
          return newBookmark.name === n.name
     })
@@ -32,17 +35,18 @@ export function newBookmark(newBookmark) {
 
 export function deleteBookmark(name) {
     bookmarkStorage = JSON.parse(localStorage.getItem("bookmarks"))
-    let toDelete = bookmarkStorage.filter(entry => entry.name === name)[0]
+    let toDelete = bookmarkStorage.filter(entry => entry.name === name.name)[0]
+    console.log(toDelete)
     if (toDelete) {
-        let filteredBookmarks = bookmarkStorage.filter(entry => entry.name !== name)
+        let filteredBookmarks = bookmarkStorage.filter(entry => entry.name !== name.name)
         localStorage.setItem("bookmarks", JSON.stringify(filteredBookmarks))
         bookmarkList.set(filteredBookmarks)
         return toDelete
     }
 }
 
-export function saveBookmarks() {
-    localStorage.setItem("bookmarks", JSON.stringify(bookmarkStorage));
+export function saveBookmarks(bookmarks) {
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
 }
 
 export let bookmarkList = writable(bookmarkStorage)
