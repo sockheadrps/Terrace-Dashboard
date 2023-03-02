@@ -32,10 +32,10 @@
 		in:fade={{ duration: 250, easing: quintIn, delay:200 }}
 		out:fade={{ duration: 250, easing: quintOut }}
 	>
-		<label class="text-6xl pt-10" for="Weather API">Weather API</label>
-		<div class="grid border-1 row-span-1 mx-6">
-			<div class="mt-20 grid grid-cols-3 gap-x-20 row-span-2 mx-auto ">
-				<div class="h-60">
+		<label class="md:text-6xl text-2xl md:pt-10 pt-5" for="Weather API">Weather API</label>
+		<div class="row-span-1 mx-6">
+			<div class="md:mt-20 flex flex-row gap-x-20 mx-10">
+				<div class="h-60 md:w-full w-32">
 					<Card
 						bind:data={latitude}
 						dataName={'Latitude'}
@@ -44,7 +44,7 @@
 					/>
 				</div>
 
-				<div class="h-60">
+				<div class="h-60 md:w-full w-32">
 					<Card
 						bind:data={longitude}
 						dataName={'Longitude'}
@@ -53,7 +53,7 @@
 					/>
 				</div>
 
-				<div class="h-60">
+				<div class="h-60 md:w-full w-32">
 					<ServerCard
 						bind:data={apiKey}
 						bind:long={longitude}

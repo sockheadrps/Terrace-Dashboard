@@ -1,3 +1,4 @@
+import datetime
 import logging
 
 from fastapi import (
@@ -7,11 +8,13 @@ from fastapi import (
     WebSocket,
     WebSocketDisconnect,
     status,
-    Response
+    Response,
+    Depends
 )
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from logging import basicConfig
 from uvicorn import run
 from handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast, \
@@ -19,7 +22,8 @@ from handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcas
 from pydantic import BaseModel
 import os
 from data_handling import find_user, insert_user, check_pw
-
+from datetime import time, timedelta
+from jose import jwt
 
 path = "logs"
 # Check whether the specified path exists or not
@@ -36,10 +40,34 @@ client_types = {
     "SERVICE": ServiceHandler,
 }
 
+ACCESS_TOKEN_EXPIRES_MINUTES = 30
+SECRET_KEY = "ABCDEFG"
+ALGORITHM ="HS256"
+
 
 class LoginCreds(BaseModel):
     username: str
     password: str
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: str | None = None
+
+
+def create_access_token(data: dict, expires_delta: timedelta | None = None):
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.datetime.utcnow() + expires_delta
+    else:
+        expire = datetime.datetime.utcnow() + timedelta(minutes=15)
+
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
 app = FastAPI()
@@ -105,6 +133,25 @@ async def login_endpoint(data: LoginCreds, response: Response):
         response.status_code = status.HTTP_200_OK
     else:
         response.status_code = status.HTTP_400_BAD_REQUEST
+
+
+@app.post("/api/token", response_model=Token)
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = await find_user(form_data.username)
+    if user is not None and await check_pw(user, form_data.password):
+        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRES_MINUTES)
+        acess_token = create_access_token(
+            data={"sub": form_data.username}, expires_delta=access_token_expires)
+        return {"access_token": acess_token, "token_type": "bearer"}
+    else:
+        print('raised')
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+
+
 
 
 

@@ -11,10 +11,10 @@
 </script>
 
 
-<div class="grid grid-rows-5 text-center h-full"
+<div class="grid grid-rows-6 text-center h-full"
     in:fade={{duration:250, easing: quintIn, delay: 250}}>
-    <label class="text-6xl row-span-1 py-10 text-original-base my-auto" for="Register">Register</label>
-    <div class="grid grid-rows-5 row-span-4 justify-items-center">
+    <label class="text-4xl row-span-1 text-original-base my-auto" for="Register">Sign up</label>
+    <div class="grid grid-rows-5 row-span-5 justify-items-center">
         <div class="grid grid-flow-col grid-cols-1 row-span-4 mx-auto gap-2 w-3/4">
             <Card bind:data={serverUrl} code={serverRespCode}/>
         </div>

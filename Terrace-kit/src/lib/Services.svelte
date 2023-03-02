@@ -105,11 +105,11 @@
 		<a href="/services/{service}"
 		>
 			<button
-				class="bg-original-card-bg-dark rounded-md text-original-muted mb-4 mx-2 flex-1 w-36 h-[136px] transition-colors hover:text-original-muted-hover hover:bg-original-service-dark"
+				class="bg-original-card-bg-dark rounded-md text-original-muted mb-4 mx-2 flex-1 md:w-32 w-20 md:h-[136px] h-24 transition-colors hover:text-original-muted-hover hover:bg-original-service-dark"
 				transition:fade
 				bind:this={serviceElms[service]}
 			>
-				<div class="text-8xl flex flex-col text-center justify-center">
+				<div class="md:text-8xl text-4xl flex flex-col text-center justify-center">
 					<div class="mx-auto">
 						<Icon icon={serviceIcons[service]} />
 					</div>

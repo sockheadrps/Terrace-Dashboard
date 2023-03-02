@@ -53,7 +53,7 @@
 			</div>
 		{/if}
 	</div>
-	<h1 class="text-4xl">Server</h1>
+	<h1 class="md:text-4xl text-2xl">Server</h1>
 	<div>
 		<input
 			type="text"

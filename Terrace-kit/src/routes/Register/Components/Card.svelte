@@ -39,29 +39,31 @@
 </script>
 
 <div
-	class="flex flex-col justify-center bg-original-card-bg-dark px-20 rounded-lg min-w-full align-middle"
+	class="flex flex-col justify-center bg-original-card-bg-dark px-20 rounded-lg w-1/2 mx-auto align-middle py-4"
 >
-    {#if respcode == 201}
     <div class="h-1/4 flex flex-col justify-center">
-        <div class="text-9xl mx-auto text-original-success">
+    {#if respcode == 201}
+
+        <div class="text-6xl mx-auto text-original-success">
             <Icon icon="ooui:success" />
         </div>
         <span class="text-2xl text-original-success mt-4">Success</span>
-    </div>
     {/if}
-
     {#if respcode == 409}
     <div class="h-1/4 flex flex-col justify-center">
-        <div class="text-9xl mx-auto text-red-500">
+        <div class="text-6xl mx-auto text-red-500">
             <Icon icon="emojione-monotone:heavy-multiplication-x" />
         </div>
         <span class="text-2xl text-red-500 mt-4">This username has already been registered!</span>
 
     </div>
     {/if}
+    </div>
+
+    
 
 	<div class="flex flex-col justify-center mt-10">
-		<div class="text-center mb-10 text-xl">
+		<div class="text-center mb-10 text-md">
 			<span class:warning={!constrain(userName || '', 6, 20)} class="text-slate-400">
 				Usernames must be between 6 and 20 characters long.
 			</span>
@@ -75,26 +77,27 @@
 		</div>
 
 		<form class="mb-10">
+            <span class="block w-full text-left text-original-base text-sm">Username</span>
 			<input
 				type="text"
-				class:good={constrain(userName || '', 6, 20)}
-				class="w-2/3 h-10 mx-auto my-2 text-original-base  bg-slate-700 outline-none rounded-lg border-original-muted hover:bg-original-input-hover text-center transition-colors"
+				
+				class="w-full h-10 mx-auto text-original-base  bg-slate-700 outline-none rounded-lg border-original-muted hover:bg-original-input-hover text-center transition-colors"
 				placeholder="Username..."
 				bind:value={userName}
 			/>
-
+            <span class="block w-full text-left text-original-base mt-4 text-sm">Password</span>
 			<input
 				type="password"
-				class:good={constrain(password || '', 6, 30)}
-				class="w-2/3 h-10 mx-auto my-2 text-original-base  bg-slate-700 outline-none rounded-lg border-original-muted hover:bg-original-input-hover text-center transition-colors"
+				
+				class="w-full h-10 mx-auto text-original-base  bg-slate-700 outline-none rounded-lg border-original-muted hover:bg-original-input-hover text-center transition-colors"
 				placeholder="Password"
 				bind:value={password}
 			/>
-
+            <span class="block w-full text-left text-original-base mt-4 text-sm">Confirm Password</span>
 			<input
 				type="password"
-				class:good={constrain(confirmPassword || '', 6, 30) && confirmPassword === password}
-				class="w-2/3 h-10 mx-auto my-2 text-original-base  bg-slate-700 outline-none rounded-lg border-original-muted hover:bg-original-input-hover text-center transition-colors"
+				
+				class="w-full h-10 mx-auto text-original-base  bg-slate-700 outline-none rounded-lg border-original-muted hover:bg-original-input-hover text-center transition-colors"
 				placeholder="Confirm password"
 				bind:value={confirmPassword}
 			/>

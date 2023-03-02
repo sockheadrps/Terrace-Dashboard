@@ -22,7 +22,7 @@
 
 <!-- cbody -->
 {#if ready}
-<div class="w-full flex justify-center">
+<div class="w-full flex justify-center my-1">
 	<nav class="flex justify-center items-center h-full my-auto">
 		<!-- container -->
 		<div class="flex justify-center items-center flex-col flex-wrap">
@@ -32,7 +32,7 @@
 				{#each settingsItemsTop as setting}
 					<a href="/settings/{setting.name.toLowerCase()}"
 					in:fade={{duration:300, easing: quintIn, delay:setting.timing}}>
-						<button class="w-20 h-20 relative mx-2 bg-original-settings-nav-bg hexagon hover:bg-original-settings-nav-bg-hover"
+						<button class="md:w-20 md:h-20 w-16 h-16 relative mx-2 my-1 bg-original-settings-nav-bg hexagon hover:bg-original-settings-nav-bg-hover"
 						>
 							<div class="text-4xl flex justify-center">
 								<Icon icon={setting.icon} />
@@ -46,7 +46,7 @@
 				{#each settingsItemsBottom as setting}
 					<a href="/settings/{setting.name.toLowerCase()}"
 					in:fade={{duration:300, easing: quintIn, delay:setting.timing}}>
-						<button class="w-20 h-20 relative mx-2 bg-original-settings-nav-bg hexagon hover:bg-original-settings-nav-bg-hover">
+						<button class="md:w-20 md:h-20 w-16 h-16 relative mx-2 bg-original-settings-nav-bg hexagon hover:bg-original-settings-nav-bg-hover">
 							<div class="text-4xl flex justify-center">
 								<Icon icon={setting.icon} />
 							</div>
@@ -54,7 +54,7 @@
 					</a>
 				{/each}
                 <!-- Necessary dummy div for spacing the hexagons, remove if an odd number -->
-				<div class="bg-none w-20 h-20 relative mx-3 hexagon" />
+				<div class="bg-none md:w-20 md:h-20 w-16 h-16 relative mx-3 hexagon" />
 			</div>
 		</div>
 	</nav>

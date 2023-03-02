@@ -66,7 +66,7 @@
 </script>
 
 
-<div class="grid grid-rows-5 text-center h-full"
+<div class="grid grid-rows-5 text-center h-full my-auto"
     in:fade={{duration:250, easing: quintIn, delay: 250}}>
     <label class="text-6xl row-span-1 py-10" for="Weather API">Connect to Server</label>
     <div class="grid grid-rows-5 row-span-4 justify-items-center">

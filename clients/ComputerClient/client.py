@@ -44,8 +44,11 @@ def detect_media():
     interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
     volume = cast(interface,
                   POINTER(IAudioEndpointVolume))
-    # Acess and store master volume level
-    media['master'] = volume.GetMasterVolumeLevelScalar()
+    # Access and store master volume level
+    try:
+        media['master'] = volume.GetMasterVolumeLevelScalar()
+    except Exception as e:
+        print(e, "Error accessing master")
     return media
 
 

@@ -17,7 +17,7 @@ venv.bak/
 # dont remove the logs/ folder, it will not work (specifically, the server wont run)
 logs/server.log
 
-
+pepper.txt
 server/templates/index.html
 static/weatherAPI-ignore.js
 
