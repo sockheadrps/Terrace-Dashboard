@@ -1,6 +1,14 @@
-fastapi==0.89.1
+comtypes==1.1.14
+fastapi==0.92.0
 httpx==0.23.3
+jose==1.0.0
+motor==3.1.1
 psutil==5.9.4
+PyAutoGUI==0.9.53
+pycaw==20220416
+pydantic==1.10.2
+PyDirectInput==1.0.4
 pytest==7.2.1
+python_jose==3.3.0
 uvicorn==0.20.0
 websockets==10.4
