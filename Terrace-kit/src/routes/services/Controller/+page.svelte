@@ -92,8 +92,8 @@
             <input class ="appearance-none w-full h-6 outline-none opacity-70 rounded-md shadow-lg transition-opacity slider hover:opacity-100" bind:value={sliderValue} bind:this={sliderElm} type="range" id="volume" min='0' max = "100">
         </div>
         <div class="h-1/3 mt-5 flex justify-center align-top">
-            <Button iconName="fluent:live-20-filled" buttonCommand="live" name="Live" />
-            <Button iconName="material-symbols:back-hand-outline" buttonCommand="brb" name="BRB" />
+            <Button iconName="fluent:live-20-filled" buttonCommand="live" name="Live" targetClient="Controller" />
+            <Button iconName="material-symbols:back-hand-outline" buttonCommand="brb" name="BRB" targetClient="Controller" />
         </div>
     </div>
 {/if}
