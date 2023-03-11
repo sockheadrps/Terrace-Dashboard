@@ -11,12 +11,12 @@
 </script>
 
 {#if ready}
-    <div class="settings__area h-full rounded-md m-2 text-original-muted"
+    <div class="settings__area rounded-md h-full text-original-muted"
     transition:fade={{easing: quintInOut}}
     >
-        <div class="settings__nav pt-5" >
+        <div class="settings__nav" >
             <SettingsNav />
-            <div  class="h-full flex flex-col justify-center " in:fade|local={{delay: 500}}>
+            <div  class="h-full flex flex-col justify-center" in:fade|local={{delay: 500}}>
                 <slot />
             </div>
         </div>
@@ -31,5 +31,6 @@
          rgba(24, 24, 24, 0.822),
          rgba(15, 15, 15, 0.863)
          );
+    
 }
 </style>

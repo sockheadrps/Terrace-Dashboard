@@ -22,17 +22,17 @@
 
 <!-- cbody -->
 {#if ready}
-<div class="w-full flex justify-center my-1">
+<div class="w-full flex justify-center md:py-2 md:mb-5 mb-1">
 	<nav class="flex justify-center items-center h-full my-auto">
 		<!-- container -->
-		<div class="flex justify-center items-center flex-col flex-wrap">
+		<div class="flex justify-center items-center flex-col flex-wrap pt-1 pb-1">
 			<!-- First row -->
 			<div class="flex">
 				<!-- Hexagon -->
 				{#each settingsItemsTop as setting}
 					<a href="/settings/{setting.name.toLowerCase()}"
 					in:fade={{duration:300, easing: quintIn, delay:setting.timing}}>
-						<button class="md:w-20 md:h-20 w-16 h-16 relative mx-2 my-1 bg-original-settings-nav-bg hexagon hover:bg-original-settings-nav-bg-hover"
+						<button class="w-20 h-20 tablet:w-16 tablet:h-16 tablet:my-1 tablet:mx-1 relative mx-2 bg-original-settings-nav-bg hexagon hover:bg-original-settings-nav-bg-hover"
 						>
 							<div class="text-4xl flex justify-center">
 								<Icon icon={setting.icon} />
@@ -42,11 +42,11 @@
 				{/each}
 			</div>
 
-			<div class="flex ml-2 -my-2">
+			<div class="flex tablet:ml-3 -ml-2 -my-2">
 				{#each settingsItemsBottom as setting}
 					<a href="/settings/{setting.name.toLowerCase()}"
 					in:fade={{duration:300, easing: quintIn, delay:setting.timing}}>
-						<button class="md:w-20 md:h-20 w-16 h-16 relative mx-2 bg-original-settings-nav-bg hexagon hover:bg-original-settings-nav-bg-hover">
+						<button class="w-20 h-20 tablet:w-16 tablet:h-16 tablet:my-0 tablet:mx-1 relative my-2 mx-2 bg-original-settings-nav-bg hexagon hover:bg-original-settings-nav-bg-hover">
 							<div class="text-4xl flex justify-center">
 								<Icon icon={setting.icon} />
 							</div>

@@ -93,7 +93,7 @@
 			/>
 		{/if}
 
-		<div class="mt-20">
+		<div class="md:mt-20 mt-2">
 			<table class="w-11/12 mx-auto select-none">
 				<thead class="bg-original-table-header text-left">
 					<tr>

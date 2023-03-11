@@ -80,7 +80,7 @@
 
 <div class="modal-background" on:click={close} />
 <div
-	class="z-10 absolute w-92 h-[19rem] overflow-auto rounded-md bg-original-icon-finder-background"
+	class="z-10 absolute w-92 h-[19rem] tablet:h-44 overflow-auto rounded-md bg-original-icon-finder-background"
 	transition:fade
 	role="dialog"
 	aria-modal="true"

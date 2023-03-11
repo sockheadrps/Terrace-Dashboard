@@ -98,7 +98,7 @@
 			/>
 		{/if}
 
-		<div class="mt-20">
+		<div class="mt-20 tablet:mt-5 overflow-y-auto tablet:h-72 scroll">
 			<table class="w-11/12 mx-auto select-none">
 				<thead class="bg-original-table-header text-left">
 					<tr>
@@ -130,7 +130,7 @@
 						</th>
 					</tr>
 				</thead>
-				<tbody bind:this={body}>
+				<tbody bind:this={body} class="overflow-auto w-full">
 					{#each $bookmarkList as bookmark, idx (idx)}
 						<tr
 							class="even:bg-original-table-row-even cursor-move h-10"
@@ -183,5 +183,30 @@
 	:global(span[contentEditable='true']:empty:before) {
 		content: attr(placeholder);
 		color: #636363;
+	}
+
+	.scroll::-webkit-scrollbar {
+    background: rgba(0, 0, 0, 0);
+    display: block;
+}
+	.scroll::-webkit-scrollbar-track {
+		border-radius: 10px;
+		background-clip: padding-box;
+	}
+	.scroll::-webkit-scrollbar-track-piece:end {
+		background: transparent;
+	}
+	.scroll::-webkit-scrollbar-track-piece:start {
+		background: transparent;
+  		}
+	.scroll::-webkit-scrollbar-thumb {
+		background: rgb(44, 44, 44);
+		border-radius: 10px;
+		border: 5px solid #0000;
+		background-clip: padding-box;
+	}
+	.scroll::-webkit-scrollbar-thumb:hover {
+		background: #222;
+		background-clip: padding-box;
 	}
 </style>

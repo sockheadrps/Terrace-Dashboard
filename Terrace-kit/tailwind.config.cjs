@@ -2,6 +2,9 @@
 module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
+		screens: {
+			'tablet': {'min': '640px', 'max': '860px'}
+	},
 
 		
 		extend: {

@@ -15,12 +15,12 @@
 
 
 <div class="bookmark-area rounded-md">
-    <div class="flex flex-row my-auto">
+    <div class="flex flex-row my-auto overflow-x-scroll bookmarks mt-2">
         {#each $bookmarkList as book, index}
         <div class="m-auto text-center h-full"
         in:blur={{delay: (index * 150) + 100, easing: quadIn}}
         >
-            <a href={book.url} class="bookmark rounded-md inline-block" >
+            <a href={book.url} class="bookmark w-32 tablet:w-24 py-2 mx-1 rounded-md inline-block" >
                 <div class="flex flex-row justify-center">
                     <Icon icon={book.icon} style="font-size: 2.5rem;" />
                 </div>
@@ -55,17 +55,12 @@
 .bookmark{
     display: inline-block;
     vertical-align: middle;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     border: 1px solid rgba(10, 6, 24, 0.021);
     background:rgba(64, 64, 73, 0.1);
     backdrop-filter: blur(1.1rem);
-    margin: .5rem;
-    padding: .5rem;
     cursor: pointer;
     transition: all .2s ease-out;
-    min-width:  170px;
     text-decoration: none;
 }
 
@@ -77,6 +72,33 @@ a { color: inherit; }
     border: 1px solid transparent;
     opacity: .7;
     color: #525151;
+}
+
+.bookmarks::-webkit-scrollbar {
+    background: rgba(0, 0, 0, 0);
+    display: block;
+}
+.bookmarks::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-clip: padding-box;
+}
+.bookmarks::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+    margin-right: 50px;
+}
+.bookmarks::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+    margin-left: 50px;
+}
+.bookmarks::-webkit-scrollbar-thumb {
+    background: rgb(44, 44, 44);
+    border-radius: 10px;
+    border: 5px solid #0000;
+    background-clip: padding-box;
+  }
+.bookmarks::-webkit-scrollbar-thumb:hover {
+    background: #222;
+    background-clip: padding-box;
 }
 
 </style>

@@ -13,7 +13,7 @@
 	let initialConnect = true;
 	let serviceIcons = {};
 	let ready = false;
-    let orderChange = false
+	let orderChange = false;
 
 	onMount(() => {
 		websocketSend('CONNECTIONS-REQUEST', {});
@@ -21,18 +21,16 @@
 		ready = true;
 	});
 
-
-
-    function orderServices(services){
-        let orderedServices: Array<string> = []
-        let serviceNames: Array<string> = $serviceList.map((e) => e.name);
-            services.forEach(element => {
-                let idx = serviceNames.indexOf(element)                
-                orderedServices.splice(idx, 0, element)
-            });
-            services = []
-            return orderedServices
-    }
+	function orderServices(services) {
+		let orderedServices: Array<string> = [];
+		let serviceNames: Array<string> = $serviceList.map((e) => e.name);
+		services.forEach((element) => {
+			let idx = serviceNames.indexOf(element);
+			orderedServices.splice(idx, 0, element);
+		});
+		services = [];
+		return orderedServices;
+	}
 
 	function animateElement(elm) {
 		elm.style.transition = 'none';
@@ -78,10 +76,10 @@
 		}
 	}
 
-    $: {
-        $serviceList = $serviceList
-        services = orderServices(services)
-    }
+	$: {
+		$serviceList = $serviceList;
+		services = orderServices(services);
+	}
 
 	$: {
 		if (ready) {
@@ -97,19 +95,17 @@
 			});
 		}
 	}
-
 </script>
 
 {#if services !== undefined && services.length > 0 && serviceElms !== undefined}
 	{#each services as service (service)}
-		<a href="/services/{service}"
-		>
+		<a href="/services/{service}">
 			<button
-				class="bg-original-card-bg-dark rounded-md text-original-muted mb-4 mx-2 flex-1 md:w-32 w-20 md:h-[136px] h-24 transition-colors hover:text-original-muted-hover hover:bg-original-service-dark"
+				class="bg-original-card-bg-dark rounded-md text-original-muted mb-4 mx-2 flex-1 w-24 tablet:w-20 h-[136px] tablet:h-20 transition-colors hover:text-original-muted-hover hover:bg-original-service-dark"
 				transition:fade
 				bind:this={serviceElms[service]}
 			>
-				<div class="md:text-8xl text-4xl flex flex-col text-center justify-center">
+				<div class="text-7xl tablet:text-5xl flex flex-col text-center justify-center">
 					<div class="mx-auto">
 						<Icon icon={serviceIcons[service]} />
 					</div>

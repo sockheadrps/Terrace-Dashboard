@@ -69,10 +69,12 @@
         if (modal !== undefined) {
                 // If cursor too close to bottom
             if (position.y >= window.innerHeight - modal.getBoundingClientRect().height) {
+                console.log(position.y + modal.getBoundingClientRect().height > window.innerHeight )
                 modal.style.top = `${position.y + (position.iconHeight /2) - modal.getBoundingClientRect().height}px`
                 modal.style.left= `${position.x + (position.iconWidth /2) - modal.getBoundingClientRect().width}px`
             // Set modal at center of edit icon
             } else {
+                console.log('topo')
                 modal.style.top = `${position.y + (position.iconHeight /2)}px`
                 modal.style.left= `${position.x + (position.iconWidth /2) - modal.getBoundingClientRect().width}px`
             }
@@ -87,7 +89,7 @@
 <svelte:window on:keydown={handle_keydown}/>
 
 <div class="modal-background" on:click={close}></div>
-<div class="z-10 absolute w-92 h-[19rem] overflow-auto rounded-md bg-original-card-bg-dark" transition:fade role="dialog" aria-modal="true" bind:this={modal}>
+<div class="z-10 absolute w-92 h-[19rem] tablet:h-44 overflow-auto rounded-md bg-original-card-bg-dark" transition:fade role="dialog" aria-modal="true" bind:this={modal}>
     <div class="container">
             <div class="icon__area">
                 <div class="icon__searchbar">

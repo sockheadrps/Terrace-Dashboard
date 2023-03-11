@@ -131,15 +131,15 @@
 </script>
 
 <div
-	class="grid grid-cols-5 gap-4 text-original-muted justify-center flex-nowrap  rounded-md h-full"
+	class="grid grid-cols-5 gap-4 text-original-muted justify-center flex-nowrap  rounded-md tablet:h-48"
 >
 	<div class="w-full bg-original-card-bg-dark pl-4 grid grid-cols-5 col-span-3 rounded-md"
 	in:fade={{ duration: 500, easing: quintIn, delay: 200 }}>
 		<div class="w-full flex flex-col text-center justify-center col-span-1">
-			<h1 id="temperature" class="text-5xl whitespace-nowrap">{elmTemperature}</h1>
-			<h4 class="text-2xl whitespace-nowrap">feels like</h4>
-			<h2 id="feels-like" class="text-2xl whitespace-nowrap">{elmFeelsLike}</h2>
-			<div>{weatherDescription}</div>
+			<h1 id="temperature" class="text-5xl tablet:text-2xl whitespace-nowrap">{elmTemperature}</h1>
+			<h4 class="text-2xl tablet:text-sm whitespace-nowrap">feels like</h4>
+			<h2 id="feels-like" class="text-xl tablet:text-md whitespace-nowrap">{elmFeelsLike}</h2>
+			<div class="tablet:sm">{weatherDescription}</div>
 		</div>
 
 		<div class="flex flex-col justify-center">
@@ -148,16 +148,16 @@
 
 		<div class="grid grid-cols-2 text-center align-middle col-span-3">
 			<div class="my-auto">
-				<div class="title text-xl whitespace-nowrap">Humidity</div>
-				<div class="title text-xl whitespace-nowrap">Wind Speed</div>
-				<div class="title text-xl whitespace-nowrap">Sunrise</div>
-				<div class="title text-xl whitespace-nowrap">Sunset</div>
+				<div class="title text-xl tablet:text-base whitespace-nowrap">Humidity</div>
+				<div class="title text-xl tablet:text-base whitespace-nowrap">Wind Speed</div>
+				<div class="title text-xl tablet:text-base whitespace-nowrap">Sunrise</div>
+				<div class="title text-xl tablet:text-base whitespace-nowrap">Sunset</div>
 			</div>
 			<div class="my-auto">
-				<div id="humidity" class="title text-xl whitespace-nowrap">{elmHumidity}</div>
-				<div id="wind-speed" class="title text-xl whitespace-nowrap">{elmWindSpeed}</div>
-				<div id="sunrise" class="title text-xl whitespace-nowrap">{elmSunrise}</div>
-				<div id="sunset" class="title text-xl whitespace-nowrap">{elmSunset}</div>
+				<div id="humidity" class="title text-xl tablet:text-base whitespace-nowrap">{elmHumidity}</div>
+				<div id="wind-speed" class="title text-xl tablet:text-base whitespace-nowrap">{elmWindSpeed}</div>
+				<div id="sunrise" class="title text-xl tablet:text-base whitespace-nowrap">{elmSunrise}</div>
+				<div id="sunset" class="title text-xl tablet:text-base whitespace-nowrap">{elmSunset}</div>
 			</div>
 		</div>
 	</div>
@@ -165,7 +165,7 @@
 		<div class="h-full w-full grid grid-rows-3 gap-4">
 			<div
 				id="time"
-				class="bg-original-card-bg-dark flex justify-center flex-col text-center text-6xl row-span-2 w-full rounded-md"
+				class="bg-original-card-bg-dark flex justify-center flex-col text-center text-6xl row-span-2 w-full rounded-md tablet:text-4xl"
 				in:fade={{ duration: 250, easing: quintIn, delay: 350 }}
 				out:fade={{ duration: 100, easing: quintOut }}
 			>
@@ -175,7 +175,7 @@
 			</div>
 			<div
 				id="date"
-				class="bg-original-card-bg-dark flex flex-col text-center text-4xl justify-center rounded-md"
+				class="bg-original-card-bg-dark flex flex-col text-center text-4xl justify-center rounded-md tablet:text-sm"
 				in:fade={{ duration: 250, easing: quintIn, delay: 450 }}
 				out:fade={{ duration: 100, easing: quintOut }}
 			>

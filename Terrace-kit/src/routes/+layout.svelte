@@ -39,21 +39,21 @@
 
 {#if ready}
 <div class="main">
-	<div id="board" class="grid grid-cols-12 justify-center original-theme -z-10 backdrop-blur-sm h-[100vh] bg-clip-content"
+	<div id="board" class="grid grid-cols-12 justify-center original-theme -z-10 backdrop-blur-sm h-screen bg-clip-content"
 	>	
 		<div class="col-span-2">
 			<NavBar />
 
 		</div>
-		<div class="col-span-10">
-			<div class="text-original-base flex flex-row justify-end">
-				<button class="w-24 rounded-md bg-slate-800">
+		<div class="col-span-10 ">
+			<!-- <div class="text-original-base flex flex-row justify-end">
+				<button class="w-24 rounded-md bg-slate-800 mx-2">
 					Sign up
 				</button>
-				<button>
+				<button class="w-24 rounded-md bg-slate-800 mx-2">
 					Login
 				</button>
-			</div>
+			</div> -->
 				<slot />
 		</div>
 	</div>
@@ -67,13 +67,13 @@
 		background: url('/assets/backgrnd.jpeg');
 		background-size: cover;
 		background-repeat: no-repeat;
+		overflow: hidden;
 	}
 	#board {
 		/* grid-template-columns: 15% 85%; */
 		background: linear-gradient(to left top, rgba(36, 36, 36, 0.719), rgba(20, 20, 20, 0.671));
 	}
 	*{
-        overflow: hidden;
 		font-family: 'Asap', sans-serif;
 		font-family: 'Spline Sans', sans-serif;
 		
