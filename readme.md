@@ -1,4 +1,5 @@
 ## Preview of development branch rework
+
 ![Alt Text](overview.gif)
 
 # Terrace Dashboard
