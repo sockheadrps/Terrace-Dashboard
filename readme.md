@@ -1,3 +1,6 @@
+## Preview of development branch rework
+![Alt Text](overview.gif)
+
 # Terrace Dashboard
 ## _A free Dashboarding tool for all your tools_
 
