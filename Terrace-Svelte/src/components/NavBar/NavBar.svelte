@@ -135,8 +135,4 @@
     flex-direction: column-reverse;
 }
 
-#nav__settings{
-    border-radius: 0rem 0rem 0rem 2rem;
-}
-
 </style>

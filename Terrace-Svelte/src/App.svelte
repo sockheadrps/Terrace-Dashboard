@@ -34,10 +34,47 @@
     background: Radial-gradient(rgba(255, 255, 255, 0.35), rgb(43, 43, 43)), Radial-gradient(at 0 0, #181818, #1f1f1f);
 }
 
+:global(body) {
+    margin: 0;
+}
+
+:global(.scroll::-webkit-scrollbar) {
+    display: block;
+    background: rgba(0, 0, 0, 0);
+}
+
+:global(.scroll::-webkit-scrollbar-track) {
+    border-radius: 10px;
+    background-clip: padding-box;
+    margin-right: -1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+:global(.scroll::-webkit-scrollbar-track-piece:end) {
+    background: transparent;
+}
+
+:global(.scroll::-webkit-scrollbar-track-piece:start) {
+    background: transparent;
+}
+
+:global(.scroll::-webkit-scrollbar-thumb) {
+    background: rgb(44, 44, 44);
+    border-radius: 10px;
+    border: 5px solid #0000;
+    background-clip: padding-box;
+}
+
+:global(.scroll::-webkit-scrollbar-thumb:hover) {
+    background: #222;
+    background-clip: padding-box;
+}
+
 main {
     text-align: center;
-    padding: 1em;
-    margin: 0 auto;
+    /* padding: 1em; */
+    /* margin: 0 auto; */
 }
 
 @media (min-width: 640px) {
