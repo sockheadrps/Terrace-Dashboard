@@ -17,13 +17,6 @@
 		ready = true;
 	});
 
-
-	$: if (success) {
-		window.localStorage.setItem("weather", url)
-	}
-
-
-	$: console.log((apiKey.length === 32 && respCode === 200))
 </script>
 
 {#if ready}

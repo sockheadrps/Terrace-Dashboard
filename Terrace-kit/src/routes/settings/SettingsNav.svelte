@@ -32,7 +32,7 @@
 				{#each settingsItemsTop as setting}
 					<a href="/settings/{setting.name.toLowerCase()}"
 					in:fade={{duration:300, easing: quintIn, delay:setting.timing}}>
-						<button class="w-20 h-20 tablet:w-16 tablet:h-16 tablet:my-1 tablet:mx-1 relative mx-2 bg-original-settings-nav-bg hexagon hover:bg-original-settings-nav-bg-hover"
+						<button class="w-20 h-20 tablet:w-16 tablet:h-16 tablet:my-0 tablet:mx-1 relative mx-2 bg-original-settings-nav-bg hexagon hover:bg-original-settings-nav-bg-hover"
 						>
 							<div class="text-4xl flex justify-center">
 								<Icon icon={setting.icon} />
@@ -42,7 +42,7 @@
 				{/each}
 			</div>
 
-			<div class="flex tablet:ml-3 -ml-2 -my-2">
+			<div class="flex tablet:ml-4 -ml-2 -my-2">
 				{#each settingsItemsBottom as setting}
 					<a href="/settings/{setting.name.toLowerCase()}"
 					in:fade={{duration:300, easing: quintIn, delay:setting.timing}}>

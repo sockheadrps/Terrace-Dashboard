@@ -1,0 +1,131 @@
+03/14/2023 11:56:36 PM Using proactor: IocpProactor
+03/14/2023 11:57:06 PM Using proactor: IocpProactor
+03/14/2023 11:57:41 PM Using proactor: IocpProactor
+03/15/2023 12:00:01 AM Using proactor: IocpProactor
+03/15/2023 12:11:36 AM Using proactor: IocpProactor
+03/15/2023 12:12:44 AM 'text'
+03/15/2023 12:16:35 AM Using proactor: IocpProactor
+03/15/2023 12:17:03 AM Using proactor: IocpProactor
+03/15/2023 12:17:24 AM Using proactor: IocpProactor
+03/15/2023 12:18:46 AM 'bytes'
+03/15/2023 12:18:52 AM Using proactor: IocpProactor
+03/15/2023 12:18:54 AM 'bytes'
+03/15/2023 12:20:01 AM Using proactor: IocpProactor
+03/15/2023 12:22:08 AM Using proactor: IocpProactor
+03/15/2023 12:25:51 AM Using proactor: IocpProactor
+03/15/2023 12:34:21 AM Using proactor: IocpProactor
+03/15/2023 12:34:22 AM Expecting value: line 1 column 1 (char 0)
+03/15/2023 12:44:04 AM Using proactor: IocpProactor
+03/15/2023 01:01:59 AM Using proactor: IocpProactor
+03/15/2023 01:24:59 AM the JSON object must be str, bytes or bytearray, not dict
+03/15/2023 01:25:01 AM Using proactor: IocpProactor
+03/15/2023 01:45:58 AM the JSON object must be str, bytes or bytearray, not dict
+03/15/2023 01:47:24 AM the JSON object must be str, bytes or bytearray, not dict
+03/15/2023 01:48:02 AM the JSON object must be str, bytes or bytearray, not dict
+03/15/2023 01:54:41 AM the JSON object must be str, bytes or bytearray, not dict
+03/15/2023 01:56:17 AM the JSON object must be str, bytes or bytearray, not dict
+03/15/2023 06:33:58 PM the JSON object must be str, bytes or bytearray, not dict
+03/15/2023 06:36:25 PM the JSON object must be str, bytes or bytearray, not dict
+03/15/2023 06:36:27 PM Using proactor: IocpProactor
+03/15/2023 06:38:18 PM the JSON object must be str, bytes or bytearray, not dict
+03/15/2023 06:38:19 PM Using proactor: IocpProactor
+03/16/2023 05:26:20 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 05:31:20 PM Using proactor: IocpProactor
+03/16/2023 05:33:27 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 05:38:46 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 05:41:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 05:41:26 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 05:42:52 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 05:43:54 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 05:45:18 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 05:47:03 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 06:18:28 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 06:19:16 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 06:19:41 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 06:19:52 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 06:20:12 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 06:20:33 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 06:22:27 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:10:55 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:22:15 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:24:59 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:25:39 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:27:51 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM Task exception was never retrieved
+future: <Task finished name='Task-2135' coro=<IocpProactor.accept.<locals>.accept_coro() done, defined at C:\Users\rpski\AppData\Local\Programs\Python\Python311\Lib\asyncio\windows_events.py:588> exception=OSError(22, 'The specified network name is no longer available', None, 64, None)>
+Traceback (most recent call last):
+  File "C:\Users\rpski\AppData\Local\Programs\Python\Python311\Lib\asyncio\windows_events.py", line 591, in accept_coro
+    await future
+  File "C:\Users\rpski\AppData\Local\Programs\Python\Python311\Lib\asyncio\windows_events.py", line 837, in _poll
+    value = callback(transferred, key, ov)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rpski\AppData\Local\Programs\Python\Python311\Lib\asyncio\windows_events.py", line 580, in finish_accept
+    ov.getresult()
+OSError: [WinError 64] The specified network name is no longer available
+03/16/2023 07:28:09 PM Accept failed on a socket
+socket: <asyncio.TransportSocket fd=852, family=2, type=1, proto=6, laddr=('0.0.0.0', 8081)>
+Traceback (most recent call last):
+  File "C:\Users\rpski\AppData\Local\Programs\Python\Python311\Lib\asyncio\proactor_events.py", line 839, in loop
+    conn, addr = f.result()
+                 ^^^^^^^^^^
+OSError: [WinError 64] The specified network name is no longer available
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:28:09 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 07:30:09 PM Using proactor: IocpProactor
+03/16/2023 07:37:31 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 08:51:29 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 08:51:29 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 08:51:29 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 08:54:15 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 08:55:16 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 10:51:03 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 10:51:17 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 10:57:33 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 10:57:36 PM Using proactor: IocpProactor
+03/16/2023 10:57:51 PM the JSON object must be str, bytes or bytearray, not dict
+03/16/2023 10:57:51 PM the JSON object must be str, bytes or bytearray, not dict

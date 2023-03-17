@@ -13,7 +13,6 @@
 	onMount(() => {
 		let localStorage: { url: string } | null;
 		localStorage = JSON.parse(window.localStorage.getItem('server'));
-		console.log({ localStorage });
 		if (localStorage !== null) {
 			websocketConnect(localStorage.url.replace(/(http)s?:\/\//, 'ws://'));
 		}

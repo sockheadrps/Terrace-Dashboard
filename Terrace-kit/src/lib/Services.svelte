@@ -98,6 +98,18 @@
 </script>
 
 {#if services !== undefined && services.length > 0 && serviceElms !== undefined}
+	<a href="/services/notes">
+		<button
+			class="bg-original-card-bg-dark rounded-md text-original-muted mb-4 mx-2 flex-1 w-24 tablet:w-20 h-[136px] tablet:h-20 transition-colors hover:text-original-muted-hover hover:bg-original-service-dark"
+			transition:fade
+		>
+			<div class="text-7xl tablet:text-5xl flex flex-col text-center justify-center">
+				<div class="mx-auto">
+					<Icon icon='material-symbols:electrical-services' />
+				</div>
+			</div>
+		</button>
+	</a>
 	{#each services as service (service)}
 		<a href="/services/{service}">
 			<button

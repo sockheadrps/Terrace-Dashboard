@@ -66,10 +66,13 @@
 		elmSunset = '9:00';
 
 	function weatherApiCall() {
-		let url = `https://api.openweathermap.org/data/2.5/weather?lat=${'39'}&lon=${'82'}&appid=${'dbd30986d45f5c219692ea5d83e34a51'}`;
-		fetch(url)
+		let url = window.localStorage.getItem("weather")
+		if (url !== null){
+			fetch(url)
 			.then((response) => response.json())
 			.then((data) => saveWeather(data));
+		}
+
 	}
 
 	function getTime() {

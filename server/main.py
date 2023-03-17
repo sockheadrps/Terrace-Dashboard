@@ -1,5 +1,6 @@
 import datetime
 import logging
+import json
 
 from fastapi import (
     FastAPI,
@@ -69,6 +70,13 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
+
+def handle_ws_commtype(data) -> dict:
+    if data.get('text'):
+        data = data['text']
+    elif data.get('bytes'):
+        data = data['bytes'].decode("utf-8")
+    return json.loads(data)
 
 app = FastAPI()
 app.mount(
@@ -152,11 +160,6 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
         )
 
 
-
-
-
-
-
 @app.websocket("/ws/stats")
 async def websocket_endpoint(client_websocket: WebSocket) -> None:
     """
@@ -167,7 +170,8 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
     client = None
     await client_websocket.accept()
     try:
-        data = await client_websocket.receive_json()
+        data = handle_ws_commtype(await client_websocket.receive())
+        print(data)
     except Exception as e:
         logging.warning(e)
         raise e
@@ -182,7 +186,7 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
     while True:
         # Typical event communication
         try:
-            data = await client_websocket.receive_json()
+            data = handle_ws_commtype(await client_websocket.receive())
             print(f"data {data}")
             await broadcast(clients, data, client)
 

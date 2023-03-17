@@ -8,12 +8,10 @@
 
 	function checkAPI(key: string, long: string, lat: string) {
 		let url = `https://api.openweathermap.org/data/2.5/weather?lat=${long}&lon=${lat}&appid=${key}`;
-        console.log(data)
 
 		clearTimeout(timerID);
 		if (url !== undefined && data.length === 32) {
 			timerID = window.setTimeout(() => {
-				console.log(url, 'url');
 				fetch(url)
 					.then((response) => response)
 					.then((response) => {
@@ -28,15 +26,18 @@
 	}
 
 	$: if (data.length === 32) {
-        console.log('checking apoi ', respCode)
 		checkAPI(data, long, lat);
 	}
 
-    $: console.log(respCode)
+    $: if (respCode === 200) {
+		let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${data}`;
+		window.localStorage.setItem("weather", url)
+
+	}
 </script>
 
 <div class="h-full grid grid-rows-3">
-	<div class="flex justify-center items-center text-6xl">
+	<div class="flex justify-center items-center text-6xl tablet:text-4xl">
 		{#if respCode === 200}
 			<div>
 				<Icon icon="emojione:white-heavy-check-mark" />

@@ -137,6 +137,19 @@ class HardwareHandler(ClientHandler):
     def __init__(self, data, ws_object):
         super().__init__(data, ws_object)
         hardware_client_set.add(self.client_name)
+        print('hw connected')
+
+    @new_event(funcs, "CONNECT")
+    async def connect(self, data, sender):
+        print(f"handder {data}")
+        # if data.get("client-type") != "DASHBOARD":
+        #     await self.ws_object.send_json(
+        #         {
+        #             "event": "CONNECT",
+        #             "client-type": data["client-type"],
+        #             "client-name": data["client-name"],
+        #         }
+        #     )
 
     @new_event(funcs, "HARDWARE-REQUEST")
     async def hardware_request(self, data, sender):
