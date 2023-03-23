@@ -129,3 +129,318 @@ OSError: [WinError 64] The specified network name is no longer available
 03/16/2023 10:57:36 PM Using proactor: IocpProactor
 03/16/2023 10:57:51 PM the JSON object must be str, bytes or bytearray, not dict
 03/16/2023 10:57:51 PM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 12:22:26 AM Using proactor: IocpProactor
+03/17/2023 12:27:14 AM Using proactor: IocpProactor
+03/17/2023 12:28:56 AM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 12:28:56 AM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 01:17:38 AM Using proactor: IocpProactor
+03/17/2023 01:17:45 AM Using proactor: IocpProactor
+03/17/2023 01:42:40 AM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 01:43:00 AM 'client-type'
+03/17/2023 01:43:24 AM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 01:43:24 AM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 01:43:28 AM Using proactor: IocpProactor
+03/17/2023 01:45:04 AM 'client-type'
+03/17/2023 01:50:24 AM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 01:50:24 AM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 01:50:24 AM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 01:50:29 AM Using proactor: IocpProactor
+03/17/2023 01:58:24 AM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 01:58:24 AM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 01:58:49 AM Using proactor: IocpProactor
+03/17/2023 02:08:13 AM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 04:48:19 PM Using proactor: IocpProactor
+03/17/2023 04:50:13 PM Using proactor: IocpProactor
+03/17/2023 04:50:22 PM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 04:50:22 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 04:50:34 PM Using proactor: IocpProactor
+03/17/2023 04:50:48 PM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 04:50:48 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 04:50:49 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 04:50:57 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 04:51:16 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 04:51:17 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 04:51:18 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 04:51:20 PM Using proactor: IocpProactor
+03/17/2023 04:51:34 PM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 04:51:34 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 10:22:30 PM Using proactor: IocpProactor
+03/17/2023 10:24:22 PM Using proactor: IocpProactor
+03/17/2023 10:26:17 PM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 11:51:38 PM Using proactor: IocpProactor
+03/17/2023 11:51:43 PM Using proactor: IocpProactor
+03/17/2023 11:52:49 PM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 11:52:49 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 11:52:56 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 11:52:59 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 11:53:34 PM Using proactor: IocpProactor
+03/17/2023 11:53:37 PM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 11:53:37 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 11:53:51 PM Using proactor: IocpProactor
+03/17/2023 11:54:10 PM Using proactor: IocpProactor
+03/17/2023 11:54:42 PM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 11:54:42 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 11:55:52 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 11:57:13 PM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 11:57:41 PM Using proactor: IocpProactor
+03/17/2023 11:57:48 PM unhashable type: 'dict'
+03/17/2023 11:58:18 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/17/2023 11:58:22 PM Using proactor: IocpProactor
+03/17/2023 11:58:37 PM unhashable type: 'dict'
+03/17/2023 11:58:46 PM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 11:58:47 PM Using proactor: IocpProactor
+03/17/2023 11:58:57 PM the JSON object must be str, bytes or bytearray, not dict
+03/17/2023 11:58:59 PM Using proactor: IocpProactor
+03/17/2023 11:59:12 PM unhashable type: 'dict'
+03/18/2023 12:00:03 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 12:00:13 AM Using proactor: IocpProactor
+03/18/2023 12:01:01 AM unhashable type: 'dict'
+03/18/2023 12:06:09 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 12:06:32 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 12:06:34 AM Using proactor: IocpProactor
+03/18/2023 12:07:14 AM Using proactor: IocpProactor
+03/18/2023 12:09:27 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 12:09:27 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 12:11:20 AM Using proactor: IocpProactor
+03/18/2023 12:11:30 AM 'requested-client'
+03/18/2023 12:16:02 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 12:16:11 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 12:16:32 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 12:16:44 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 12:18:09 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 12:18:15 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 12:18:32 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 12:18:34 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 12:18:37 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 12:18:46 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 12:18:51 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 12:20:54 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 12:20:56 AM Using proactor: IocpProactor
+03/18/2023 12:25:34 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 12:25:34 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 12:25:36 AM Using proactor: IocpProactor
+03/18/2023 12:25:50 AM data is a dict-like object
+03/18/2023 12:28:01 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 12:28:05 AM Using proactor: IocpProactor
+03/18/2023 12:58:55 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 12:58:55 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:00:20 AM Using proactor: IocpProactor
+03/18/2023 01:01:40 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:01:40 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:01:42 AM Using proactor: IocpProactor
+03/18/2023 01:02:41 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:02:45 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:02:45 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 01:03:20 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 01:03:23 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 01:03:27 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 01:03:33 AM Using proactor: IocpProactor
+03/18/2023 01:06:33 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:06:35 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:06:35 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:06:37 AM Using proactor: IocpProactor
+03/18/2023 01:08:30 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:08:35 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:08:38 AM Using proactor: IocpProactor
+03/18/2023 01:10:00 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:10:00 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:10:00 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:10:06 AM Using proactor: IocpProactor
+03/18/2023 01:12:29 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:24:31 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:24:31 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:24:35 AM Using proactor: IocpProactor
+03/18/2023 01:45:49 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:46:58 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:48:11 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:58:55 AM Using proactor: IocpProactor
+03/18/2023 01:59:25 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 01:59:27 AM Using proactor: IocpProactor
+03/18/2023 01:59:30 AM Using proactor: IocpProactor
+03/18/2023 02:00:38 AM the JSON object must be str, bytes or bytearray, not dict
+03/18/2023 02:00:39 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/18/2023 02:00:54 AM Using proactor: IocpProactor
+03/18/2023 02:05:55 AM the JSON object must be str, bytes or bytearray, not dict
+03/21/2023 10:53:42 PM Using proactor: IocpProactor
+03/21/2023 11:04:44 PM Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+03/21/2023 11:12:19 PM Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+03/21/2023 11:12:35 PM Using proactor: IocpProactor
+03/21/2023 11:12:37 PM Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+03/21/2023 11:25:14 PM Using proactor: IocpProactor
+03/21/2023 11:29:46 PM the JSON object must be str, bytes or bytearray, not dict
+03/21/2023 11:51:18 PM Using proactor: IocpProactor
+03/21/2023 11:51:36 PM the JSON object must be str, bytes or bytearray, not dict
+03/21/2023 11:51:47 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/21/2023 11:51:53 PM the JSON object must be str, bytes or bytearray, not dict
+03/21/2023 11:51:54 PM Using proactor: IocpProactor
+03/21/2023 11:52:02 PM the JSON object must be str, bytes or bytearray, not dict
+03/21/2023 11:53:52 PM the JSON object must be str, bytes or bytearray, not dict
+03/21/2023 11:53:53 PM Using proactor: IocpProactor
+03/21/2023 11:54:01 PM the JSON object must be str, bytes or bytearray, not dict
+03/21/2023 11:54:01 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/21/2023 11:54:03 PM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/21/2023 11:54:06 PM Using proactor: IocpProactor
+03/21/2023 11:54:36 PM the JSON object must be str, bytes or bytearray, not dict
+03/21/2023 11:55:15 PM the JSON object must be str, bytes or bytearray, not dict
+03/21/2023 11:57:24 PM Using proactor: IocpProactor
+03/21/2023 11:57:31 PM the JSON object must be str, bytes or bytearray, not dict
+03/21/2023 11:57:44 PM the JSON object must be str, bytes or bytearray, not dict
+03/21/2023 11:57:56 PM Using proactor: IocpProactor
+03/22/2023 12:03:15 AM Using proactor: IocpProactor
+03/22/2023 12:03:26 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:05:06 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:05:07 AM Using proactor: IocpProactor
+03/22/2023 12:06:40 AM Using proactor: IocpProactor
+03/22/2023 12:07:01 AM Using proactor: IocpProactor
+03/22/2023 12:07:08 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:08:48 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 12:08:54 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:08:58 AM Using proactor: IocpProactor
+03/22/2023 12:13:25 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:13:25 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 12:30:34 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:30:35 AM Using proactor: IocpProactor
+03/22/2023 12:31:19 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:31:19 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:33:14 AM Using proactor: IocpProactor
+03/22/2023 12:35:34 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:35:34 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 12:35:39 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 12:35:45 AM Using proactor: IocpProactor
+03/22/2023 12:36:55 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:36:56 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 12:36:59 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 12:37:39 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:37:40 AM Using proactor: IocpProactor
+03/22/2023 12:40:01 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:40:01 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 12:40:08 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:40:09 AM Using proactor: IocpProactor
+03/22/2023 12:40:56 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:40:56 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 12:40:59 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 12:41:01 AM Using proactor: IocpProactor
+03/22/2023 12:41:47 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:41:48 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 12:41:48 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 12:41:54 AM Using proactor: IocpProactor
+03/22/2023 12:42:52 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:42:52 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:42:54 AM Using proactor: IocpProactor
+03/22/2023 12:43:29 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:43:29 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:43:30 AM Using proactor: IocpProactor
+03/22/2023 12:46:57 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 12:46:58 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 12:50:55 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:08:00 AM Using proactor: IocpProactor
+03/22/2023 01:09:37 AM Using proactor: IocpProactor
+03/22/2023 01:10:23 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:10:23 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:10:34 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:10:39 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:10:40 AM Using proactor: IocpProactor
+03/22/2023 01:10:58 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:10:58 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:10:59 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:18:22 AM Using proactor: IocpProactor
+03/22/2023 01:19:24 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:19:24 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:19:25 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:19:26 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:19:30 AM Using proactor: IocpProactor
+03/22/2023 01:20:13 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:20:13 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:20:14 AM Using proactor: IocpProactor
+03/22/2023 01:20:46 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:20:46 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:20:49 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:20:50 AM Using proactor: IocpProactor
+03/22/2023 01:21:18 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:21:19 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:21:32 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:21:34 AM Using proactor: IocpProactor
+03/22/2023 01:21:38 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:21:38 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:21:44 AM Using proactor: IocpProactor
+03/22/2023 01:22:19 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:22:20 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:22:20 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:22:24 AM Using proactor: IocpProactor
+03/22/2023 01:25:30 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:25:30 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:25:30 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:25:33 AM Using proactor: IocpProactor
+03/22/2023 01:26:28 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:26:29 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:26:46 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:26:49 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:26:56 AM Using proactor: IocpProactor
+03/22/2023 01:28:14 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:28:15 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:28:19 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:28:34 AM Using proactor: IocpProactor
+03/22/2023 01:28:46 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:28:48 AM Using proactor: IocpProactor
+03/22/2023 01:30:44 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:30:44 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:30:56 AM Using proactor: IocpProactor
+03/22/2023 01:31:51 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:31:51 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:31:51 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:32:01 AM Using proactor: IocpProactor
+03/22/2023 01:38:20 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:38:35 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:38:36 AM Using proactor: IocpProactor
+03/22/2023 01:41:31 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:41:31 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:41:43 AM Using proactor: IocpProactor
+03/22/2023 01:43:26 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:43:26 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:43:30 AM Using proactor: IocpProactor
+03/22/2023 01:44:01 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:44:01 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:44:02 AM Using proactor: IocpProactor
+03/22/2023 01:44:36 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:44:37 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:44:37 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:44:44 AM Using proactor: IocpProactor
+03/22/2023 01:45:27 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:45:27 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:45:28 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:45:35 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:45:38 AM Using proactor: IocpProactor
+03/22/2023 01:48:19 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:48:20 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:48:23 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:48:25 AM Using proactor: IocpProactor
+03/22/2023 01:52:06 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:52:06 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:57:01 AM Using proactor: IocpProactor
+03/22/2023 01:57:31 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 01:57:32 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 01:58:01 AM Using proactor: IocpProactor
+03/22/2023 02:01:52 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 02:01:53 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 02:01:53 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 02:02:37 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 02:03:22 AM Unexpected ASGI message 'websocket.send', after sending 'websocket.close'.
+03/22/2023 02:53:05 AM Using proactor: IocpProactor
+03/22/2023 02:58:27 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 03:27:19 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 03:27:20 AM Using proactor: IocpProactor
+03/22/2023 03:35:45 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 03:35:45 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 03:35:46 AM Using proactor: IocpProactor
+03/22/2023 03:37:56 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 03:38:03 AM Using proactor: IocpProactor
+03/22/2023 03:48:26 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 03:48:26 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 04:06:57 AM Using proactor: IocpProactor
+03/22/2023 04:13:42 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 05:48:35 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 05:48:36 AM Using proactor: IocpProactor
+03/22/2023 05:50:46 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 05:50:46 AM the JSON object must be str, bytes or bytearray, not dict
+03/22/2023 05:50:48 AM Using proactor: IocpProactor
+03/22/2023 06:14:18 AM the JSON object must be str, bytes or bytearray, not dict

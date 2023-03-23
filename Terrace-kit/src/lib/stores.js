@@ -39,7 +39,7 @@ export const websocketDisconnect = () => {
 
 export const websocketSend = (dataType, data) => {
     if (websocket !== undefined) {
-        websocket.send(JSON.stringify({ event: dataType, 'client-type': 'DASHBOARD', 'data': data }));   
+        websocket.send(JSON.stringify({ event: dataType, 'client-type': 'DASHBOARD', ...data }));  
     }
 };
 

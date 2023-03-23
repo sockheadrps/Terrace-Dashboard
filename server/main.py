@@ -77,6 +77,7 @@ def handle_ws_commtype(data) -> dict:
     elif data.get('bytes'):
         data = data['bytes'].decode("utf-8")
     return json.loads(data)
+    # return json.loads(data)
 
 app = FastAPI()
 app.mount(

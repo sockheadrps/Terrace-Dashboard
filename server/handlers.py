@@ -1,5 +1,6 @@
 import asyncio
 from itertools import chain
+import json
 
 
 hardware_client_set = set()
@@ -180,6 +181,18 @@ class ServiceHandler(ClientHandler):
     async def service_data_req(self, data, sender):
         if data['data'].get('TARGET-CLIENT') == self.client_name:
             await self.ws_object.send_json(data)
+
+    @new_event(funcs, "HARDWARE-REQUEST")
+    async def hardware_request(self, data, sender):
+        if sender.hardware is None and data["REQUESTED-CLIENT"] == self.client_name:
+            sender.hardware = self
+            await self.ws_object.send_bytes(json.dumps(data).encode("utf-8"))
+
+    @new_event(funcs, "HARDWARE-TERMINATE")
+    async def terminate_request(self, data, sender):
+        if sender.hardware is self:
+            sender.hardware = None
+            await self.ws_object.send_bytes(json.dumps(data).encode("utf-8"))
 
 
 async def broadcast(clients, data, sender):

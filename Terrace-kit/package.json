@@ -41,6 +41,8 @@
 	"dependencies": {
 		"@codemirror/lang-markdown": "^6.1.0",
 		"@codemirror/theme-one-dark": "^6.1.1",
+		"chart.js": "^4.2.1",
+		"svelte-chartjs": "^3.1.2",
 		"svelte-codemirror-editor": "^1.1.0",
 		"svelte-exmarkdown": "^2.0.0",
 		"svelte-highlight": "^7.2.0"
