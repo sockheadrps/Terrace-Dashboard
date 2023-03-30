@@ -17,24 +17,21 @@ npm run build
 # Checklist
 <br>
 
-- [ ] Board
-
-
-
-- [ ] Home Page
-    - [ ] Home
-    - [ ] Bookmarks
-    - [ ] Search
-    - [ ] Weather
+- [x] Home Page
+    - [x] Bookmarks
+    - [x] Search
+    - [x] Weather
 
 - [ ] Navbar
+    - Notes doesnt display unless a service is added, needs fixed
 - [ ] Notes
+    -needs implemented
     - [ ] Note
     - [ ] Notebutton
     - [ ] Notebar
     - [ ] Notehome
 - [ ] Settings
-    - [ ] Settings
-    - [ ] SettingsNav
+    - [x] SettingsNav
     - [ ] Bookmarks
-    - [ ] Weather
+        - Data persistance needs looked at...
+    - [x] Weather
