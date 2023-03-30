@@ -100,13 +100,13 @@
   </script>
 
 <div class="chart__area">
-    <div class="title__area justify-center">
+    <div class="title__area flex flex-col justify-center">
         <div class="text-2xl text-center">{cpu_data ? cpu_data.cpu_type : ""}</div>
     </div>
     <div class="cpu__chart">
         <canvas id="cpu__use__chart" bind:this={cpuChart} />
     </div>
-    <div class="sub__data">
+    <div class="sub__data flex flex-col justify-center">
         <div class="data text-center">Core count: {cpu_data ? cpu_data.cpu_count : ""}</div>
         <div class="data text-center">CPU Usage: {cpu_data ? cpu_data.cpu_usage : ""}%</div>
         <div class="data text-center">CPU Frequency: {cpu_data ? cpu_data.cpu_frequency: ""}Ghz</div>
@@ -129,9 +129,6 @@
          rgba(20, 20, 20, 0.904)
          );
     border-radius: 2rem 2rem 0rem 0rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .sub__data {
@@ -141,9 +138,6 @@
         rgba(27, 27, 27, 0.911)
          );
     border-radius: 0rem 0rem 2rem 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .data{

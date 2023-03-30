@@ -2,11 +2,14 @@
 import { writable } from 'svelte/store';
 const notes = {};
 
-Object.keys(localStorage).forEach((element) => {
-    if (parseInt(element)) {
-        notes[element] = JSON.parse(localStorage.getItem(element));
-    }
-});
+if (typeof localStorage !== 'undefined') {
+    Object.keys(localStorage).forEach((element) => {
+        if (parseInt(element)) {
+            notes[element] = JSON.parse(localStorage.getItem(element));
+        }
+    });
+}
+
 export const notesStore = writable(notes);
 
 // eslint-disable-next-line require-jsdoc

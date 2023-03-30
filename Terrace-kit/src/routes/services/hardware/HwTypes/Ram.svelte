@@ -100,16 +100,16 @@
   </script>
 
 <div class="chart__area">
-    <div class="title__area">
-        <div class="title">RAM</div>
+    <div class="title__area flex flex-col justify-center">
+        <div class="text-3xl text-center">RAM</div>
     </div>
     <div class="ram__chart">
         <canvas id="ram__use__chart" bind:this={ramChart} />
     </div>
-    <div class="sub__data">
-        <div class="data">RAM total: {ram_data ? ram_data.ram_total : ""}GB</div>
-        <div class="data">RAM Available: {ram_data ? ram_data.ram_available : ""}GB</div>
-        <div class="data">RAM Percentage: {ram_data ? ram_data.ram_percentage : ""}%</div>
+    <div class="sub__data flex flex-col justify-center">
+        <div class="data text-center">RAM total: {ram_data ? ram_data.ram_total : ""}GB</div>
+        <div class="data text-center">RAM Available: {ram_data ? ram_data.ram_available : ""}GB</div>
+        <div class="data text-center">RAM Percentage: {ram_data ? ram_data.ram_percentage : ""}%</div>
     </div>
 </div>
 
@@ -129,16 +129,7 @@
          rgba(20, 20, 20, 0.904)
          );
     border-radius: 2rem 2rem 0rem 0rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
-
-.title{
-    font-size: 2.5rem;
-    font-weight: 600;
-}
-
 
 .sub__data {
     background: linear-gradient(
@@ -147,9 +138,6 @@
         rgba(27, 27, 27, 0.911)
          );
     border-radius: 0rem 0rem 2rem 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .data{

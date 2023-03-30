@@ -67,17 +67,17 @@
   </script>
 
 <div class="chart__area">
-    <div class="title__area">
-        <div class="title">Storage</div>
+    <div class="title__area flex flex-col justify-center">
+        <div class="text-3xl text-center">Storage</div>
     </div>
-    <div class="disk__chart">
+    <div class="disk__chart m-auto">
         <canvas id="disk__use__chart" bind:this={diskChart} />
     </div>
-    <div class="sub__data">
-        <div class="data" id="disk__total" >Disk Total: {disk_data ? disk_data.disk_total :""}GB</div>
-        <div class="data" id="disk__available">Disk Availble: {disk_data ? disk_data.disk_free : ""}GB</div>
-        <div class="data" id="disk__used">Disk Used: {disk_data ? disk_data.disk_used : ""}GB</div>
-        <div class="data" id="disk__percentage">Disk Percentage: {disk_data ? disk_data.disk_percentage : ""}%</div>
+    <div class="sub__data flex flex-col justify-center">
+        <div class="text-center text-xl m-2" id="disk__total" >Disk Total: {disk_data ? disk_data.disk_total :""}GB</div>
+        <div class="text-center text-xl m-2" id="disk__available">Disk Availble: {disk_data ? disk_data.disk_free : ""}GB</div>
+        <div class="text-center text-xl m-2" id="disk__used">Disk Used: {disk_data ? disk_data.disk_used : ""}GB</div>
+        <div class="text-center text-xl m-2" id="disk__percentage">Disk Percentage: {disk_data ? disk_data.disk_percentage : ""}%</div>
     </div>
 </div>
 
@@ -91,7 +91,6 @@
 }
 
 .disk__chart{
-    margin: auto;
     background: rgba(9, 6, 24, 0.048);
 }
 
@@ -102,16 +101,7 @@
          rgba(20, 20, 20, 0.904)
          );
     border-radius: 2rem 2rem 0rem 0rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
-
-.title{
-    font-size: 2.5rem;
-    font-weight: 600;
-}
-
 
 .sub__data {
     background: linear-gradient(
@@ -120,14 +110,5 @@
         rgba(27, 27, 27, 0.911)
          );
     border-radius: 0rem 0rem 2rem 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
-
-.data{
-    font-size: larger;
-    margin: .5rem;
-}
-
 </style>
