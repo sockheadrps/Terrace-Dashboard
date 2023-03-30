@@ -23,7 +23,7 @@ npm run build
     - [x] Weather
 
 - [ ] Navbar
-    - Notes doesnt display unless a service is added, needs fixed
+    -Notes button does not display unless a service is added, needs fixed
 - [ ] Notes
     -needs implemented
     - [ ] Note
@@ -33,5 +33,5 @@ npm run build
 - [ ] Settings
     - [x] SettingsNav
     - [ ] Bookmarks
-        - Data persistance needs looked at...
+        -Data persistance needs looked at...
     - [x] Weather
