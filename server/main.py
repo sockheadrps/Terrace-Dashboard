@@ -72,12 +72,15 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 
 def handle_ws_commtype(data) -> dict:
-    if data.get('text'):
-        data = data['text']
-    elif data.get('bytes'):
-        data = data['bytes'].decode("utf-8")
-    return json.loads(data)
-    # return json.loads(data)
+    if data.get('type') == "websocket.disconnect":
+        return data
+
+    else:
+        if data.get('text'):
+            data = data['text']
+        elif data.get('bytes'):
+            data = data['bytes'].decode("utf-8")
+        return json.loads(data)
 
 app = FastAPI()
 app.mount(
@@ -123,7 +126,7 @@ def dashboard_endpoint() -> FileResponse:
     :param request: HTTP Request from Client
     :return: Returns the associated web files to the requesting client
     """
-    return FileResponse("../Terrace-Kit/build/index.html")
+    return FileResponse("../Terrace-kit/build/index.html")
 
 
 @app.post("/api/register")
@@ -170,30 +173,53 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
     """
     client = None
     await client_websocket.accept()
+
+    # handle for multiple kinds of communication, JSON, Text, Binary etc
     try:
         data = handle_ws_commtype(await client_websocket.receive())
-        print(data)
+
     except Exception as e:
         logging.warning(e)
         raise e
 
-    # Initial connection and CONNECT event
-    if data["event"] == "CONNECT":
+    # Initial connection 
+    if data.get("event") == "CONNECT":
         await client_websocket.send_json({"event": "SERVER-CONNECT"})
-        client = client_types[data["client-type"]](data, client_websocket)
-        clients[data["client-type"]].append(client)
+        client = client_types[data["client-type"]](data, client_websocket, data["client-name"])
+        clients[data["client-type"]].append({"client": client, "name": data['client-name']})
         await broadcast(clients, data, client)
 
     while True:
-        # Typical event communication
+        # This disconnect happens when a client closes abruptly, so we have to search out which services are no longer
+        # Available via the websocket object it belonged to.
         try:
             data = handle_ws_commtype(await client_websocket.receive())
-            print(f"data {data}")
+            if data.get("type") == "websocket.disconnect":
+                for c_type in ['SERVICE', 'DASHBOARD']:
+                    # Remove client from list
+                    filtered_clients = [x for x in clients[c_type] if x['client'] == client_websocket]
+                    # Identify client
+                    disconnected_client = [x for x in clients[c_type] if x['client'] != client_websocket]
+                    clients[c_type] = filtered_clients
+                    # If we find a disconnected client on the first pass, we know it's a service client
+                    if disconnected_client:
+                        data = {"event": "DISCONNECT", 'client-type': 'SERVICE', 'client-name': disconnected_client[0]['name']}
+                        break
+                    else:
+                        data = {"event": "DISCONNECT", 'client-type': 'Dashboard', 'client-name': disconnected_client}
+            
+            # Typical communication
             await broadcast(clients, data, client)
 
+
             # graceful disconnects
-            if data["event"] == "DISCONNECT":
-                clients[data["client-type"]].remove(client)
+            if data.get("event") == "DISCONNECT":
+                # Remove client from list
+                filtered_clients = [x for x in clients[data['client-type']] if x["client"] == client_websocket]
+                # Identify client
+                disconnected_client = [x for x in clients[data['client-type']]  if x["client"] != client_websocket]
+                # Graceful disconnects include client-type in the msg
+                clients[data["client-type"]] = filtered_clients
                 await broadcast(
                     clients,
                     {
@@ -204,9 +230,8 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
                     client)
                 break
 
-        # non-graceful disconnects
+        # Other? non-graceful disconnects, Have hit this raise condition before
         except WebSocketDisconnect:
-            print(data)
             if data['client-type'] != "DASHBOARD":
                 client_sets[data["client-type"]].remove(data['client-name'])
             if client in clients[data["client-type"]]:
@@ -228,4 +253,4 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
 
 
 if __name__ == "__main__":
-    run(app, port=8081, host="0.0.0.0", ws_ping_interval=10, ws_ping_timeout=10)
+    run(app, port=8081, host="192.168.1.136", ws_ping_interval=10, ws_ping_timeout=10)

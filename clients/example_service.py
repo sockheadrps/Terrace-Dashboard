@@ -57,7 +57,7 @@ async def client_stream(websocket, interval=1):
             "event": "SERVICE-DATA",
             "client-type": client_type,
             "client-name": name,
-            "data": random.randint(1, 100)
+            "data": {"random number":random.randint(1, 100)}
         }
         print(test_event)
         await websocket.send(json.dumps(test_event))

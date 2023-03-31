@@ -75,7 +75,7 @@ class ClientHandler(object):
 class DashboardHandler(ClientHandler):
     funcs = ClientHandler.funcs.copy()
 
-    def __init__(self, data, ws_object):
+    def __init__(self, data, ws_object, name):
         super().__init__(data, ws_object)
         self.client_name = "_"
         self.hardware = None
@@ -125,7 +125,7 @@ class DashboardHandler(ClientHandler):
                 {
                     "event": "DISCONNECT",
                     "client-type": data["client-type"],
-                    "client-name": data["client-name"],
+                    "client-name": json.dumps(data["client-name"]),
                 }
             )
         elif sender is self:
@@ -168,7 +168,7 @@ class HardwareHandler(ClientHandler):
 class ServiceHandler(ClientHandler):
     funcs = ClientHandler.funcs.copy()
 
-    def __init__(self, data, ws_object):
+    def __init__(self, data, ws_object, name):
         super().__init__(data, ws_object)
         service_client_set.add(self.client_name)
 
@@ -196,5 +196,5 @@ class ServiceHandler(ClientHandler):
 
 
 async def broadcast(clients, data, sender):
-    coros = (client(data, sender) for client in chain(*clients.values()))
+    coros = (client['client'](data, sender) for client in chain(*clients.values()))
     await asyncio.gather(*coros)
