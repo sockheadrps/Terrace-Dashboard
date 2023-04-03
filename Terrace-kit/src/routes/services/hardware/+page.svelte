@@ -1,15 +1,4 @@
-<!-- <script lang="ts">
-	import { state, websocketSend } from '../../../lib/stores';
-    import { onDestroy, onMount } from 'svelte';
-    onMount(() => {
-        websocketSend("HARDWARE-REQUEST", {"REQUESTED-CLIENT": "hardware"});
-    })
-    onDestroy(() => {
-        websocketSend("HARDWARE-TERMINATE");
-    })
-
-</script> -->
-<script>
+<script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
 	import { state, websocketSend } from '$lib/stores';
 	import Cpu from './HwTypes/Cpu.svelte';
@@ -31,9 +20,6 @@
 	$: if ($state.wsMessage !== undefined) {
 		console.log($state.wsMessage);
 		switch ($state.wsMessage.event) {
-			case 'DISCONNECT':
-				websocketSend('CONNECTIONS-REQUEST', {});
-				break;
 			case 'HARDWARE-DATA':
 				console.log('Data, ', $state.wsMessage['data']);
 				if ($state.wsMessage['data'] !== undefined) {

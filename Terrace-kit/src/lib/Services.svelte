@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { state, serviceStore, websocketSend } from '$lib/stores';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import Icon from '@iconify/svelte';
 	import { serviceList, newService, loadServices, saveServices } from './stores/serviceStore';
 	import { fade } from 'svelte/transition';
@@ -14,12 +14,18 @@
 	let serviceIcons = {};
 	let ready = false;
 	let orderChange = false;
-
+	
 	onMount(() => {
+		
 		websocketSend('CONNECTIONS-REQUEST', {});
 		$serviceList = loadServices();
 		ready = true;
 	});
+
+	onDestroy(() => {
+		websocketSend('HARDWARE-TERMINATE', {});
+	});
+
 
 	function orderServices(services) {
 		let orderedServices: Array<string> = [];
@@ -52,10 +58,17 @@
 	$: if ($state.wsMessage !== undefined) {
 		switch ($state.wsMessage.event) {
 			case 'CONNECT':
+				console.log("on connect")
 				websocketSend('CONNECTIONS-REQUEST', {});
 				break;
 			case 'DISCONNECT':
-				websocketSend('CONNECTIONS-REQUEST', {});
+				console.log("Disocnnectigng")
+				console.log($state.wsMessage)
+				console.log($state.wsMessage['client-name'], "  client nmae")
+				let filtered_services = services.filter(e => e === $state.wsMessage['client-name'])
+				services = filtered_services
+				console.log(services)
+
 				break;
 			case 'SERVICE-DATA':
 				if ($state.wsMessage['client-name'] === 'Controller') {
@@ -73,6 +86,7 @@
 				break;
 			case 'CONNECTIONS-REQUEST':
 				services = $state.wsMessage['service-list'];
+				
 		}
 	}
 
@@ -80,6 +94,7 @@
 		$serviceList = $serviceList;
 		services = orderServices(services);
 	}
+
 
 	$: {
 		if (ready) {
@@ -94,10 +109,12 @@
 				serviceIcons[element] = $serviceList.find((e) => e.name === element)?.icon;
 			});
 		}
+		console.log("services are ", services)
 	}
 </script>
-
-{#if services !== undefined && services.length > 0 && serviceElms !== undefined}
+<!-- {#if services !== undefined && services.length > 0 && serviceElms !== undefined && ready}
+  -->
+{#if ready}
 	<a href="/services/notes">
 		<button
 			class="bg-original-card-bg-dark rounded-md text-original-muted mb-4 mx-2 flex-1 w-24 tablet:w-20 h-[136px] tablet:h-20 transition-colors hover:text-original-muted-hover hover:bg-original-service-dark"
