@@ -18,7 +18,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from logging import basicConfig
 from uvicorn import run
-from handlers import DashboardHandler, HardwareHandler, ServiceHandler, broadcast, \
+from handlers import DashboardHandler, ServiceHandler, broadcast, \
     client_sets
 from pydantic import BaseModel
 import os
@@ -34,10 +34,9 @@ if not isExist:
     os.makedirs(path)
     print("Created logs dir")
 
-clients = {"DASHBOARD": [], "HARDWARE": [], "SERVICE": []}
+clients = {"DASHBOARD": [], "SERVICE": []}
 client_types = {
     "DASHBOARD": DashboardHandler,
-    "HARDWARE": HardwareHandler,
     "SERVICE": ServiceHandler,
 }
 
@@ -174,16 +173,14 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
     client = None
     await client_websocket.accept()
 
-    # handle for multiple kinds of communication, JSON, Text, Binary etc
-    try:
-        data = handle_ws_commtype(await client_websocket.receive())
 
-    except Exception as e:
-        logging.warning(e)
-        raise e
+    data = handle_ws_commtype(await client_websocket.receive())
+    print(data)
+
 
     # Initial connection 
     if data.get("event") == "CONNECT":
+        # print(f"data: {data}")
         await client_websocket.send_json({"event": "SERVER-CONNECT"})
         client = client_types[data["client-type"]](data, client_websocket, data["client-name"])
         clients[data["client-type"]].append({"client": client, "name": data['client-name']})
@@ -191,9 +188,11 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
 
     while True:
         # This disconnect happens when a client closes abruptly, so we have to search out which services are no longer
-        # Available via the websocket object it belonged to.
+        # Available via the websocket object it belonged to.\
+        print(f"clients {clients}")
         try:
             data = handle_ws_commtype(await client_websocket.receive())
+            print(f"data: --- {data}")
             if data.get("type") == "websocket.disconnect":
                 for c_type in ['SERVICE', 'DASHBOARD']:
                     # Remove client from list
@@ -203,10 +202,18 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
                     clients[c_type] = filtered_clients
                     # If we find a disconnected client on the first pass, we know it's a service client
                     if disconnected_client:
-                        data = {"event": "DISCONNECT", 'client-type': 'SERVICE', 'client-name': disconnected_client[0]['name']}
+                        data = {
+                                    "event": "DISCONNECT",
+                                    'client-type': 'SERVICE', 
+                                    'client-name': disconnected_client[0]['name']
+                                }
                         break
                     else:
-                        data = {"event": "DISCONNECT", 'client-type': 'Dashboard', 'client-name': disconnected_client}
+                        data = {
+                                    "event": "DISCONNECT",
+                                    'client-type': 'Dashboard',
+                                    'client-name': disconnected_client
+                                }
             
             # Typical communication
             await broadcast(clients, data, client)
@@ -214,6 +221,7 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
 
             # graceful disconnects
             if data.get("event") == "DISCONNECT":
+                print("Graceful disconnect")
                 # Remove client from list
                 filtered_clients = [x for x in clients[data['client-type']] if x["client"] == client_websocket]
                 # Identify client
@@ -232,6 +240,7 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
 
         # Other? non-graceful disconnects, Have hit this raise condition before
         except WebSocketDisconnect:
+            print("WebSocketDisconnect")
             if data['client-type'] != "DASHBOARD":
                 client_sets[data["client-type"]].remove(data['client-name'])
             if client in clients[data["client-type"]]:
@@ -247,9 +256,8 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
             )
             break
         except Exception as e:
-            print('second')
-            logging.warning(e)
-            raise e
+            print(f'second {data}')
+            break
 
 
 if __name__ == "__main__":
