@@ -175,74 +175,32 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
 
 
     data = handle_ws_commtype(await client_websocket.receive())
-    print(data)
 
 
     # Initial connection 
     if data.get("event") == "CONNECT":
-        # print(f"data: {data}")
         await client_websocket.send_json({"event": "SERVER-CONNECT"})
         client = client_types[data["client-type"]](data, client_websocket, data["client-name"])
-        clients[data["client-type"]].append({"client": client, "name": data['client-name']})
+        clients[data["client-type"]].append(client)
         await broadcast(clients, data, client)
 
     while True:
-        # This disconnect happens when a client closes abruptly, so we have to search out which services are no longer
-        # Available via the websocket object it belonged to.\
-        print(f"clients {clients}")
         try:
             data = handle_ws_commtype(await client_websocket.receive())
-            print(f"data: --- {data}")
-            if data.get("type") == "websocket.disconnect":
-                for c_type in ['SERVICE', 'DASHBOARD']:
-                    # Remove client from list
-                    filtered_clients = [x for x in clients[c_type] if x['client'] == client_websocket]
-                    # Identify client
-                    disconnected_client = [x for x in clients[c_type] if x['client'] != client_websocket]
-                    clients[c_type] = filtered_clients
-                    # If we find a disconnected client on the first pass, we know it's a service client
-                    if disconnected_client:
-                        data = {
-                                    "event": "DISCONNECT",
-                                    'client-type': 'SERVICE', 
-                                    'client-name': disconnected_client[0]['name']
-                                }
-                        break
-                    else:
-                        data = {
-                                    "event": "DISCONNECT",
-                                    'client-type': 'Dashboard',
-                                    'client-name': disconnected_client
-                                }
+            if data.get("type") == "websocket.disconnect" or data.get("event") == "DISCONNECT":
+                data = {
+                            "event": "DISCONNECT",
+                            'client-type': client.client_type, 
+                            'client-name': client.client_name
+                        }
+                raise WebSocketDisconnect()
+
             
             # Typical communication
             await broadcast(clients, data, client)
 
-
-            # graceful disconnects
-            if data.get("event") == "DISCONNECT":
-                print("Graceful disconnect")
-                # Remove client from list
-                filtered_clients = [x for x in clients[data['client-type']] if x["client"] == client_websocket]
-                # Identify client
-                disconnected_client = [x for x in clients[data['client-type']]  if x["client"] != client_websocket]
-                # Graceful disconnects include client-type in the msg
-                clients[data["client-type"]] = filtered_clients
-                await broadcast(
-                    clients,
-                    {
-                        "event": "DISCONNECT",
-                        "client-type": client.client_type,
-                        "client-name": client.client_name,
-                    },
-                    client)
-                break
-
-        # Other? non-graceful disconnects, Have hit this raise condition before
+    
         except WebSocketDisconnect:
-            print("WebSocketDisconnect")
-            if data['client-type'] != "DASHBOARD":
-                client_sets[data["client-type"]].remove(data['client-name'])
             if client in clients[data["client-type"]]:
                 clients[data["client-type"]].remove(client)
             await broadcast(
@@ -254,9 +212,6 @@ async def websocket_endpoint(client_websocket: WebSocket) -> None:
                 },
                 client,
             )
-            break
-        except Exception as e:
-            print(f'second {data}')
             break
 
 

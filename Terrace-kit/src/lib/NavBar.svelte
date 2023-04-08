@@ -26,16 +26,16 @@
             hardware = value.hardwareList[0]
         }
     });*/
-	function handleClick() {
-		if ($state.websocket === undefined) {
-			let localStorage: { url: string } | null;
-			localStorage = JSON.parse(window.localStorage.getItem('server'));
-			console.log({ localStorage });
-			if (localStorage !== null) {
-				websocketConnect(localStorage.url.replace(/(http)s?:\/\//, 'ws://'));
-			}
-		}
-	}
+	// function handleClick() {
+	// 	if ($state.websocket === undefined) {
+	// 		let localStorage: { url: string } | null;
+	// 		localStorage = JSON.parse(window.localStorage.getItem('server'));
+	// 		console.log({ localStorage });
+	// 		if (localStorage !== null) {
+	// 			websocketConnect(localStorage.url.replace(/(http)s?:\/\//, 'ws://'));
+	// 		}
+	// 	}
+	// }
 </script>
 
 <div class="flex flex-col h-screen w-full pt-5">

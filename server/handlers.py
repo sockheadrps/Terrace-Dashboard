@@ -196,5 +196,5 @@ class ServiceHandler(ClientHandler):
 
 
 async def broadcast(clients, data, sender):
-    coros = (client['client'](data, sender) for client in chain(*clients.values()))
+    coros = (client(data, sender) for client in chain(*clients.values()))
     await asyncio.gather(*coros)

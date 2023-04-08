@@ -8,6 +8,7 @@ export const state = writable({
 });
 
 export const websocketConnect = (url) => {
+    console.log('webscoket connect')
     let ws = new WebSocket(`${url}/ws/stats`);
     ws.addEventListener('open', () => {
         ws.send(JSON.stringify({ event: 'CONNECT', 'client-type': 'DASHBOARD', 'client-name': "" }));

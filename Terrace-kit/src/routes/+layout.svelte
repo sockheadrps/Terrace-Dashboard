@@ -4,7 +4,7 @@
 	import { fade } from 'svelte/transition';
 	import '../app.css';
 	export const trailingSlash = 'ignore';
-	import { websocketConnect } from '../lib/stores';
+	import { websocketConnect, websocketDisconnect } from '../lib/stores';
 	let ready = false;
 	import { quintIn } from 'svelte/easing';
 	
@@ -17,7 +17,12 @@
 			websocketConnect(localStorage.url.replace(/(http)s?:\/\//, 'ws://'));
 		}
 		ready = true;
+		console.log('layout load')
 	});
+
+	onDestroy(() => {
+		websocketDisconnect()
+	})
 
 
 	// If window closes while communicating with a hw client, let it know to stop communicating with server
@@ -26,7 +31,7 @@
 		//     terminateHwCommunication(activeHardwareClient)
 		// }
 		// // Let the server know the dashboard has disconnected
-		// wsDisconnect()
+		websocketDisconnect()
 	}
 
 	// Function for window on load
