@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	let settingsItemsTop = [
 		{ name: 'Server', icon: 'heroicons:server-stack', timing: 100 },
 		{ name: 'Bookmarks', icon: 'bi:bookmarks', timing: 250 }
@@ -32,11 +32,15 @@
 				{#each settingsItemsTop as setting}
 					<a href="/settings/{setting.name.toLowerCase()}"
 					in:fade={{duration:300, easing: quintIn, delay:setting.timing}}>
-						<button class="w-20 h-20 tablet:w-16 tablet:h-16 tablet:my-0 tablet:mx-1 relative mx-2 bg-original-settings-nav-bg hexagon hover:bg-original-settings-nav-bg-hover"
-						>
+						<button class="w-20 h-20 tablet:w-16 tablet:h-16 tablet:my-0 tablet:mx-1 relative mx-2 bg-original-settings-nav-bg hexagon hover:bg-original-settings-nav-bg-hover tooltip"
+						title={setting.name}>
+
 							<div class="text-4xl flex justify-center">
 								<Icon icon={setting.icon} />
 							</div>
+
+
+
 						</button>
 					</a>
 				{/each}
@@ -45,8 +49,9 @@
 			<div class="flex tablet:ml-4 -ml-2 -my-2">
 				{#each settingsItemsBottom as setting}
 					<a href="/settings/{setting.name.toLowerCase()}"
-					in:fade={{duration:300, easing: quintIn, delay:setting.timing}}>
-						<button class="w-20 h-20 tablet:w-16 tablet:h-16 tablet:my-0 tablet:mx-1 relative my-2 mx-2 bg-original-settings-nav-bg hexagon hover:bg-original-settings-nav-bg-hover">
+					in:fade={{duration:300, easing: quintIn, delay:setting.timing}} class="hover_elm">
+						<button class="w-20 h-20 tablet:w-16 tablet:h-16 tablet:my-0 tablet:mx-1 relative my-2 mx-2 bg-original-settings-nav-bg hexagon hover:bg-original-settings-nav-bg-hover tooltip"
+						title={setting.name}>
 							<div class="text-4xl flex justify-center">
 								<Icon icon={setting.icon} />
 							</div>
@@ -80,4 +85,29 @@
 		transform: scale(0.99); 
 
 	}
+
+	.tooltip {
+		z-index: 10;
+		color: rgb(16, 179, 179);
+		
+	}
+
+	.tooltip:hover:after{
+		display: -webkit-flex;
+		display: flex;
+		-webkit-justify-content: center;
+		justify-content: center;
+		border-radius: 8px;
+		color: #ffffff00;
+
+	}
+
+	.tooltip:hover:before{
+		border: solid;
+		border-color: #444 transparent;
+		border-width: 12px 6px 0 6px;
+		position: absolute;
+	}
+
+
 </style>
