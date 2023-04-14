@@ -6,6 +6,7 @@ import json
 hardware_client_set = set()
 service_client_set = set()
 client_sets = {"HARDWARE": hardware_client_set, "SERVICE": service_client_set}
+debug = True
 
 
 
@@ -195,6 +196,29 @@ class ServiceHandler(ClientHandler):
             await self.ws_object.send_bytes(json.dumps(data).encode("utf-8"))
 
 
+class DebuggerHandler(ClientHandler):
+    funcs = ClientHandler.funcs.copy()
+
+    def __init__(self, data, ws_object, name):
+        super().__init__(data, ws_object)
+        # service_client_set.add(self.client_name)
+
+    async def send(self, data, sender, clients):
+        clients_dict = {}
+        for client_type in clients:
+            if client_type != "DEBUGGER":
+                clients_dict[client_type] = [c.client_name for c in clients[client_type]] 
+        payload = {
+            "event": "DEBUG",
+            "data": data,
+            "clients": json.dumps(clients_dict)
+        }
+        await self.ws_object.send_bytes(json.dumps(payload).encode("utf-8"))
+
+
 async def broadcast(clients, data, sender):
+    if debug and clients.get("DEBUGGER"):
+        for client in clients['DEBUGGER']:
+            await asyncio.gather(client.send(data, sender.client_name, clients))
     coros = (client(data, sender) for client in chain(*clients.values()))
     await asyncio.gather(*coros)

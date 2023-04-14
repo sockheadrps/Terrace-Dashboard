@@ -19,7 +19,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from logging import basicConfig
 from uvicorn import run
 from handlers import DashboardHandler, ServiceHandler, broadcast, \
-    client_sets
+    client_sets, DebuggerHandler
 from pydantic import BaseModel
 import os
 from data_handling import find_user, insert_user, check_pw
@@ -34,10 +34,11 @@ if not isExist:
     os.makedirs(path)
     print("Created logs dir")
 
-clients = {"DASHBOARD": [], "SERVICE": []}
+clients = {"DASHBOARD": [], "SERVICE": [], "DEBUGGER": []}
 client_types = {
     "DASHBOARD": DashboardHandler,
     "SERVICE": ServiceHandler,
+    "DEBUGGER": DebuggerHandler,
 }
 
 ACCESS_TOKEN_EXPIRES_MINUTES = 30
