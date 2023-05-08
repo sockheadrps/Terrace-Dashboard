@@ -10,7 +10,8 @@ from fastapi import (
     WebSocketDisconnect,
     status,
     Response,
-    Depends
+    Depends,
+    Cookie
 )
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
@@ -25,6 +26,8 @@ import os
 from data_handling import find_user, insert_user, check_pw
 from datetime import time, timedelta
 from jose import jwt
+from jose.jwt import JWTError, ExpiredSignatureError
+from typing import Optional
 
 path = "logs"
 # Check whether the specified path exists or not
@@ -119,14 +122,30 @@ async def favicon() -> None:
     raise HTTPException(status_code=403, detail="No favicon")
 
 
-@app.get("/", response_class=FileResponse)
-def dashboard_endpoint() -> FileResponse:
+# @app.get("/", response_class=FileResponse)
+@app.get("/")
+def dashboard_endpoint(request: Request) -> FileResponse:
     """
     HTTP endpoint to serve the Dashboard
     :param request: HTTP Request from Client
+    :param jwt: client json web token
     :return: Returns the associated web files to the requesting client
     """
-    return FileResponse("../Terrace-kit/build/index.html")
+    try:
+        if request.cookies.get("jwt") is not None:
+            claims = jwt.decode(jwt, SECRET_KEY)
+            print(claims)
+            print('token verification succeeded')
+            return FileResponse("../Terrace-kit/build/index.html")
+        raise JWTError
+    except JWTError:
+        print('send to login')
+        return  {"sendto": "login"}
+        # return FileResponse("../Terrace-kit/build/login.html")
+    except ExpiredSignatureError:
+        print('REFRESH')
+        # validate refresh token
+        # generate new jwt and new refresh
 
 
 @app.post("/api/register")
@@ -148,12 +167,32 @@ async def login_endpoint(data: LoginCreds, response: Response):
 
 
 @app.post("/api/token", response_model=Token)
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+async def login_for_access_token(response: Response,
+                                 form_data: OAuth2PasswordRequestForm = Depends()):
     user = await find_user(form_data.username)
     if user is not None and await check_pw(user, form_data.password):
         access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRES_MINUTES)
         acess_token = create_access_token(
             data={"sub": form_data.username}, expires_delta=access_token_expires)
+        response.set_cookie(key="fakesession", value="fake-cookie-session-value")
+
+        return {"access_token": acess_token, "token_type": "bearer"}
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+
+@app.post("/api/token-refresh", response_model=Token)
+async def access_token_refresh(response: Response,
+                                 form_data: OAuth2PasswordRequestForm = Depends()):
+    user = await find_user(form_data.username)
+    if user is not None and await check_pw(user, form_data.password):
+        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRES_MINUTES)
+        acess_token = create_access_token(
+            data={"sub": form_data.username}, expires_delta=access_token_expires)
+        response.set_cookie(key="fakesession", value="fake-cookie-session-value")
         return {"access_token": acess_token, "token_type": "bearer"}
     else:
         print('raised')
