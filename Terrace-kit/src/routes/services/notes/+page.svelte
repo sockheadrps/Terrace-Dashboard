@@ -1,5 +1,5 @@
 <script>
-    import 'node-localstorage/register';
+    // import 'node-localstorage/register';
     import Notebar from './Notebar.svelte';
     import Note from './Note.svelte'
 
