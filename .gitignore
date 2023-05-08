@@ -16,11 +16,14 @@ venv.bak/
 .idea/
 # dont remove the logs/ folder, it will not work (specifically, the server wont run)
 logs/server.log
+*.log
+logs/
+server/logs/
 
 pepper.txt
 server/templates/index.html
 static/weatherAPI-ignore.js
 
 .eslintrc.js
-
 .vscode/settings.json
+build

@@ -32,10 +32,8 @@ async def client(host):
                         match data["event"]:
                             case "DEBUG":
                                 print(f'[italic red]{datetime.now().strftime("%H:%M:%S.%f")}[/italic red]')
-                                if data.get('clients'):
-                                    for c_type in json.loads(data.get('clients')):
-                                        if data.get('data'):
-                                            print(f"[bold yellow]{c_type}: {json.loads(data['clients'])[c_type]}[/bold yellow]")
+                                for c_type in json.loads(data.get('clients')):
+                                    print(f"[bold yellow]{c_type}: {json.loads(data['clients'])[c_type]}[/bold yellow]")
                                 print_json(json.dumps(data['data']))
                                 print(f"{'-'*40}")
                         data = None
