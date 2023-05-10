@@ -12,10 +12,10 @@ client = motor.motor_asyncio.AsyncIOMotorClient(url, port)
 db = client.login.users
 
 
-def hashing(password: str, salt: bytes) -> bytes:
+def hashing(password: str, salt: bytes, key: None | int = None) -> bytes:
 	time_tup = datetime.datetime.today().timetuple()
 	pepper_map_key = (time_tup.tm_mon, time_tup.tm_mday)
-	key = pepper_map[pepper_map_key]
+	key = pepper_map[pepper_map_key] if key is None else key
 	return pbkdf2_hmac('sha256', (password.encode("utf-8") + peppers[key]),
 				salt, iters)
 
@@ -38,5 +38,5 @@ async def insert_user(usr: str, password: str):
 
 async def check_pw(_user: dict, raw_password: str):
 	if _user is not None:
-		pw_check = hashing(raw_password, _user['salt'])
+		pw_check = hashing(raw_password, _user['salt'], _user['pepper_map'])
 		return pw_check == _user['password']
