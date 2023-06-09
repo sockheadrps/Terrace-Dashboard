@@ -17,7 +17,7 @@
 
     //tablet
     let tl = gsap.timeline()
-    gltfloader.load('tab.gltf', (gltf) => {
+    gltfloader.load('/static/tab.gltf', (gltf) => {
       scene.add(gltf.scene)
 
       // initial scale of model

@@ -96,6 +96,12 @@ app.mount(
     name="assets"
 )
 
+app.mount(
+    "/static/", StaticFiles(directory="../Terrace-kit/build/"),
+    name="static"
+)
+
+
 
 origins = ["*"]
 
@@ -140,8 +146,7 @@ def dashboard_endpoint(request: Request) -> FileResponse:
         raise JWTError
     except JWTError:
         print('send to login')
-        return  {"sendto": "login"}
-        # return FileResponse("../Terrace-kit/build/login.html")
+        return FileResponse("../Terrace-kit/build/login.html")
     except ExpiredSignatureError:
         print('REFRESH')
         # validate refresh token
